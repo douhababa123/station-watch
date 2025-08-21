@@ -61,7 +61,42 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Status colors for monitoring dashboard
+				status: {
+					running: 'hsl(var(--status-running))',
+					'running-bg': 'hsl(var(--status-running-bg))',
+					completed: 'hsl(var(--status-completed))',
+					'completed-bg': 'hsl(var(--status-completed-bg))',
+					idle: 'hsl(var(--status-idle))',
+					'idle-bg': 'hsl(var(--status-idle-bg))',
+					fault: 'hsl(var(--status-fault))',
+					'fault-bg': 'hsl(var(--status-fault-bg))',
+					disconnected: 'hsl(var(--status-disconnected))',
+					'disconnected-bg': 'hsl(var(--status-disconnected-bg))'
+				},
+				// Dashboard specific colors
+				dashboard: {
+					bg: 'hsl(var(--dashboard-bg))',
+					sidebar: 'hsl(var(--sidebar-bg))',
+					metric: 'hsl(var(--metric-bg))',
+					progress: 'hsl(var(--progress-bg))',
+					grid: 'hsl(var(--grid-gap))'
 				}
+			},
+			backgroundImage: {
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-running': 'var(--gradient-running)',
+				'gradient-subtle': 'var(--gradient-subtle)'
+			},
+			boxShadow: {
+				'card': 'var(--shadow-card)',
+				'card-hover': 'var(--shadow-card-hover)',
+				'status': 'var(--shadow-status)'
+			},
+			transitionProperty: {
+				'smooth': 'var(--transition-smooth)',
+				'fast': 'var(--transition-fast)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +119,45 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				// Status breathing animation for running stations
+				'status-breathe': {
+					'0%, 100%': {
+						opacity: '0.7',
+						transform: 'scale(1)'
+					},
+					'50%': {
+						opacity: '1',
+						transform: 'scale(1.05)'
+					}
+				},
+				// Progress bar animation
+				'progress-flow': {
+					'0%': {
+						transform: 'translateX(-100%)'
+					},
+					'100%': {
+						transform: 'translateX(100%)'
+					}
+				},
+				// Notification slide in
+				'slide-in-right': {
+					'0%': {
+						transform: 'translateX(100%)',
+						opacity: '0'
+					},
+					'100%': {
+						transform: 'translateX(0)',
+						opacity: '1'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'status-breathe': 'status-breathe 2s ease-in-out infinite',
+				'progress-flow': 'progress-flow 1.5s ease-in-out infinite',
+				'slide-in-right': 'slide-in-right 0.3s ease-out'
 			}
 		}
 	},

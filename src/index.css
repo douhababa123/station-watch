@@ -2,95 +2,150 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Industrial Monitoring Design System - Colors MUST be HSL */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base colors - Clean industrial aesthetic */
+    --background: 220 20% 97%;
+    --foreground: 220 15% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 15% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 15% 20%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Industrial blue for headers and accents */
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 210 20% 94%;
+    --secondary-foreground: 220 15% 20%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 220 8% 50%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 20% 94%;
+    --accent-foreground: 220 15% 20%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 20% 88%;
+    --input: 220 20% 90%;
+    --ring: 217 91% 60%;
 
-    --radius: 0.5rem;
+    /* Status Colors - Industrial monitoring semantic colors */
+    --status-running: 158 64% 52%;        /* Emerald green */
+    --status-running-bg: 151 55% 95%;
+    --status-completed: 45 93% 58%;       /* Amber */
+    --status-completed-bg: 48 100% 96%;
+    --status-idle: 215 20% 65%;           /* Cool gray */
+    --status-idle-bg: 210 20% 96%;
+    --status-fault: 0 84% 60%;            /* Red */
+    --status-fault-bg: 0 100% 97%;
+    --status-disconnected: 220 8% 60%;    /* Muted gray */
+    --status-disconnected-bg: 220 20% 96%;
 
-    --sidebar-background: 0 0% 98%;
+    /* Dashboard specific colors */
+    --dashboard-bg: 220 25% 96%;
+    --sidebar-bg: 0 0% 100%;
+    --metric-bg: 0 0% 100%;
+    --progress-bg: 220 20% 93%;
+    --grid-gap: 220 20% 92%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Gradients and effects */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(217 91% 70%));
+    --gradient-running: linear-gradient(135deg, hsl(158 64% 52%), hsl(158 64% 62%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(220 20% 98%));
+    
+    /* Shadows */
+    --shadow-card: 0 1px 3px 0 hsl(220 20% 20% / 0.1);
+    --shadow-card-hover: 0 4px 12px 0 hsl(220 20% 20% / 0.15);
+    --shadow-status: 0 0 0 3px hsl(var(--status-running) / 0.1);
 
-    --sidebar-primary: 240 5.9% 10%;
+    /* Animation timings */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 
-    --sidebar-primary-foreground: 0 0% 98%;
+    --radius: 0.75rem;
 
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar colors */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 15% 20%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 20% 94%;
+    --sidebar-accent-foreground: 220 15% 20%;
+    --sidebar-border: 220 20% 88%;
+    --sidebar-ring: 217 91% 60%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Base colors - Dark industrial theme */
+    --background: 220 15% 8%;
+    --foreground: 220 20% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 220 15% 10%;
+    --card-foreground: 220 20% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 220 15% 10%;
+    --popover-foreground: 220 20% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    /* Primary - Lighter blue for dark mode */
+    --primary: 217 91% 70%;
+    --primary-foreground: 220 15% 8%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 220 20% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 220 15% 12%;
+    --muted-foreground: 220 8% 60%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 220 15% 15%;
+    --accent-foreground: 220 20% 95%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 220 20% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 220 15% 18%;
+    --input: 220 15% 15%;
+    --ring: 217 91% 70%;
+
+    /* Status Colors - Adjusted for dark mode */
+    --status-running: 158 64% 55%;
+    --status-running-bg: 158 64% 8%;
+    --status-completed: 45 93% 60%;
+    --status-completed-bg: 45 93% 8%;
+    --status-idle: 215 20% 70%;
+    --status-idle-bg: 215 20% 8%;
+    --status-fault: 0 84% 65%;
+    --status-fault-bg: 0 84% 8%;
+    --status-disconnected: 220 8% 65%;
+    --status-disconnected-bg: 220 8% 8%;
+
+    /* Dashboard specific colors - Dark mode */
+    --dashboard-bg: 220 15% 6%;
+    --sidebar-bg: 220 15% 10%;
+    --metric-bg: 220 15% 12%;
+    --progress-bg: 220 15% 18%;
+    --grid-gap: 220 15% 15%;
+
+    /* Shadows - Adjusted for dark mode */
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.3);
+    --shadow-card-hover: 0 4px 12px 0 hsl(0 0% 0% / 0.4);
+    --shadow-status: 0 0 0 3px hsl(var(--status-running) / 0.2);
+
+    /* Sidebar colors for dark mode */
+    --sidebar-background: 220 15% 10%;
+    --sidebar-foreground: 220 20% 90%;
+    --sidebar-primary: 217 91% 70%;
+    --sidebar-primary-foreground: 220 15% 8%;
+    --sidebar-accent: 220 15% 15%;
+    --sidebar-accent-foreground: 220 20% 90%;
+    --sidebar-border: 220 15% 18%;
+    --sidebar-ring: 217 91% 70%;
   }
 }
 
@@ -101,5 +156,23 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Custom animation classes */
+@layer utilities {
+  .animate-status-breathe {
+    animation: status-breathe 2s ease-in-out infinite;
+  }
+}
+
+@keyframes status-breathe {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
   }
 }
