@@ -150,8 +150,8 @@ export const StationDetailsDrawer: React.FC<StationDetailsDrawerProps> = ({
                   <div className="font-medium">{station.id}</div>
                 </div>
                 <div>
-                  <Label className="text-muted-foreground">Section</Label>
-                  <div className="font-medium">Section {station.section}</div>
+                  <Label className="text-muted-foreground">Group</Label>
+                  <div className="font-medium">Group {station.group}</div>
                 </div>
                 <div>
                   <Label className="text-muted-foreground">Device Model</Label>

@@ -1,16 +1,14 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Search, Filter, Clock, Eye, EyeOff } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
-import { Badge } from '@/components/ui/badge';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
-import { StatsSidebar } from '@/components/dashboard/StatsSidebar';
-import { SectionGrid } from '@/components/dashboard/SectionGrid';
+import { GroupNav } from '@/components/dashboard/GroupNav';
+import { GroupGrid } from '@/components/dashboard/GroupGrid';
 import { StationDetailsDrawer } from '@/components/dashboard/StationDetailsDrawer';
 import { generateMockStations, updateStationsRealtime } from '@/lib/mockData';
-import type { Station, StationStatus, FilterState } from '@/types/station';
+import { useScrollSpy } from '@/hooks/useScrollSpy';
+import { STATION_GROUPS } from '@/types/station';
+import type { Station, StationStatus, FilterState, StationGroup } from '@/types/station';
+
+const GROUP_IDS = STATION_GROUPS.map(g => g.id);
 
 const Index = () => {
   // State management
@@ -18,11 +16,13 @@ const Index = () => {
   const [selectedStation, setSelectedStation] = useState<Station | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [viewMode, setViewMode] = useState<'detail' | 'compact'>('detail');
+  const [navCollapsed, setNavCollapsed] = useState(false);
   const [filters, setFilters] = useState<FilterState>({
-    section: 'all',
+    group: 'all',
     status: 'all',
     search: '',
-    hideDisconnected: false
+    hideDisconnected: false,
   });
   const [notifications, setNotifications] = useState<Array<{
     id: string;
@@ -32,10 +32,11 @@ const Index = () => {
     timestamp: Date;
   }>>([]);
 
+  const activeGroup = useScrollSpy(GROUP_IDS);
+
   // Initialize mock data
   useEffect(() => {
-    const mockData = generateMockStations();
-    setStations(mockData);
+    setStations(generateMockStations());
   }, []);
 
   // Real-time updates
@@ -44,118 +45,82 @@ const Index = () => {
       setCurrentTime(new Date());
       setStations(prevStations => {
         const { updatedStations, newNotifications } = updateStationsRealtime(prevStations);
-        
-        // Add new notifications
         if (newNotifications.length > 0) {
           setNotifications(prev => [
             ...newNotifications.map(n => ({
               id: `${n.stationId}-${Date.now()}`,
               ...n,
-              timestamp: new Date()
+              timestamp: new Date(),
             })),
-            ...prev
-          ].slice(0, 10)); // Keep only last 10 notifications
+            ...prev,
+          ].slice(0, 10));
         }
-
         return updatedStations;
       });
-    }, 1500); // Update every 1.5 seconds
-
+    }, 1500);
     return () => clearInterval(interval);
   }, []);
 
   // Filter stations
   const filteredStations = useMemo(() => {
     return stations.filter(station => {
-      // Section filter
-      if (filters.section !== 'all' && station.section !== filters.section) {
-        return false;
-      }
-
-      // Status filter
-      if (filters.status !== 'all' && station.status !== filters.status) {
-        return false;
-      }
-
-      // Search filter
+      if (filters.group !== 'all' && station.group !== filters.group) return false;
+      if (filters.status !== 'all' && station.status !== filters.status) return false;
       if (filters.search) {
-        const searchLower = filters.search.toLowerCase();
-        const matchesId = station.id.toLowerCase().includes(searchLower);
-        const matchesSlot = station.slot_code.toLowerCase().includes(searchLower);
-        const matchesDevice = station.device_sn?.toLowerCase().includes(searchLower) || false;
-        
-        if (!matchesId && !matchesSlot && !matchesDevice) {
-          return false;
-        }
+        const q = filters.search.toLowerCase();
+        if (
+          !station.id.toLowerCase().includes(q) &&
+          !station.slot_code.toLowerCase().includes(q) &&
+          !(station.device_sn?.toLowerCase().includes(q))
+        ) return false;
       }
-
-      // Hide disconnected filter
-      if (filters.hideDisconnected && station.status === 'Disconnected') {
-        return false;
-      }
-
+      if (filters.hideDisconnected && station.status === 'Disconnected') return false;
       return true;
     });
   }, [stations, filters]);
 
-  // Calculate statistics
-  const stats = useMemo(() => {
-    const totalStations = stations.length;
-    const uniqueDevices = new Set(
-      stations
-        .filter(s => s.device_model && s.device_sn)
-        .map(s => `${s.device_model}-${s.device_sn}`)
-    ).size;
-    const idleStations = stations.filter(s => s.status === 'Idle').length;
-    const faultStations = stations.filter(s => s.status === 'Fault').length;
-
-    return {
-      totalStations,
-      uniqueDevices,
-      idleStations,
-      faultStations
-    };
-  }, [stations]);
-
-  // Handlers
   const handleStationClick = (station: Station) => {
     setSelectedStation(station);
     setIsDrawerOpen(true);
   };
 
   const handleStationUpdate = (updatedStation: Station) => {
-    setStations(prev => 
-      prev.map(s => s.id === updatedStation.id ? updatedStation : s)
-    );
+    setStations(prev => prev.map(s => s.id === updatedStation.id ? updatedStation : s));
     setSelectedStation(updatedStation);
   };
 
-  const handleNotificationAcknowledge = (notificationId: string) => {
-    setNotifications(prev => prev.filter(n => n.id !== notificationId));
+  const handleGroupClick = (groupId: StationGroup) => {
+    document.getElementById(`group-${groupId}`)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen bg-dashboard-bg">
+    <div className="min-h-screen bg-dashboard-bg flex flex-col">
       {/* Header */}
-      <DashboardHeader 
+      <DashboardHeader
         currentTime={currentTime}
         filters={filters}
         onFiltersChange={setFilters}
+        viewMode={viewMode}
+        onViewModeChange={setViewMode}
       />
 
-      <div className="flex h-[calc(100vh-4rem)]">
-        {/* Left Sidebar - Statistics & Notifications */}
-        <StatsSidebar
-          stats={stats}
-          notifications={notifications}
-          onNotificationAcknowledge={handleNotificationAcknowledge}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Left: Group Navigation */}
+        <GroupNav
+          groups={STATION_GROUPS}
+          stations={stations}
+          activeGroup={activeGroup}
+          onGroupClick={handleGroupClick}
+          collapsed={navCollapsed}
+          onToggleCollapse={() => setNavCollapsed(v => !v)}
         />
 
         {/* Main Content */}
         <main className="flex-1 p-6 overflow-auto">
-          <SectionGrid
+          <GroupGrid
             stations={filteredStations}
             onStationClick={handleStationClick}
+            viewMode={viewMode}
           />
         </main>
       </div>
