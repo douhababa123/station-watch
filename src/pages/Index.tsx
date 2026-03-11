@@ -32,7 +32,13 @@ const Index = () => {
     timestamp: Date;
   }>>([]);
 
-  const activeGroup = useScrollSpy(GROUP_IDS);
+  const [activeGroup, setActiveGroup] = useState<StationGroup | null>(null);
+  const scrollSpyGroup = useScrollSpy(GROUP_IDS);
+
+  // 滚动侦听结果同步到 activeGroup
+  useEffect(() => {
+    if (scrollSpyGroup) setActiveGroup(scrollSpyGroup);
+  }, [scrollSpyGroup]);
 
   // Initialize mock data
   useEffect(() => {
@@ -90,11 +96,12 @@ const Index = () => {
   };
 
   const handleGroupClick = (groupId: StationGroup) => {
+    setActiveGroup(groupId);
     document.getElementById(`group-${groupId}`)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen bg-dashboard-bg flex flex-col">
+    <div className="h-screen bg-dashboard-bg flex flex-col overflow-hidden">
       {/* Header */}
       <DashboardHeader
         currentTime={currentTime}
@@ -102,6 +109,10 @@ const Index = () => {
         onFiltersChange={setFilters}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
+        notifications={notifications}
+        onNotificationAcknowledge={(id) =>
+          setNotifications(prev => prev.filter(n => n.id !== id))
+        }
       />
 
       <div className="flex flex-1 overflow-hidden">
