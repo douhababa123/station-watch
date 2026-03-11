@@ -124,10 +124,10 @@
 
 ### Task 10：验证与收尾
 
-- [ ] `npm run dev`，浏览器验证 6 个 Group 均正确显示
-- [ ] 验证总工位数 = 118
-- [ ] 验证 Scroll Spy 自动高亮
-- [ ] 验证锚点跳转平滑滚动
-- [ ] 验证详情/紧凑切换
-- [ ] 验证左导航折叠/展开
-- [ ] `git add -A && git commit -m "feat: redesign layout for 6 groups / 118 stations"`
+- [x] `npm run dev`，浏览器验证 6 个 Group 均正确显示
+- [x] 验证总工位数 = 118
+- [x] 验证 Scroll Spy 自动高亮
+- [x] 验证锚点跳转平滑滚动
+- [x] 验证详情/紧凑切换
+- [x] 验证左导航折叠/展开
+- [x] `git add -A && git commit -m "feat: redesign layout for 6 groups / 118 stations"`
