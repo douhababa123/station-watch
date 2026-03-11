@@ -3,13 +3,23 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { StatusBadge } from './StatusBadge';
-import { Clock, Thermometer, Droplets, RotateCcw } from 'lucide-react';
+import { DishwasherModel3D } from './DishwasherModel3D';
+import { Clock, Thermometer, Droplets, RotateCcw, Cog } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import type { Station } from '@/types/station';
 
 interface StationCardProps {
   station: Station;
   onClick: () => void;
 }
+
+const STATUS_BORDER: Record<string, string> = {
+  Running:      'border-l-[3px] border-l-green-500',
+  Completed:    'border-l-[3px] border-l-indigo-500',
+  Idle:         'border-l-[3px] border-l-gray-300',
+  Fault:        'border-l-[3px] border-l-red-500',
+  Disconnected: 'border-l-[3px] border-l-amber-500',
+};
 
 export const StationCard: React.FC<StationCardProps> = ({ station, onClick }) => {
   const progressPercentage = station.total_time > 0 
@@ -38,7 +48,10 @@ export const StationCard: React.FC<StationCardProps> = ({ station, onClick }) =>
 
   return (
     <Card 
-      className="cursor-pointer shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
+      className={cn(
+        'cursor-pointer shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 overflow-hidden',
+        STATUS_BORDER[station.status] ?? 'border-l-[3px] border-l-gray-300'
+      )}
       onClick={onClick}
     >
       <CardContent className="p-4 space-y-4">
@@ -54,6 +67,9 @@ export const StationCard: React.FC<StationCardProps> = ({ station, onClick }) =>
         <div className="text-sm text-muted-foreground truncate">
           {formatDeviceInfo(station.device_model, station.device_sn)}
         </div>
+
+        {/* 3D Dishwasher Model */}
+        <DishwasherModel3D status={station.status} progress={progressPercentage} />
 
         {/* Time Remaining Section */}
         {station.status === 'Running' && (
@@ -79,8 +95,16 @@ export const StationCard: React.FC<StationCardProps> = ({ station, onClick }) =>
         <div className="grid grid-cols-2 gap-2">
           {/* Cycles */}
           <div className="bg-dashboard-metric rounded-lg p-2 border border-border/50">
-            <div className="flex items-center space-x-1 mb-1">
-              <RotateCcw className="h-3 w-3 text-muted-foreground" />
+            <div className="flex items-center space-x-1.5 mb-1.5">
+              <span
+                className="flex items-center justify-center w-5 h-5 rounded-md flex-shrink-0"
+                style={{
+                  background: 'linear-gradient(145deg, #818cf8, #4f46e5)',
+                  boxShadow: '2px 2px 4px rgba(79,70,229,0.35), -1px -1px 2px rgba(255,255,255,0.7), inset 0 1px 0 rgba(255,255,255,0.25)',
+                }}
+              >
+                <RotateCcw className="h-2.5 w-2.5 text-white" />
+              </span>
               <span className="text-xs text-muted-foreground">Cycles</span>
             </div>
             <div className="font-semibold text-foreground text-sm">
@@ -90,7 +114,18 @@ export const StationCard: React.FC<StationCardProps> = ({ station, onClick }) =>
 
           {/* Program */}
           <div className="bg-dashboard-metric rounded-lg p-2 border border-border/50">
-            <div className="text-xs text-muted-foreground mb-1">Program</div>
+            <div className="flex items-center space-x-1.5 mb-1.5">
+              <span
+                className="flex items-center justify-center w-5 h-5 rounded-md flex-shrink-0"
+                style={{
+                  background: 'linear-gradient(145deg, #34d399, #059669)',
+                  boxShadow: '2px 2px 4px rgba(5,150,105,0.35), -1px -1px 2px rgba(255,255,255,0.7), inset 0 1px 0 rgba(255,255,255,0.25)',
+                }}
+              >
+                <Cog className="h-2.5 w-2.5 text-white" />
+              </span>
+              <span className="text-xs text-muted-foreground">Program</span>
+            </div>
             <div className="font-semibold text-foreground text-xs truncate">
               {station.program_name || 'None'}
             </div>
@@ -98,8 +133,16 @@ export const StationCard: React.FC<StationCardProps> = ({ station, onClick }) =>
 
           {/* Temperature */}
           <div className="bg-dashboard-metric rounded-lg p-2 border border-border/50">
-            <div className="flex items-center space-x-1 mb-1">
-              <Thermometer className="h-3 w-3 text-muted-foreground" />
+            <div className="flex items-center space-x-1.5 mb-1.5">
+              <span
+                className="flex items-center justify-center w-5 h-5 rounded-md flex-shrink-0"
+                style={{
+                  background: 'linear-gradient(145deg, #fb923c, #dc2626)',
+                  boxShadow: '2px 2px 4px rgba(220,38,38,0.35), -1px -1px 2px rgba(255,255,255,0.7), inset 0 1px 0 rgba(255,255,255,0.25)',
+                }}
+              >
+                <Thermometer className="h-2.5 w-2.5 text-white" />
+              </span>
               <span className="text-xs text-muted-foreground">Temp</span>
             </div>
             <div className="font-semibold text-foreground text-sm">
@@ -109,8 +152,16 @@ export const StationCard: React.FC<StationCardProps> = ({ station, onClick }) =>
 
           {/* Inflow */}
           <div className="bg-dashboard-metric rounded-lg p-2 border border-border/50">
-            <div className="flex items-center space-x-1 mb-1">
-              <Droplets className="h-3 w-3 text-muted-foreground" />
+            <div className="flex items-center space-x-1.5 mb-1.5">
+              <span
+                className="flex items-center justify-center w-5 h-5 rounded-md flex-shrink-0"
+                style={{
+                  background: 'linear-gradient(145deg, #38bdf8, #0284c7)',
+                  boxShadow: '2px 2px 4px rgba(2,132,199,0.35), -1px -1px 2px rgba(255,255,255,0.7), inset 0 1px 0 rgba(255,255,255,0.25)',
+                }}
+              >
+                <Droplets className="h-2.5 w-2.5 text-white" />
+              </span>
               <span className="text-xs text-muted-foreground">Inflow</span>
             </div>
             <div className="font-semibold text-foreground text-sm">

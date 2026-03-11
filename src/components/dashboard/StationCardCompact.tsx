@@ -15,12 +15,12 @@ const STATUS_BORDER: Record<string, string> = {
   Disconnected: 'border-l-yellow-500',
 };
 
-const STATUS_BG: Record<string, string> = {
-  Running:      'bg-green-50 dark:bg-green-950/20',
-  Fault:        'bg-red-50 dark:bg-red-950/20',
-  Disconnected: 'bg-yellow-50 dark:bg-yellow-950/20',
-  Completed:    'bg-indigo-50 dark:bg-indigo-950/20',
-  Idle:         '',
+const STATUS_TEXT: Record<string, string> = {
+  Running:      'text-green-600 font-medium',
+  Completed:    'text-indigo-600 font-medium',
+  Idle:         'text-gray-500',
+  Fault:        'text-red-600 font-medium',
+  Disconnected: 'text-amber-600 font-medium',
 };
 
 export const StationCardCompact: React.FC<StationCardCompactProps> = ({ station, onClick }) => {
@@ -37,14 +37,15 @@ export const StationCardCompact: React.FC<StationCardCompactProps> = ({ station,
       className={cn(
         'cursor-pointer rounded-md border border-border border-l-4 px-3 py-2',
         'flex items-center justify-between gap-2',
-        'hover:shadow-sm hover:-translate-y-0.5 transition-all duration-150',
+        'bg-white hover:bg-muted/50 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-150',
         STATUS_BORDER[station.status] ?? 'border-l-gray-300',
-        STATUS_BG[station.status] ?? '',
       )}
     >
       <span className="text-sm font-semibold text-foreground truncate">{station.slot_code}</span>
       <div className="flex items-center gap-2 flex-shrink-0">
-        <span className="text-xs text-muted-foreground">{station.status}</span>
+        <span className={cn('text-xs', STATUS_TEXT[station.status] ?? 'text-muted-foreground')}>
+          {station.status}
+        </span>
         {station.status === 'Running' && (
           <span className="text-xs font-mono text-green-600">{formatTime(station.time_remaining)}</span>
         )}

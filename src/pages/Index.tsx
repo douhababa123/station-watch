@@ -109,10 +109,6 @@ const Index = () => {
         onFiltersChange={setFilters}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
-        notifications={notifications}
-        onNotificationAcknowledge={(id) =>
-          setNotifications(prev => prev.filter(n => n.id !== id))
-        }
       />
 
       <div className="flex flex-1 overflow-hidden">
@@ -124,6 +120,10 @@ const Index = () => {
           onGroupClick={handleGroupClick}
           collapsed={navCollapsed}
           onToggleCollapse={() => setNavCollapsed(v => !v)}
+          notifications={notifications}
+          onNotificationAcknowledge={(id) =>
+            setNotifications(prev => prev.filter(n => n.id !== id))
+          }
         />
 
         {/* Main Content */}

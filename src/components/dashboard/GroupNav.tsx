@@ -1,7 +1,15 @@
 import React, { useMemo } from 'react';
-import { ChevronLeft, ChevronRight, Building2, Cog, Clock, AlertTriangle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Building2, Cog, Clock, AlertTriangle, CheckCircle2, Bell, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { Station, StationGroup, StationGroupConfig } from '@/types/station';
+
+interface Notification {
+  id: string;
+  type: 'completion' | 'fault';
+  stationId: string;
+  message: string;
+  timestamp: Date;
+}
 
 interface GroupNavProps {
   groups: StationGroupConfig[];
@@ -10,6 +18,8 @@ interface GroupNavProps {
   onGroupClick: (groupId: StationGroup) => void;
   collapsed: boolean;
   onToggleCollapse: () => void;
+  notifications: Notification[];
+  onNotificationAcknowledge: (id: string) => void;
 }
 
 const STATUS_DOTS: { key: import('@/types/station').StationStatus; color: string; label: string }[] = [
@@ -20,6 +30,13 @@ const STATUS_DOTS: { key: import('@/types/station').StationStatus; color: string
   { key: 'Disconnected', color: 'bg-yellow-500', label: 'Disconnected' },
 ];
 
+const formatRelativeTime = (date: Date) => {
+  const diff = Math.floor((Date.now() - date.getTime()) / 1000);
+  if (diff < 60) return `${diff}s ago`;
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  return `${Math.floor(diff / 3600)}h ago`;
+};
+
 export const GroupNav: React.FC<GroupNavProps> = ({
   groups,
   stations,
@@ -27,6 +44,8 @@ export const GroupNav: React.FC<GroupNavProps> = ({
   onGroupClick,
   collapsed,
   onToggleCollapse,
+  notifications,
+  onNotificationAcknowledge,
 }) => {
   const getGroupStats = (groupId: StationGroup) => {
     const groupStations = stations.filter(s => s.group === groupId);
@@ -52,10 +71,10 @@ export const GroupNav: React.FC<GroupNavProps> = ({
   }, [stations]);
 
   const statCards = [
-    { label: '总工站数量', value: sysStats.totalStations, icon: Building2, color: 'text-primary' },
-    { label: '测试机器数量', value: sysStats.uniqueDevices, icon: Cog, color: 'text-primary' },
-    { label: '空余工站', value: sysStats.idleStations, icon: Clock, color: 'text-gray-500' },
-    { label: '维修工站', value: sysStats.faultStations, icon: AlertTriangle, color: 'text-red-500' },
+    { label: '总工站数量', value: sysStats.totalStations, icon: Building2, iconBg: 'bg-primary/10', color: 'text-primary' },
+    { label: '测试机器数量', value: sysStats.uniqueDevices, icon: Cog, iconBg: 'bg-primary/10', color: 'text-primary' },
+    { label: '空余工站', value: sysStats.idleStations, icon: Clock, iconBg: 'bg-muted', color: 'text-muted-foreground' },
+    { label: '维修工站', value: sysStats.faultStations, icon: AlertTriangle, iconBg: 'bg-red-100', color: 'text-red-500' },
   ];
 
   return (
@@ -67,21 +86,23 @@ export const GroupNav: React.FC<GroupNavProps> = ({
     >
       {/* System Statistics — 仅展开态显示 */}
       {!collapsed && (
-        <div className="px-3 pt-4 pb-2 border-b border-border">
-          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+        <div className="px-3 pt-4 pb-3 border-b border-border">
+          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-2.5">
             System Statistics
           </p>
           <div className="flex flex-col gap-2">
-            {statCards.map(({ label, value, icon: Icon, color }) => (
+            {statCards.map(({ label, value, icon: Icon, iconBg, color }) => (
               <div
                 key={label}
-                className="bg-muted/50 border border-border rounded-lg px-3 py-2.5 flex items-center justify-between"
+                className="bg-muted border border-border rounded-lg px-3 py-2.5 flex items-center justify-between"
               >
                 <div>
                   <p className="text-xs text-muted-foreground">{label}</p>
                   <p className="text-2xl font-bold text-foreground leading-none mt-1">{value}</p>
                 </div>
-                <Icon className={cn('h-5 w-5 flex-shrink-0', color)} />
+                <div className={cn('h-9 w-9 flex items-center justify-center rounded-lg flex-shrink-0', iconBg)}>
+                  <Icon className={cn('h-4 w-4', color)} />
+                </div>
               </div>
             ))}
           </div>
@@ -132,6 +153,84 @@ export const GroupNav: React.FC<GroupNavProps> = ({
           );
         })}
       </nav>
+
+      {/* Notifications Section */}
+      {!collapsed && (
+        <div className="border-t border-border px-3 pt-3 pb-2 flex flex-col" style={{ maxHeight: '300px', minHeight: '80px' }}>
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+              Notifications
+            </p>
+            {notifications.length > 0 ? (
+              <span className="text-[10px] bg-red-100 border border-red-200 text-red-600 font-semibold px-1.5 py-0.5 rounded-full">
+                {notifications.length}
+              </span>
+            ) : (
+              <span className="text-[10px] bg-muted border border-border text-muted-foreground px-1.5 py-0.5 rounded-full">0</span>
+            )}
+          </div>
+          <div className="flex flex-col gap-1.5 overflow-y-auto flex-1 pr-0.5">
+            {notifications.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-5 text-muted-foreground">
+                <Bell className="h-5 w-5 mb-1.5 opacity-25" />
+                <p className="text-xs">No notifications</p>
+              </div>
+            ) : (
+              notifications.map(n => (
+                <div
+                  key={n.id}
+                  className={cn(
+                    'relative rounded-lg px-2.5 py-2 border text-xs',
+                    n.type === 'fault'
+                      ? 'bg-red-50 border-red-200'
+                      : 'bg-indigo-50 border-indigo-200'
+                  )}
+                >
+                  {/* header: icon + station badge */}
+                  <div className="flex items-center gap-1.5 mb-1 pr-5">
+                    {n.type === 'fault' ? (
+                      <AlertTriangle className="h-3 w-3 flex-shrink-0 text-red-500" />
+                    ) : (
+                      <CheckCircle2 className="h-3 w-3 flex-shrink-0 text-indigo-500" />
+                    )}
+                    <span className={cn(
+                      'text-[10px] font-semibold px-1.5 py-0.5 rounded-full border',
+                      n.type === 'fault'
+                        ? 'bg-red-100 text-red-700 border-red-200'
+                        : 'bg-indigo-100 text-indigo-700 border-indigo-200'
+                    )}>
+                      {n.stationId}
+                    </span>
+                  </div>
+                  {/* message */}
+                  <p className="text-[11px] text-foreground leading-snug mb-1">{n.message}</p>
+                  {/* time */}
+                  <p className="text-[10px] text-muted-foreground">{formatRelativeTime(n.timestamp)}</p>
+                  {/* close */}
+                  <button
+                    onClick={() => onNotificationAcknowledge(n.id)}
+                    className="absolute top-1.5 right-1.5 p-0.5 rounded text-muted-foreground hover:bg-black/10 hover:text-foreground transition-colors"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* 折叠时：铃铛角标 */}
+      {collapsed && notifications.length > 0 && (
+        <div className="flex justify-center py-2 border-t border-border">
+          <div className="relative">
+            <Bell className="h-4 w-4 text-muted-foreground" />
+            <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-red-500 text-[8px] font-bold text-white">
+              {notifications.length > 9 ? '9+' : notifications.length}
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* 折叠/展开按钮 */}
       <div className="border-t border-border p-2">

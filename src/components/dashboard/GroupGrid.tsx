@@ -37,13 +37,14 @@ export const GroupGrid: React.FC<GroupGridProps> = ({ stations, onStationClick, 
         return (
           <section key={groupConfig.id} id={`group-${groupConfig.id}`} className="scroll-mt-4">
             {/* Group 标题 */}
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-foreground">
+            <div className="flex items-center gap-3 mb-4">
+              <h2 className="text-base font-semibold text-foreground whitespace-nowrap">
                 {groupConfig.label}
               </h2>
-              <span className="text-sm text-muted-foreground">
+              <span className="text-xs text-muted-foreground bg-muted border border-border px-2 py-0.5 rounded-full whitespace-nowrap">
                 {groupStations.length} 个工位
               </span>
+              <div className="flex-1 h-px bg-border" />
             </div>
 
             {/* 工位网格 */}
