@@ -22,24 +22,37 @@ const generateDeviceSN = () => {
   return sn;
 };
 
-const pickStatus = (): StationStatus => {
-  const statusWeights: [StationStatus, number][] = [
-    ['Running',      0.40],
-    ['Idle',         0.30],
-    ['Completed',    0.15],
-    ['Fault',        0.10],
-    ['Disconnected', 0.05],
-  ];
-  const rand = Math.random();
-  let cumulative = 0;
-  for (const [s, w] of statusWeights) {
-    cumulative += w;
-    if (rand <= cumulative) return s;
+// 预定义状态分布：Running(85) + Idle(18) + Completed(8) + Fault(5) + Disconnected(2) = 118
+// 保证 Running > 80，且三类汇总：测试中(85) + 空余(26) + 维修(7) = 118
+const STATUS_POOL: StationStatus[] = [
+  ...Array(85).fill('Running'),
+  ...Array(18).fill('Idle'),
+  ...Array(8).fill('Completed'),
+  ...Array(5).fill('Fault'),
+  ...Array(2).fill('Disconnected'),
+] as StationStatus[];
+
+// 使用固定种子的简单 shuffle，保证每次初始化一致
+const shuffleStatuses = (): StationStatus[] => {
+  const arr = [...STATUS_POOL];
+  // deterministic shuffle based on index math (no random, always same order)
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = (i * 1103515245 + 12345) % arr.length;
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  return 'Idle';
+  return arr;
+};
+
+const statusAssignments = shuffleStatuses();
+let statusIndex = 0;
+const pickStatus = (): StationStatus => {
+  const s = statusAssignments[statusIndex % statusAssignments.length];
+  statusIndex++;
+  return s;
 };
 
 export const generateMockStations = (): Station[] => {
+  statusIndex = 0; // reset so status distribution is always exact
   const stations: Station[] = [];
 
   for (const groupConfig of STATION_GROUPS) {

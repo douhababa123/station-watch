@@ -131,3 +131,231 @@
 - [x] 验证详情/紧凑切换
 - [x] 验证左导航折叠/展开
 - [x] `git add -A && git commit -m "feat: redesign layout for 6 groups / 118 stations"`
+
+---
+
+### Task 11：3D 洗碗机喷淋物理感优化（增量需求）
+
+**Files:**
+- Modify: `src/components/dashboard/DishwasherModel3D.tsx`
+
+- [x] 保持白色背景基调，不改页面其它模块
+- [x] 增加双层喷臂：下层高速旋转 + 上层低速反向旋转
+- [x] 增加分层水束：主喷束（曲线）+ 细雾粒子
+- [x] 增加顶部冲击扩散与回落效果
+- [x] 增加侧壁回流滴落效果
+- [x] 处理 SVG `id` 冲突：使用 `useId` 生成唯一渐变/滤镜/clipPath id
+- [x] `npm run build` 验证通过
+
+---
+
+### Task 12：3D 喷淋物理感二次强化（继续优化）
+
+**Files:**
+- Modify: `src/components/dashboard/DishwasherModel3D.tsx`
+
+- [x] 增加喷淋压力脉冲节奏（整体 opacity 周期变化）
+- [x] 增加 `mistSoft` 滤镜软化细雾与回流视觉
+- [x] 增加顶部回落水帘（fallback streaks）
+- [x] 增加底部再循环湍流环（sump turbulence）
+- [x] 调整上下喷臂转速比，强化真实分层洗涤节奏
+- [x] `npm run build` 验证通过
+
+---
+
+### Task 13：3D 喷嘴脉冲与机械感强化（继续优化）
+
+**Files:**
+- Modify: `src/components/dashboard/DishwasherModel3D.tsx`
+
+- [x] 增加下喷臂喷孔间歇脉冲喷射（左右交错）
+- [x] 增加上喷臂微脉冲喷射层
+- [x] 下调 glow/整体喷淋层亮度，降低霓虹感，提升真实机械感
+- [x] `npm run build` 验证通过
+
+---
+
+### Task 14：3D 喷臂负载变化动力学（继续优化）
+
+**Files:**
+- Modify: `src/components/dashboard/DishwasherModel3D.tsx`
+
+- [x] 下喷臂改为分段加减速转动曲线（非匀速）
+- [x] 上喷臂改为分段反向加减速曲线
+- [x] 增加轻微泵振位移（spray arm 微摆动）
+- [x] `npm run build` 验证通过
+
+---
+
+### Task 15：3D 喷孔空间偏置与不规则水束（继续优化）
+
+**Files:**
+- Modify: `src/components/dashboard/DishwasherModel3D.tsx`
+
+- [x] 主喷嘴脉冲加入逐孔空间偏置（左右独立）
+- [x] 主喷束改为非镜像不规则曲线路径
+- [x] 调整喷束错相时序，降低人工对称感
+- [x] `npm run build` 验证通过
+
+---
+
+### Task 16：3D 组件主视觉对齐 `洗碗机.png`
+
+**Files:**
+- Modify: `src/components/dashboard/DishwasherModel3D.tsx`
+
+- [x] 导入并使用 `洗碗机.png` 作为组件主视觉底图
+- [x] 保留运行态喷淋叠加动画（clip 到洗涤腔体区域）
+- [x] 保留状态层（进度、故障、完成）
+- [x] `npm run build` 验证通过（包含图片资源打包）
+
+---
+
+### Task 17：洗碗机主效果切换为 `2.gif`
+
+**Files:**
+- Modify: `src/components/dashboard/DishwasherModel3D.tsx`
+
+- [x] 导入并使用 `2.gif` 作为洗碗机主动画视觉
+- [x] 移除旧 SVG 喷淋特效叠加层，保持与参考动图一致
+- [x] 保留状态叠加（进度、故障、完成）
+- [x] `npm run build` 验证通过（包含 gif 资源打包）
+
+---
+
+### Task 18：仅保留洗碗机元素（移除左侧黑字界面）
+
+**Files:**
+- Modify: `src/components/dashboard/DishwasherModel3D.tsx`
+
+- [x] 删除状态叠加 UI（进度条/故障/完成）
+- [x] 使用偏移 + clipPath 裁切隐藏 GIF 左侧黑字区域
+- [x] 仅保留洗碗机主体动图元素
+- [x] `npm run build` 验证通过
+
+---
+
+### Task 19：参考动图切换为 `3.gif`
+
+**Files:**
+- Modify: `src/components/dashboard/DishwasherModel3D.tsx`
+
+- [x] 将主参考资源从 `2.gif` 替换为 `3.gif`
+- [x] 维持当前“仅保留洗碗机主体”的裁切策略
+- [x] `npm run build` 验证通过（包含 gif 资源打包）
+
+---
+
+### Task 20：按澄清修正为 `2.gif` 动图（保留主体裁切区域）
+
+**Files:**
+- Modify: `src/components/dashboard/DishwasherModel3D.tsx`
+
+- [x] 将动图来源从 `3.gif` 回切为 `2.gif`
+- [x] 保留“仅洗碗机主体”裁切策略（去掉左侧黑字区域）
+- [x] 改为 HTML `img` 渲染，确保 GIF 动画稳定播放
+- [x] `npm run build` 验证通过
+
+---
+
+### Task 21：动图资源切换为 `4.gif`
+
+**Files:**
+- Modify: `src/components/dashboard/DishwasherModel3D.tsx`
+
+- [x] 将主动画资源从 `2.gif` 替换为 `4.gif`
+- [x] 保持“仅洗碗机主体”裁切与尺寸策略不变
+- [x] `npm run build` 验证通过
+
+---
+
+### Task 22：按工站状态切换图片资源
+
+**Files:**
+- Modify: `src/components/dashboard/DishwasherModel3D.tsx`
+
+- [x] `Running` 使用 `4.gif`
+- [x] `Completed` 使用 `finishstation.png`
+- [x] 空工位状态使用 `emptystation.png`
+- [x] 保持 Running 裁切偏移策略，静态图使用 contain 完整展示
+- [x] `npm run build` 验证通过
+
+---
+
+### Task 23：Fault 状态独立告警图
+
+**Files:**
+- Create: `faultstation.svg`
+- Modify: `src/components/dashboard/DishwasherModel3D.tsx`
+
+- [x] 新建 Fault 专用告警图素材 `faultstation.svg`
+- [x] 将 `Fault` 从空工位映射中拆出，单独映射到告警图
+- [x] 保持其余状态映射规则不变
+- [x] `npm run build` 验证通过
+- [x] 启动 `npm run dev` 并打开页面预览
+
+---
+
+### Task 24：工站卡片高质感视觉优化（A组~V组）
+
+**Files:**
+- Modify: `src/components/dashboard/StationCard.tsx`
+- Modify: `src/components/dashboard/StationCardCompact.tsx`
+
+- [x] Detail 卡片升级为高质感层次（柔和渐变、玻璃感边框、悬停阴影）
+- [x] 统一信息层级（工位胶囊、设备信息条、3D容器）
+- [x] 指标区模块化统一样式（圆角、描边、内高光）
+- [x] Compact 卡片同步升级视觉风格并强化 Running 时间可读性
+- [x] `npm run build` 验证通过
+
+---
+
+### Task 25：侧边栏 Group 条目样式美化（A组/1组~V组）
+
+**Files:**
+- Modify: `src/components/dashboard/GroupNav.tsx`
+
+- [x] 活跃态改为高质感焦点样式（渐变底、描边、阴影）
+- [x] 非活跃态增加轻玻璃感与 hover 层次
+- [x] 数量与状态统计改为胶囊标签样式
+- [x] 折叠态活跃字符颜色与展开态保持一致
+- [x] `npm run build` 验证通过
+
+---
+
+### Task 26：工站卡片布局紧凑化（角落圆形羽化设备图）
+
+**Files:**
+- Modify: `src/components/dashboard/StationCard.tsx`
+- Modify: `src/components/dashboard/DishwasherModel3D.tsx`
+
+- [x] 中部大图改为右上角圆形设备图（节省纵向空间）
+- [x] 增加羽化遮罩与轻玻璃边框，提升融合度
+- [x] 卡片内容区增加右侧留白，避免信息重叠
+- [x] 为设备图新增 `variant` 紧凑渲染能力
+- [x] `npm run build` 验证通过
+
+---
+
+### Task 27：保持外层卡片尺寸不变，放大内部指标并减少右侧留白
+
+**Files:**
+- Modify: `src/components/dashboard/StationCard.tsx`
+
+- [x] 右侧留白由 `pr-24` 调整为 `pr-20`，减少视觉空白
+- [x] 角落圆形设备图尺寸微调，释放内容区宽度
+- [x] 指标卡内边距、图标和文字适度放大，提升可读性
+- [x] 同步收紧纵向间距，避免外层卡片高度显著变化
+- [x] `npm run build` 验证通过
+
+---
+
+### Task 28：图标元素再放大并强化视觉引导性
+
+**Files:**
+- Modify: `src/components/dashboard/StationCard.tsx`
+
+- [x] 指标图标底座进一步放大并增强圆角质感
+- [x] 增加图标底座描边环和更明显的投影层次
+- [x] 图标本体尺寸上调并添加微阴影，提升辨识度
+- [x] `npm run build` 验证通过

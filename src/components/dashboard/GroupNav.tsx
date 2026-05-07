@@ -57,22 +57,21 @@ export const GroupNav: React.FC<GroupNavProps> = ({
   };
 
   const sysStats = useMemo(() => {
-    const uniqueDevices = new Set(
-      stations
-        .filter(s => s.device_model && s.device_sn)
-        .map(s => `${s.device_model}-${s.device_sn}`)
-    ).size;
     return {
       totalStations: stations.length,
-      uniqueDevices,
-      idleStations: stations.filter(s => s.status === 'Idle').length,
-      faultStations: stations.filter(s => s.status === 'Fault').length,
+      // 测试机器数量 = Running（正在测试中）
+      runningStations: stations.filter(s => s.status === 'Running').length,
+      // 空余工站 = Idle + Completed（未占用 / 刚完成可复用）
+      idleStations: stations.filter(s => s.status === 'Idle' || s.status === 'Completed').length,
+      // 维修工站 = Fault + Disconnected（需要处理）
+      faultStations: stations.filter(s => s.status === 'Fault' || s.status === 'Disconnected').length,
     };
+    // 三类之和 === totalStations 恒成立
   }, [stations]);
 
   const statCards = [
     { label: '总工站数量', value: sysStats.totalStations, icon: Building2, iconBg: 'bg-primary/10', color: 'text-primary' },
-    { label: '测试机器数量', value: sysStats.uniqueDevices, icon: Cog, iconBg: 'bg-primary/10', color: 'text-primary' },
+    { label: '测试机器数量', value: sysStats.runningStations, icon: Cog, iconBg: 'bg-primary/10', color: 'text-primary' },
     { label: '空余工站', value: sysStats.idleStations, icon: Clock, iconBg: 'bg-muted', color: 'text-muted-foreground' },
     { label: '维修工站', value: sysStats.faultStations, icon: AlertTriangle, iconBg: 'bg-red-100', color: 'text-red-500' },
   ];
@@ -120,27 +119,42 @@ export const GroupNav: React.FC<GroupNavProps> = ({
               key={group.id}
               onClick={() => onGroupClick(group.id)}
               className={cn(
-                'w-full text-left rounded-lg transition-all duration-150',
-                collapsed ? 'px-0 py-2 flex items-center justify-center' : 'px-3 py-2',
+                'w-full relative overflow-hidden text-left rounded-xl border transition-all duration-200',
+                collapsed ? 'px-0 py-2 flex items-center justify-center' : 'px-3 py-2.5',
                 isActive
-                  ? 'bg-primary/10 border-l-2 border-primary text-primary font-semibold'
-                  : 'hover:bg-muted text-foreground border-l-2 border-transparent'
+                  ? 'bg-gradient-to-r from-primary/15 via-primary/10 to-transparent border-primary/30 text-foreground shadow-[0_6px_14px_rgba(99,102,241,0.16)] ring-1 ring-primary/20'
+                  : 'bg-white/70 border-border/70 text-foreground hover:bg-white hover:border-primary/20 hover:shadow-[0_6px_14px_rgba(15,23,42,0.08)]'
               )}
             >
               {collapsed ? (
                 /* 折叠态：仅显示首字符 */
-                <span className="text-sm font-bold">{group.id}</span>
+                <span className={cn('text-sm font-bold', isActive ? 'text-primary' : 'text-foreground')}>{group.id}</span>
               ) : (
                 /* 展开态：标签 + 状态色块 */
-                <div className="space-y-1">
+                <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm">{group.label}</span>
-                    <span className="text-xs text-muted-foreground">({total})</span>
+                    <span className={cn('text-sm font-semibold', isActive ? 'text-primary' : 'text-slate-700')}>{group.label}</span>
+                    <span className={cn(
+                      'text-[11px] px-1.5 py-0.5 rounded-full border',
+                      isActive
+                        ? 'bg-primary/10 text-primary border-primary/25'
+                        : 'bg-white text-muted-foreground border-border/80'
+                    )}>
+                      {total}
+                    </span>
                   </div>
                   <div className="flex items-center gap-1 flex-wrap">
                     {STATUS_DOTS.map(({ key, color }) =>
                       counts[key] > 0 ? (
-                        <span key={key} className="flex items-center gap-0.5 text-xs text-muted-foreground">
+                        <span
+                          key={key}
+                          className={cn(
+                            'flex items-center gap-1 text-[11px] px-1.5 py-0.5 rounded-full border',
+                            isActive
+                              ? 'bg-white/85 border-primary/15 text-slate-700'
+                              : 'bg-white/75 border-border/70 text-muted-foreground'
+                          )}
+                        >
                           <span className={cn('inline-block w-2 h-2 rounded-full', color)} />
                           {counts[key]}
                         </span>

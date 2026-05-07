@@ -35,19 +35,21 @@ export const StationCardCompact: React.FC<StationCardCompactProps> = ({ station,
     <div
       onClick={onClick}
       className={cn(
-        'cursor-pointer rounded-md border border-border border-l-4 px-3 py-2',
+        'group cursor-pointer rounded-xl border border-slate-200/80 border-l-4 px-3 py-2.5',
         'flex items-center justify-between gap-2',
-        'bg-white hover:bg-muted/50 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-150',
+        'bg-gradient-to-b from-white to-slate-50/95 backdrop-blur-sm',
+        'shadow-[0_4px_14px_rgba(15,23,42,0.05)] hover:shadow-[0_10px_20px_rgba(15,23,42,0.10)]',
+        'hover:-translate-y-0.5 transition-all duration-200',
         STATUS_BORDER[station.status] ?? 'border-l-gray-300',
       )}
     >
-      <span className="text-sm font-semibold text-foreground truncate">{station.slot_code}</span>
+      <span className="text-sm font-semibold text-slate-800 truncate">{station.slot_code}</span>
       <div className="flex items-center gap-2 flex-shrink-0">
-        <span className={cn('text-xs', STATUS_TEXT[station.status] ?? 'text-muted-foreground')}>
+        <span className={cn('text-xs', STATUS_TEXT[station.status] ?? 'text-slate-500')}>
           {station.status}
         </span>
         {station.status === 'Running' && (
-          <span className="text-xs font-mono text-green-600">{formatTime(station.time_remaining)}</span>
+          <span className="text-xs font-mono text-green-700 bg-green-50 border border-green-100 px-1.5 py-0.5 rounded-md">{formatTime(station.time_remaining)}</span>
         )}
       </div>
     </div>

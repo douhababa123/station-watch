@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { StatusBadge } from './StatusBadge';
 import { DishwasherModel3D } from './DishwasherModel3D';
@@ -49,27 +48,33 @@ export const StationCard: React.FC<StationCardProps> = ({ station, onClick }) =>
   return (
     <Card 
       className={cn(
-        'cursor-pointer shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 overflow-hidden',
+        'group relative cursor-pointer overflow-hidden border border-white/60 bg-gradient-to-b from-white to-slate-50/95',
+        'shadow-[0_8px_24px_rgba(15,23,42,0.06)] hover:shadow-[0_14px_36px_rgba(15,23,42,0.12)]',
+        'backdrop-blur-sm transition-all duration-300 hover:-translate-y-1',
         STATUS_BORDER[station.status] ?? 'border-l-[3px] border-l-gray-300'
       )}
       onClick={onClick}
     >
-      <CardContent className="p-4 space-y-4">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-white/85 to-transparent" />
+      <CardContent className="relative p-4 space-y-3">
+        {/* Corner visual: circular feathered station thumbnail */}
+        <div className="absolute top-3 right-3 h-[70px] w-[70px] rounded-full border border-slate-200/80 bg-white/70 shadow-[0_8px_18px_rgba(15,23,42,0.10)] overflow-hidden">
+          <DishwasherModel3D status={station.status} progress={progressPercentage} variant="corner" />
+          <div className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle,transparent_58%,rgba(248,250,252,0.95)_100%)]" />
+        </div>
+
         {/* Header: Station ID and Status */}
-        <div className="flex items-center justify-between">
-          <div className="font-semibold text-foreground">
+        <div className="flex items-center justify-between pr-[66px]">
+          <div className="inline-flex items-center rounded-full border border-slate-200/80 bg-white px-2.5 py-0.5 text-sm font-semibold text-slate-800 shadow-sm">
             {station.slot_code}
           </div>
-          <StatusBadge status={station.status} />
+          <StatusBadge status={station.status} className="shadow-sm" />
         </div>
 
         {/* Device Information */}
-        <div className="text-sm text-muted-foreground truncate">
+        <div className="truncate rounded-md border border-slate-200/70 bg-white/70 px-2.5 py-1 text-xs text-slate-500 mr-[66px]">
           {formatDeviceInfo(station.device_model, station.device_sn)}
         </div>
-
-        {/* 3D Dishwasher Model */}
-        <DishwasherModel3D status={station.status} progress={progressPercentage} />
 
         {/* Time Remaining Section */}
         {station.status === 'Running' && (
@@ -86,86 +91,54 @@ export const StationCard: React.FC<StationCardProps> = ({ station, onClick }) =>
             
             <Progress 
               value={progressPercentage} 
-              className="h-2"
+              className="h-2 bg-slate-200/70"
             />
           </div>
         )}
 
         {/* Key Metrics Grid */}
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-2.5">
           {/* Cycles */}
-          <div className="bg-dashboard-metric rounded-lg p-2 border border-border/50">
-            <div className="flex items-center space-x-1.5 mb-1.5">
-              <span
-                className="flex items-center justify-center w-5 h-5 rounded-md flex-shrink-0"
-                style={{
-                  background: 'linear-gradient(145deg, #818cf8, #4f46e5)',
-                  boxShadow: '2px 2px 4px rgba(79,70,229,0.35), -1px -1px 2px rgba(255,255,255,0.7), inset 0 1px 0 rgba(255,255,255,0.25)',
-                }}
-              >
-                <RotateCcw className="h-2.5 w-2.5 text-white" />
-              </span>
-              <span className="text-xs text-muted-foreground">Cycles</span>
-            </div>
-            <div className="font-semibold text-foreground text-sm">
-              {station.cycles.toLocaleString()}
+          <div className="rounded-xl p-3 bg-slate-50/80 flex items-center gap-2.5">
+            <span className="flex items-center justify-center w-8 h-8 rounded-xl flex-shrink-0 bg-indigo-50">
+              <RotateCcw className="text-indigo-500" style={{width:'18px',height:'18px'}} />
+            </span>
+            <div className="flex flex-col min-w-0">
+              <span className="text-[11px] text-slate-500 leading-none mb-1">Cycles</span>
+              <span className="font-semibold text-slate-800 text-[15px] leading-none">{station.cycles.toLocaleString()}</span>
             </div>
           </div>
 
           {/* Program */}
-          <div className="bg-dashboard-metric rounded-lg p-2 border border-border/50">
-            <div className="flex items-center space-x-1.5 mb-1.5">
-              <span
-                className="flex items-center justify-center w-5 h-5 rounded-md flex-shrink-0"
-                style={{
-                  background: 'linear-gradient(145deg, #34d399, #059669)',
-                  boxShadow: '2px 2px 4px rgba(5,150,105,0.35), -1px -1px 2px rgba(255,255,255,0.7), inset 0 1px 0 rgba(255,255,255,0.25)',
-                }}
-              >
-                <Cog className="h-2.5 w-2.5 text-white" />
-              </span>
-              <span className="text-xs text-muted-foreground">Program</span>
-            </div>
-            <div className="font-semibold text-foreground text-xs truncate">
-              {station.program_name || 'None'}
+          <div className="rounded-xl p-3 bg-slate-50/80 flex items-center gap-2.5">
+            <span className="flex items-center justify-center w-8 h-8 rounded-xl flex-shrink-0 bg-emerald-50">
+              <Cog className="text-emerald-500" style={{width:'18px',height:'18px'}} />
+            </span>
+            <div className="flex flex-col min-w-0">
+              <span className="text-[11px] text-slate-500 leading-none mb-1">Program</span>
+              <span className="font-semibold text-slate-800 text-sm leading-none truncate">{station.program_name || 'None'}</span>
             </div>
           </div>
 
           {/* Temperature */}
-          <div className="bg-dashboard-metric rounded-lg p-2 border border-border/50">
-            <div className="flex items-center space-x-1.5 mb-1.5">
-              <span
-                className="flex items-center justify-center w-5 h-5 rounded-md flex-shrink-0"
-                style={{
-                  background: 'linear-gradient(145deg, #fb923c, #dc2626)',
-                  boxShadow: '2px 2px 4px rgba(220,38,38,0.35), -1px -1px 2px rgba(255,255,255,0.7), inset 0 1px 0 rgba(255,255,255,0.25)',
-                }}
-              >
-                <Thermometer className="h-2.5 w-2.5 text-white" />
-              </span>
-              <span className="text-xs text-muted-foreground">Temp</span>
-            </div>
-            <div className="font-semibold text-foreground text-sm">
-              {station.temperature_c ? `${Math.round(station.temperature_c)}℃` : '--'}
+          <div className="rounded-xl p-3 bg-slate-50/80 flex items-center gap-2.5">
+            <span className="flex items-center justify-center w-8 h-8 rounded-xl flex-shrink-0 bg-orange-50">
+              <Thermometer className="text-orange-500" style={{width:'18px',height:'18px'}} />
+            </span>
+            <div className="flex flex-col min-w-0">
+              <span className="text-[11px] text-slate-500 leading-none mb-1">Temp</span>
+              <span className="font-semibold text-slate-800 text-[15px] leading-none">{station.temperature_c ? `${Math.round(station.temperature_c)}℃` : '--'}</span>
             </div>
           </div>
 
           {/* Inflow */}
-          <div className="bg-dashboard-metric rounded-lg p-2 border border-border/50">
-            <div className="flex items-center space-x-1.5 mb-1.5">
-              <span
-                className="flex items-center justify-center w-5 h-5 rounded-md flex-shrink-0"
-                style={{
-                  background: 'linear-gradient(145deg, #38bdf8, #0284c7)',
-                  boxShadow: '2px 2px 4px rgba(2,132,199,0.35), -1px -1px 2px rgba(255,255,255,0.7), inset 0 1px 0 rgba(255,255,255,0.25)',
-                }}
-              >
-                <Droplets className="h-2.5 w-2.5 text-white" />
-              </span>
-              <span className="text-xs text-muted-foreground">Inflow</span>
-            </div>
-            <div className="font-semibold text-foreground text-sm">
-              {station.inflow_l ? `${station.inflow_l.toFixed(1)}L` : '--'}
+          <div className="rounded-xl p-3 bg-slate-50/80 flex items-center gap-2.5">
+            <span className="flex items-center justify-center w-8 h-8 rounded-xl flex-shrink-0 bg-sky-50">
+              <Droplets className="text-sky-500" style={{width:'18px',height:'18px'}} />
+            </span>
+            <div className="flex flex-col min-w-0">
+              <span className="text-[11px] text-slate-500 leading-none mb-1">Inflow</span>
+              <span className="font-semibold text-slate-800 text-[15px] leading-none">{station.inflow_l ? `${station.inflow_l.toFixed(1)}L` : '--'}</span>
             </div>
           </div>
         </div>
@@ -177,6 +150,13 @@ export const StationCard: React.FC<StationCardProps> = ({ station, onClick }) =>
           </div>
         )}
         
+        {station.status === 'Idle' && (
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 bg-slate-50 px-2 py-1 rounded-md border border-slate-200/80">
+            <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full bg-slate-200 text-slate-500 font-bold leading-none flex-shrink-0" style={{fontSize:'9px'}}>i</span>
+            Station free - ready for new task
+          </div>
+        )}
+
         {station.status === 'Fault' && (
           <div className="text-xs text-status-fault bg-status-fault-bg px-2 py-1 rounded-md border border-status-fault/20">
             Maintenance required

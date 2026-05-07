@@ -1,5 +1,18 @@
 # Welcome to your Lovable project
 
+## 本地启动（简版）
+
+在项目根目录执行：
+
+```sh
+npm install
+npm run dev
+```
+
+启动成功后，在浏览器打开终端输出的本地地址，当前通常为 `http://localhost:8080/`。
+
+详细启动步骤、构建命令和常见问题见 [docs/startup-guide.md](docs/startup-guide.md)。
+
 ## Project info
 
 **URL**: https://lovable.dev/projects/81d6d03b-cbb9-4e41-8c00-ed0e7fd4133b
