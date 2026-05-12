@@ -1,0 +1,114 @@
+- generic [ref=e2] [box=24,-1888,882,2517]:
+  - banner [ref=e3] [box=24,-1888,882,76]:
+    - generic [ref=e4] [box=24,-1888,367,55]:
+      - generic [ref=e5] [box=24,-1882,44,43]: 🍽️
+      - generic [ref=e6] [box=78,-1888,313,55]:
+        - heading "Home Connect 洗碗机监控" [level=1] [ref=e7] [box=78,-1888,313,35]
+        - generic [ref=e8] [box=78,-1851,313,18]: 实时设备数据 · Home Connect API
+    - generic [ref=e9] [box=692,-1877,214,33]:
+      - generic [ref=e10] [box=692,-1872,71,24]: 已认证
+      - button "🔄 刷新" [ref=e12] [cursor=pointer] [box=774,-1877,73,33]
+      - button "退出" [ref=e13] [cursor=pointer] [box=856,-1876,50,31]
+  - generic [ref=e14] [box=24,-1788,882,44]:
+    - generic [ref=e15] [box=41,-1775,315,18]:
+      - text: "🔑 Scope:"
+      - strong [ref=e16] [box=108,-1775,248,18]: IdentifyAppliance Dishwasher-Monitor
+    - generic [ref=e17] [box=368,-1775,145,18]:
+      - text: "⏱ Token 剩余:"
+      - strong [ref=e18] [box=458,-1775,54,18]: 23:44:02
+  - generic [ref=e19] [box=24,-1724,882,574]:
+    - generic [ref=e20] [box=25,-1723,880,62]:
+      - heading "Token 调试面板" [level=3] [ref=e21] [box=43,-1706,121,20]
+      - generic [ref=e22] [box=463,-1709,424,33]:
+        - button "↻ 刷新状态" [ref=e23] [cursor=pointer] [box=463,-1709,92,33]
+        - button "📱 重新登录" [ref=e24] [cursor=pointer] [box=562,-1709,98,33]
+        - button "📋 复制 token" [ref=e25] [cursor=pointer] [box=669,-1709,110,33]
+        - button "🗑 清空 token" [ref=e26] [cursor=pointer] [box=787,-1708,100,31]
+    - generic [ref=e27] [box=25,-1661,880,510]:
+      - generic [ref=e28] [box=43,-1643,844,251]:
+        - generic [ref=e29] [box=43,-1643,204,110]
+        - generic [ref=e35] [box=257,-1643,204,110]
+        - generic [ref=e39] [box=470,-1643,204,110]
+        - generic [ref=e45] [box=684,-1643,204,110]
+        - generic [ref=e49] [box=43,-1523,204,130]
+        - generic [ref=e53] [box=257,-1523,204,130]
+      - textbox "当前未拿到 access token" [ref=e57] [box=43,-1380,844,140]: eyJ4LWVudiI6IlBSRCIsImFsZyI6IlJTMjU2IiwieC1yZWciOiJHQyIsImtpZCI6InJnYy1wcm9kdWN0aW9uIn0.eyJmZ3JwIjpbXSwiY2x0eSI6InByaXZhdGUiLCJzdWIiOiJiMmVkYzRjZC0zZGMxLTQ4ZDUtOTU0My04YjllNjJlZWFlMDkiLCJhdWQiOiIwNzE3QzQ0MjA3NTk4MzBCM0MyREM2OTAzMUQ2REVGMTlFNzMyREQ3QjQ0MjU0MkNDNjRCMzk0Q0RBM0ZDQzUxIiwic3RhZ2UiOiJQUkQiLCJhenAiOiIwNzE3QzQ0MjA3NTk4MzBCM0MyREM2OTAzMUQ2REVGMTlFNzMyREQ3QjQ0MjU0MkNDNjRCMzk0Q0RBM0ZDQzUxIiwic2NvcGUiOlsiSWRlbnRpZnlBcHBsaWFuY2UiLCJEaXNod2FzaGVyLU1vbml0b3IiXSwiaXNzIjoiR0M6UFJEOjEiLCJleHAiOjE3Nzg2NDE1ODgsInJlZ2lvbiI6IkNOIiwiaWF0IjoxNzc4NTU1MTg4LCJqdGkiOiI1YzIyYmNiNy01YzMwLTQxNDEtYTFjZC04ZWFjOWQ1Yzg1MjkifQ.Ia7HYisu9McBXNOrvFE5t9x-kx15ZKqc5d3zEzZTb9eS50qcQSAk4qPkKnuD47-BncEyOL9axT9czJQHXif2n5c5deeR-aepYXgvglW6RZvonNkmwASjozKj8kTezUOyrTiitJ8nnmroBc6wB2sFFN58WhHcRoL6vS-fCnw_jwUDsfQUHGuNg4mqgoQ_DeNAhnk6zHw4EGlamLtEzJWrIaJFNLprd4XwuGWJLuMxAwEx-IwZCWdLXKGw6GVIV5kIKxtvMInao5gjZHngE07zkvZ92z211wHS5jBaAAQDLleGc4Ix2sSZV4l2Hb8ynCUnOlQNaNeqMnMR3JS6ImQ3dQ
+      - generic [ref=e58] [box=43,-1226,844,37]: 此面板只读展示当前本地会话。若需切换 Home Connect application，请手动修改 GetDWinfo/homeconnect.local.json 中的 client_id/client_secret 后重新登录。
+      - generic [ref=e59] [box=43,-1189,844,20]: 当前已拿到完整 access token，可直接复制用于对照测试。
+  - heading "我的家电设备" [level=2] [ref=e60] [box=24,-1126,882,25]
+  - generic [ref=e61] [box=24,-1093,882,42]: 当前展示的是服务端 24 小时缓存的设备清单，更新时间 2026/5/12 11:16:53（3 分钟前）。
+  - generic [ref=e62] [box=24,-1034,882,336]:
+    - button "🍽️ 四村 在线 Bosch · 洗碗机 292110537185000204" [ref=e152] [cursor=pointer] [box=24,-1034,431,99]:
+      - generic [ref=e153] [box=45,-1007,44,43]: 🍽️
+      - generic [ref=e154] [box=103,-1017,331,65]:
+        - generic [ref=e155] [box=103,-1017,331,27]
+        - generic [ref=e158] [box=103,-988,331,19]: Bosch · 洗碗机
+        - generic [ref=e159] [box=103,-967,331,14]: "292110537185000204"
+    - button "🍽️ 468 离线 Bosch · 洗碗机 296020558686000025" [ref=e160] [cursor=pointer] [box=475,-1034,431,99]:
+      - generic [ref=e161] [box=496,-1007,44,43]: 🍽️
+      - generic [ref=e162] [box=554,-1016,331,62]:
+        - generic [ref=e163] [box=554,-1016,331,24]
+        - generic [ref=e166] [box=554,-989,331,19]: Bosch · 洗碗机
+        - generic [ref=e167] [box=554,-968,331,14]: "296020558686000025"
+    - button "🍽️ 内胆测试 在线 Siemens · 洗碗机 296010398026007511" [active] [ref=e168] [cursor=pointer] [box=24,-916,431,99]:
+      - generic [ref=e169] [box=45,-888,44,43]: 🍽️
+      - generic [ref=e170] [box=103,-899,331,65]:
+        - generic [ref=e171] [box=103,-899,331,27]
+        - generic [ref=e174] [box=103,-869,331,19]: Siemens · 洗碗机
+        - generic [ref=e175] [box=103,-848,331,14]: "296010398026007511"
+    - button "🍽️ 洗碗机1 在线 Siemens · 洗碗机 296020399221000038" [ref=e176] [cursor=pointer] [box=475,-916,431,99]:
+      - generic [ref=e177] [box=496,-888,44,43]: 🍽️
+      - generic [ref=e178] [box=554,-899,331,65]:
+        - generic [ref=e179] [box=554,-899,331,27]
+        - generic [ref=e182] [box=554,-869,331,19]: Siemens · 洗碗机
+        - generic [ref=e183] [box=554,-848,331,14]: "296020399221000038"
+    - button "🍽️ 洗碗机2 离线 Siemens · 洗碗机 296020399336000022" [ref=e184] [cursor=pointer] [box=24,-797,431,99]:
+      - generic [ref=e185] [box=45,-770,44,43]: 🍽️
+      - generic [ref=e186] [box=103,-780,331,65]:
+        - generic [ref=e187] [box=103,-780,331,27]
+        - generic [ref=e190] [box=103,-751,331,19]: Siemens · 洗碗机
+        - generic [ref=e191] [box=103,-730,331,14]: "296020399336000022"
+    - button "🍽️ QMT445 在线 Siemens · 洗碗机 80013177660000482616000000827" [ref=e192] [cursor=pointer] [box=475,-797,431,99]:
+      - generic [ref=e193] [box=496,-770,44,43]: 🍽️
+      - generic [ref=e194] [box=554,-779,331,62]:
+        - generic [ref=e195] [box=554,-779,331,24]
+        - generic [ref=e198] [box=554,-752,331,19]: Siemens · 洗碗机
+        - generic [ref=e199] [box=554,-731,331,14]: "80013177660000482616000000827"
+  - generic [ref=e65] [box=24,-667,882,1296]:
+    - generic [ref=e66] [box=24,-667,433,485]:
+      - generic [ref=e67] [box=25,-666,431,62]:
+        - heading "缓存诊断" [level=3] [ref=e68] [box=43,-649,64,20]
+        - generic [ref=e69] [box=210,-652,228,33]
+      - generic [ref=e72] [box=25,-604,431,380]:
+        - generic [ref=e200] [box=43,-586,395,144]
+        - generic [ref=e213] [box=43,-432,395,190]
+    - generic [ref=e103] [box=473,-667,433,485]:
+      - heading "手工导入设备快照" [level=3] [ref=e105] [box=492,-652,128,20]
+      - generic [ref=e106] [box=474,-609,431,426]:
+        - generic [ref=e107] [box=492,-591,395,33]
+        - generic [ref=e112] [box=492,-546,395,72]
+        - 'textbox "支持三种格式： 1. Home Connect 响应：{\"data\":{\"homeappliances\":[...]}} 2. 扁平对象：{\"homeappliances\":[...]} 3. 纯数组：[{\"haId\":\"...\"}]" [ref=e117] [box=492,-462,395,180]':
+          - /placeholder: "支持三种格式：\n1. Home Connect 响应：{\"data\":{\"homeappliances\":[...]}}\n2. 扁平对象：{\"homeappliances\":[...]}\n3. 纯数组：[{\"haId\":\"...\"}]"
+        - generic [ref=e118] [box=492,-270,395,37]: 导入成功后会同时写入浏览器快照和服务端 .appliances-cache.json，即使 Home Connect 继续返回 429，也能先展示这份设备列表。
+    - generic [ref=e120] [box=24,-150,433,542]:
+      - heading "手动设备接入" [level=3] [ref=e122] [box=43,-135,96,20]
+      - generic [ref=e123] [box=25,-92,431,199]:
+        - textbox "输入已知 haId，例如 296010398026007511" [ref=e124] [box=43,-74,395,37]
+        - generic [ref=e125] [box=43,-25,395,33]
+        - generic [ref=e129] [box=43,20,395,37]: 当设备列表接口仍然被 429 限流时，可直接输入已知属于当前账号的 haId，先恢复单台设备的 SSE 监控能力。
+    - generic [ref=e131] [box=473,-150,433,542]:
+      - generic [ref=e132] [box=474,-149,431,62]:
+        - heading "限流判因面板" [level=3] [ref=e133] [box=492,-132,96,20]
+        - button "↻ 刷新判因" [ref=e135] [cursor=pointer] [box=795,-135,92,33]
+      - generic [ref=e136] [box=474,-87,431,478]:
+        - generic [ref=e260] [box=492,-69,395,237]
+        - generic [ref=e277] [box=492,180,395,121]
+        - generic [ref=e289] [box=492,313,395,60]: 当前没有明显限流信号；如果再次出现 429，请优先观察 Retry-After、SSE 通道数和最近 10 分钟错误次数。
+    - generic [ref=e138] [box=24,425,433,188]:
+      - generic [ref=e139] [box=25,426,431,62]:
+        - heading "请求日志" [level=3] [ref=e140] [box=43,442,64,20]
+        - generic [ref=e141] [box=249,440,189,33]
+      - generic [ref=e145] [box=43,506,395,88]:
+        - generic [ref=e146] [box=56,517,369,24]
+        - generic [ref=e150] [box=56,547,369,14]: /homeappliances
+        - generic [ref=e151] [box=56,567,369,16]: 2026/5/12 11:19:06 · 0ms

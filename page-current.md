@@ -1,0 +1,204 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]: 🍽️
+      - generic [ref=e6]:
+        - heading "Home Connect 洗碗机监控" [level=1] [ref=e7]
+        - generic [ref=e8]: 实时设备数据 · Home Connect API
+    - generic [ref=e9]:
+      - generic [ref=e10]: 已认证
+      - button "🔄 刷新" [ref=e12] [cursor=pointer]
+      - button "退出" [ref=e13] [cursor=pointer]
+  - generic [ref=e14]:
+    - generic [ref=e15]:
+      - text: "🔑 Scope:"
+      - strong [ref=e16]: IdentifyAppliance Dishwasher-Monitor
+    - generic [ref=e17]:
+      - text: "⏱ Token 剩余:"
+      - strong [ref=e18]: 23:32:09
+  - generic [ref=e19]:
+    - generic [ref=e20]:
+      - heading "Token 调试面板" [level=3] [ref=e21]
+      - generic [ref=e22]:
+        - button "↻ 刷新状态" [ref=e23] [cursor=pointer]
+        - button "📱 重新登录" [ref=e24] [cursor=pointer]
+        - button "📋 复制 token" [ref=e25] [cursor=pointer]
+        - button "🗑 清空 token" [ref=e26] [cursor=pointer]
+    - generic [ref=e27]:
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - generic [ref=e30]: 认证状态
+          - generic [ref=e32]: 已认证
+          - generic [ref=e34]: "auth_state: authenticated"
+        - generic [ref=e35]:
+          - generic [ref=e36]: 剩余有效期
+          - generic [ref=e37]: 85589 秒
+          - generic [ref=e38]: "obtained_at: 2026/5/12 11:06:28"
+        - generic [ref=e39]:
+          - generic [ref=e40]: Refresh Token
+          - generic [ref=e42]: 有
+          - generic [ref=e44]: "refresh_token_present: true"
+        - generic [ref=e45]:
+          - generic [ref=e46]: Client
+          - generic [ref=e47]: 0717C442...3FCC51
+          - generic [ref=e48]: "redirect_uri: http://localhost:4000/oauth/callback"
+        - generic [ref=e49]:
+          - generic [ref=e50]: Scope
+          - generic [ref=e51]: IdentifyAppliance Dishwasher-Monitor
+          - generic [ref=e52]: 用于确认当前 application 实际授予的权限
+        - generic [ref=e53]:
+          - generic [ref=e54]: Hosts
+          - generic [ref=e55]: api.home-connect.cn
+          - generic [ref=e56]: "auth: api.home-connect.cn · token: api.home-connect.cn"
+      - textbox "当前未拿到 access token" [ref=e57]: eyJ4LWVudiI6IlBSRCIsImFsZyI6IlJTMjU2IiwieC1yZWciOiJHQyIsImtpZCI6InJnYy1wcm9kdWN0aW9uIn0.eyJmZ3JwIjpbXSwiY2x0eSI6InByaXZhdGUiLCJzdWIiOiJiMmVkYzRjZC0zZGMxLTQ4ZDUtOTU0My04YjllNjJlZWFlMDkiLCJhdWQiOiIwNzE3QzQ0MjA3NTk4MzBCM0MyREM2OTAzMUQ2REVGMTlFNzMyREQ3QjQ0MjU0MkNDNjRCMzk0Q0RBM0ZDQzUxIiwic3RhZ2UiOiJQUkQiLCJhenAiOiIwNzE3QzQ0MjA3NTk4MzBCM0MyREM2OTAzMUQ2REVGMTlFNzMyREQ3QjQ0MjU0MkNDNjRCMzk0Q0RBM0ZDQzUxIiwic2NvcGUiOlsiSWRlbnRpZnlBcHBsaWFuY2UiLCJEaXNod2FzaGVyLU1vbml0b3IiXSwiaXNzIjoiR0M6UFJEOjEiLCJleHAiOjE3Nzg2NDE1ODgsInJlZ2lvbiI6IkNOIiwiaWF0IjoxNzc4NTU1MTg4LCJqdGkiOiI1YzIyYmNiNy01YzMwLTQxNDEtYTFjZC04ZWFjOWQ1Yzg1MjkifQ.Ia7HYisu9McBXNOrvFE5t9x-kx15ZKqc5d3zEzZTb9eS50qcQSAk4qPkKnuD47-BncEyOL9axT9czJQHXif2n5c5deeR-aepYXgvglW6RZvonNkmwASjozKj8kTezUOyrTiitJ8nnmroBc6wB2sFFN58WhHcRoL6vS-fCnw_jwUDsfQUHGuNg4mqgoQ_DeNAhnk6zHw4EGlamLtEzJWrIaJFNLprd4XwuGWJLuMxAwEx-IwZCWdLXKGw6GVIV5kIKxtvMInao5gjZHngE07zkvZ92z211wHS5jBaAAQDLleGc4Ix2sSZV4l2Hb8ynCUnOlQNaNeqMnMR3JS6ImQ3dQ
+      - generic [ref=e58]: 此面板只读展示当前本地会话。若需切换 Home Connect application，请手动修改 GetDWinfo/homeconnect.local.json 中的 client_id/client_secret 后重新登录。
+      - generic [ref=e59]: 当前已拿到完整 access token，可直接复制用于对照测试。
+  - heading "我的家电设备" [level=2] [ref=e60]
+  - generic [ref=e61]: 当前展示的是服务端 24 小时缓存的设备清单，更新时间 2026/5/12 11:16:53（3 分钟前）。
+  - generic [ref=e62]:
+    - button "🍽️ 四村 在线 Bosch · 洗碗机 292110537185000204" [ref=e152] [cursor=pointer]:
+      - generic [ref=e153]: 🍽️
+      - generic [ref=e154]:
+        - generic [ref=e155]:
+          - text: 四村
+          - generic [ref=e156]: 在线
+        - generic [ref=e158]: Bosch · 洗碗机
+        - generic [ref=e159]: "292110537185000204"
+    - button "🍽️ 468 离线 Bosch · 洗碗机 296020558686000025" [ref=e160] [cursor=pointer]:
+      - generic [ref=e161]: 🍽️
+      - generic [ref=e162]:
+        - generic [ref=e163]:
+          - text: "468"
+          - generic [ref=e164]: 离线
+        - generic [ref=e166]: Bosch · 洗碗机
+        - generic [ref=e167]: "296020558686000025"
+    - button "🍽️ 内胆测试 在线 Siemens · 洗碗机 296010398026007511" [active] [ref=e168] [cursor=pointer]:
+      - generic [ref=e169]: 🍽️
+      - generic [ref=e170]:
+        - generic [ref=e171]:
+          - text: 内胆测试
+          - generic [ref=e172]: 在线
+        - generic [ref=e174]: Siemens · 洗碗机
+        - generic [ref=e175]: "296010398026007511"
+    - button "🍽️ 洗碗机1 在线 Siemens · 洗碗机 296020399221000038" [ref=e176] [cursor=pointer]:
+      - generic [ref=e177]: 🍽️
+      - generic [ref=e178]:
+        - generic [ref=e179]:
+          - text: 洗碗机1
+          - generic [ref=e180]: 在线
+        - generic [ref=e182]: Siemens · 洗碗机
+        - generic [ref=e183]: "296020399221000038"
+    - button "🍽️ 洗碗机2 离线 Siemens · 洗碗机 296020399336000022" [ref=e184] [cursor=pointer]:
+      - generic [ref=e185]: 🍽️
+      - generic [ref=e186]:
+        - generic [ref=e187]:
+          - text: 洗碗机2
+          - generic [ref=e188]: 离线
+        - generic [ref=e190]: Siemens · 洗碗机
+        - generic [ref=e191]: "296020399336000022"
+    - button "🍽️ QMT445 在线 Siemens · 洗碗机 80013177660000482616000000827" [ref=e192] [cursor=pointer]:
+      - generic [ref=e193]: 🍽️
+      - generic [ref=e194]:
+        - generic [ref=e195]:
+          - text: QMT445
+          - generic [ref=e196]: 在线
+        - generic [ref=e198]: Siemens · 洗碗机
+        - generic [ref=e199]: "80013177660000482616000000827"
+  - generic [ref=e65]:
+    - generic [ref=e66]:
+      - generic [ref=e67]:
+        - heading "缓存诊断" [level=3] [ref=e68]
+        - generic [ref=e69]:
+          - button "导出当前诊断报告" [ref=e70] [cursor=pointer]
+          - button "↻ 刷新诊断" [ref=e71] [cursor=pointer]
+      - generic [ref=e72]:
+        - generic [ref=e200]:
+          - generic [ref=e201]:
+            - generic [ref=e202]: 浏览器快照
+            - generic [ref=e203]: 24h 内有效
+          - generic [ref=e204]:
+            - generic [ref=e205]
+            - generic [ref=e207]
+            - generic [ref=e209]
+            - generic [ref=e211]
+        - generic [ref=e213]:
+          - generic [ref=e214]:
+            - generic [ref=e215]: 服务端磁盘缓存
+            - generic [ref=e216]: 24h 内有效
+          - generic [ref=e217]:
+            - generic [ref=e218]
+            - generic [ref=e220]
+            - generic [ref=e222]
+            - generic [ref=e224]
+            - generic [ref=e226]
+            - generic [ref=e228]
+    - generic [ref=e103]:
+      - heading "手工导入设备快照" [level=3] [ref=e105]
+      - generic [ref=e106]:
+        - generic [ref=e107]:
+          - generic [ref=e108]:
+            - text: 选择 JSON 文件
+            - button "选择 JSON 文件" [ref=e109] [cursor=pointer]
+          - button "导入快照" [ref=e110] [cursor=pointer]
+          - button "清空输入" [ref=e111] [cursor=pointer]
+        - generic [ref=e112]:
+          - button "导出浏览器快照" [ref=e113] [cursor=pointer]
+          - button "导出服务端缓存" [ref=e114] [cursor=pointer]
+          - button "清空浏览器快照" [ref=e115] [cursor=pointer]
+          - button "清空服务端缓存" [ref=e116] [cursor=pointer]
+        - 'textbox "支持三种格式： 1. Home Connect 响应：{\"data\":{\"homeappliances\":[...]}} 2. 扁平对象：{\"homeappliances\":[...]} 3. 纯数组：[{\"haId\":\"...\"}]" [ref=e117]':
+          - /placeholder: "支持三种格式：\n1. Home Connect 响应：{\"data\":{\"homeappliances\":[...]}}\n2. 扁平对象：{\"homeappliances\":[...]}\n3. 纯数组：[{\"haId\":\"...\"}]"
+        - generic [ref=e118]: 导入成功后会同时写入浏览器快照和服务端 .appliances-cache.json，即使 Home Connect 继续返回 429，也能先展示这份设备列表。
+    - generic [ref=e120]:
+      - heading "手动设备接入" [level=3] [ref=e122]
+      - generic [ref=e123]:
+        - textbox "输入已知 haId，例如 296010398026007511" [ref=e124]
+        - generic [ref=e125]:
+          - button "验证并接入" [ref=e126] [cursor=pointer]
+          - button "使用当前选中 haId" [ref=e127] [cursor=pointer]
+          - button "清空当前目标" [ref=e128] [cursor=pointer]
+        - generic [ref=e129]: 当设备列表接口仍然被 429 限流时，可直接输入已知属于当前账号的 haId，先恢复单台设备的 SSE 监控能力。
+    - generic [ref=e131]:
+      - generic [ref=e132]:
+        - heading "限流判因面板" [level=3] [ref=e133]
+        - button "↻ 刷新判因" [ref=e135] [cursor=pointer]
+      - generic [ref=e136]:
+        - generic [ref=e260]:
+          - generic [ref=e261]:
+            - generic [ref=e262]: Retry-After
+            - generic [ref=e263]: 无
+            - generic [ref=e264]: 最近一次 429 的冷却提示
+          - generic [ref=e265]:
+            - generic [ref=e266]: 错误计数
+            - generic [ref=e267]: "0"
+            - generic [ref=e268]: 本地服务启动后的上游错误累计
+          - generic [ref=e269]:
+            - generic [ref=e270]: SSE 通道数
+            - generic [ref=e271]: "0"
+            - generic [ref=e272]: 当前由本地服务代管的上游事件流
+          - generic [ref=e273]:
+            - generic [ref=e274]: 最近 10 分钟错误
+            - generic [ref=e275]: "0"
+            - generic [ref=e276]: 对应官方连续错误惩罚规则观察值
+        - generic [ref=e277]:
+          - generic [ref=e278]:
+            - generic [ref=e279]: 最近一次 429
+            - generic [ref=e280]: 无记录
+          - generic [ref=e281]:
+            - generic [ref=e282]
+            - generic [ref=e284]
+            - generic [ref=e286]
+        - generic [ref=e289]: 当前没有明显限流信号；如果再次出现 429，请优先观察 Retry-After、SSE 通道数和最近 10 分钟错误次数。
+    - generic [ref=e138]:
+      - generic [ref=e139]:
+        - heading "请求日志" [level=3] [ref=e140]
+        - generic [ref=e141]:
+          - button "↻ 刷新日志" [ref=e142] [cursor=pointer]
+          - button "🗑 清空日志" [ref=e143] [cursor=pointer]
+      - generic [ref=e145]:
+        - generic [ref=e146]:
+          - generic [ref=e147]: GET cache
+          - generic [ref=e148]: "200"
+          - generic [ref=e149]: cache-fresh
+        - generic [ref=e150]: /homeappliances
+        - generic [ref=e151]: 2026/5/12 11:19:06 · 0ms

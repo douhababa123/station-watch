@@ -1,0 +1,127 @@
+- generic [ref=e193]:
+  - generic [ref=e194]:
+    - generic [ref=e195]:
+      - heading "内胆测试" [level=2] [ref=e196]
+      - generic [ref=e197]: Siemens · 洗碗机 · 296010398026007511
+    - button "🔄 刷新详情" [ref=e199] [cursor=pointer]
+  - generic [ref=e200]:
+    - button "📋 概览" [ref=e201] [cursor=pointer]
+    - button "📊 状态" [ref=e202] [cursor=pointer]
+    - button "⚙️ 设置" [ref=e203] [cursor=pointer]
+    - button "▶️ 程序" [ref=e204] [cursor=pointer]
+    - button "📡 实时事件" [active] [ref=e205] [cursor=pointer]
+    - button "🗂 原始数据" [ref=e206] [cursor=pointer]
+  - generic [ref=e207]:
+    - generic [ref=e208]:
+      - button "▶ 开始监听" [disabled] [ref=e209]
+      - button "⏹ 停止" [ref=e210] [cursor=pointer]
+      - button "🗑 清空" [ref=e211] [cursor=pointer]
+      - generic [ref=e212]: SSE 已连接
+    - paragraph [ref=e214]: 通过 SSE 实时接收设备推送：STATUS（状态变化）· NOTIFY（选项/剩余时间）· EVENT（程序结束等事件）· CONNECTED / DISCONNECTED（上下线）
+    - generic [ref=e215]:
+      - generic [ref=e216]:
+        - generic [ref=e217]:
+          - generic [ref=e218]: 程序完成
+          - generic [ref=e219]: 未收到
+        - generic [ref=e220]: 未收到
+        - generic [ref=e221]: 洗碗程序已成功完成。
+        - generic [ref=e222]:
+          - generic [ref=e223]: 最后更新时间：未收到
+          - generic [ref=e224]: 来源：暂无
+        - generic [ref=e225]: BSH.Common.Event.ProgramFinished
+      - generic [ref=e226]:
+        - generic [ref=e227]:
+          - generic [ref=e228]: 程序中止
+          - generic [ref=e229]: 未收到
+        - generic [ref=e230]: 未收到
+        - generic [ref=e231]: 洗碗程序被成功取消或中止。
+        - generic [ref=e232]:
+          - generic [ref=e233]: 最后更新时间：未收到
+          - generic [ref=e234]: 来源：暂无
+        - generic [ref=e235]: BSH.Common.Event.ProgramAborted
+      - generic [ref=e236]:
+        - generic [ref=e237]:
+          - generic [ref=e238]: 运行状态
+          - generic [ref=e239]: 未收到
+        - generic [ref=e240]: 未收到
+        - generic [ref=e241]: 设备当前所处的运行阶段。
+        - generic [ref=e242]:
+          - generic [ref=e243]: 最后更新时间：未收到
+          - generic [ref=e244]: 来源：暂无
+        - generic [ref=e245]: BSH.Common.Status.OperationState
+      - generic [ref=e246]:
+        - generic [ref=e247]:
+          - generic [ref=e248]: 剩余时间
+          - generic [ref=e249]: 未收到
+        - generic [ref=e250]: 未收到
+        - generic [ref=e251]: 距离当前程序结束还剩多少时间。
+        - generic [ref=e252]:
+          - generic [ref=e253]: 最后更新时间：未收到
+          - generic [ref=e254]: 来源：暂无
+        - generic [ref=e255]: BSH.Common.Option.RemainingProgramTime
+      - generic [ref=e256]:
+        - generic [ref=e257]:
+          - generic [ref=e258]: 进度百分比
+          - generic [ref=e259]: 未收到
+        - generic [ref=e260]: 未收到
+        - generic [ref=e261]: 当前程序的整体完成百分比。
+        - generic [ref=e262]:
+          - generic [ref=e263]: 最后更新时间：未收到
+          - generic [ref=e264]: 来源：暂无
+        - generic [ref=e265]: BSH.Common.Option.ProgramProgress
+      - generic [ref=e266]:
+        - generic [ref=e267]:
+          - generic [ref=e268]: 门状态
+          - generic [ref=e269]: 未收到
+        - generic [ref=e270]: 未收到
+        - generic [ref=e271]: 洗碗机门当前是打开、关闭还是锁定。
+        - generic [ref=e272]:
+          - generic [ref=e273]: 最后更新时间：未收到
+          - generic [ref=e274]: 来源：暂无
+        - generic [ref=e275]: BSH.Common.Status.DoorState
+      - generic [ref=e276]:
+        - generic [ref=e277]:
+          - generic [ref=e278]: 远程控制激活
+          - generic [ref=e279]: 未收到
+        - generic [ref=e280]: 未收到
+        - generic [ref=e281]: 设备是否允许远程控制。
+        - generic [ref=e282]:
+          - generic [ref=e283]: 最后更新时间：未收到
+          - generic [ref=e284]: 来源：暂无
+        - generic [ref=e285]: BSH.Common.Status.RemoteControlActive
+      - generic [ref=e286]:
+        - generic [ref=e287]:
+          - generic [ref=e288]: 远程启动允许
+          - generic [ref=e289]: 未收到
+        - generic [ref=e290]: 未收到
+        - generic [ref=e291]: 设备当前是否允许远程启动程序。
+        - generic [ref=e292]:
+          - generic [ref=e293]: 最后更新时间：未收到
+          - generic [ref=e294]: 来源：暂无
+        - generic [ref=e295]: BSH.Common.Status.RemoteControlStartAllowed
+      - generic [ref=e296]:
+        - generic [ref=e297]:
+          - generic [ref=e298]: 盐量不足
+          - generic [ref=e299]: 未收到
+        - generic [ref=e300]: 未收到
+        - generic [ref=e301]: 洗碗盐余量偏低，需要补充。
+        - generic [ref=e302]:
+          - generic [ref=e303]: 最后更新时间：未收到
+          - generic [ref=e304]: 来源：暂无
+        - generic [ref=e305]: Dishcare.Dishwasher.Event.SaltNearlyEmpty
+      - generic [ref=e306]:
+        - generic [ref=e307]:
+          - generic [ref=e308]: 漂洗剂不足
+          - generic [ref=e309]: 未收到
+        - generic [ref=e310]: 未收到
+        - generic [ref=e311]: 漂洗剂余量偏低，需要补充。
+        - generic [ref=e312]:
+          - generic [ref=e313]: 最后更新时间：未收到
+          - generic [ref=e314]: 来源：暂无
+        - generic [ref=e315]: Dishcare.Dishwasher.Event.RinseAidNearlyEmpty
+    - group [ref=e316]:
+      - generic "查看全部官方支持项 展开" [ref=e317] [cursor=pointer]
+    - generic [ref=e318]:
+      - generic [ref=e319]: 点击"开始监听"或切换到此页签自动建立 SSE 连接
+      - generic [ref=e320]: "[13:25:49] 正在建立 SSE 连接…"
+      - generic [ref=e321]: "[13:25:49] ✅ SSE 连接建立，等待设备推送…"

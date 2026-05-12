@@ -1,0 +1,4740 @@
+- generic:
+  - generic:
+    - list
+    - region "Notifications alt+T"
+    - generic:
+      - banner:
+        - generic:
+          - generic:
+            - heading [level=1]: Dishwasher Test Dashboard
+            - generic: Live Monitor
+          - generic:
+            - generic:
+              - img
+              - combobox:
+                - generic: All Groups
+                - img
+            - combobox:
+              - generic: All Status
+              - img
+            - generic:
+              - img
+              - textbox:
+                - /placeholder: Search station ID or device SN...
+            - generic:
+              - switch
+              - generic:
+                - img
+                - generic: Hide Disconnected
+            - button:
+              - img
+              - generic: 紧凑
+          - generic:
+            - generic:
+              - img
+              - generic: May 12, 2026, 14:32:11
+      - generic:
+        - complementary:
+          - generic:
+            - paragraph: System Statistics
+            - generic:
+              - generic:
+                - generic:
+                  - paragraph: 总工站数量
+                  - paragraph: "118"
+                - generic:
+                  - img
+              - generic:
+                - generic:
+                  - paragraph: 测试机器数量
+                  - paragraph: "23"
+                - generic:
+                  - img
+              - generic:
+                - generic:
+                  - paragraph: 空余工站
+                  - paragraph: "83"
+                - generic:
+                  - img
+              - generic:
+                - generic:
+                  - paragraph: 维修工站
+                  - paragraph: "12"
+                - generic:
+                  - img
+          - navigation:
+            - button:
+              - generic:
+                - generic:
+                  - generic: A组
+                  - generic: "12"
+                - generic:
+                  - generic: "6"
+                  - generic: "6"
+            - button:
+              - generic:
+                - generic:
+                  - generic: 1组
+                  - generic: "24"
+                - generic:
+                  - generic: "3"
+                  - generic: "13"
+                  - generic: "4"
+                  - generic: "4"
+            - button:
+              - generic:
+                - generic:
+                  - generic: 2组
+                  - generic: "24"
+                - generic:
+                  - generic: "5"
+                  - generic: "15"
+                  - generic: "1"
+                  - generic: "3"
+            - button:
+              - generic:
+                - generic:
+                  - generic: 3组
+                  - generic: "24"
+                - generic:
+                  - generic: "4"
+                  - generic: "14"
+                  - generic: "5"
+                  - generic: "1"
+            - button:
+              - generic:
+                - generic:
+                  - generic: 4组
+                  - generic: "24"
+                - generic:
+                  - generic: "3"
+                  - generic: "14"
+                  - generic: "5"
+                  - generic: "1"
+                  - generic: "1"
+            - button:
+              - generic:
+                - generic:
+                  - generic: V组
+                  - generic: "10"
+                - generic:
+                  - generic: "2"
+                  - generic: "3"
+                  - generic: "3"
+                  - generic: "2"
+          - generic:
+            - generic:
+              - paragraph: Notifications
+              - generic: "10"
+            - generic:
+              - generic:
+                - generic:
+                  - img
+                  - generic: 1-15
+                - paragraph: Station 1-15 completed Magic Daily program
+                - paragraph: 1s ago
+                - button:
+                  - img
+              - generic:
+                - generic:
+                  - img
+                  - generic: 2-23
+                - paragraph: Station 2-23 completed ECO program
+                - paragraph: 1s ago
+                - button:
+                  - img
+              - generic:
+                - generic:
+                  - img
+                  - generic: 1-17
+                - paragraph: Station 1-17 completed Magic Daily program
+                - paragraph: 3s ago
+                - button:
+                  - img
+              - generic:
+                - generic:
+                  - img
+                  - generic: 1-11
+                - paragraph: Station 1-11 completed Magic Daily program
+                - paragraph: 4s ago
+                - button:
+                  - img
+              - generic:
+                - generic:
+                  - img
+                  - generic: 2-05
+                - paragraph: Station 2-5 completed ECO program
+                - paragraph: 6s ago
+                - button:
+                  - img
+              - generic:
+                - generic:
+                  - img
+                  - generic: 3-09
+                - paragraph: Station 3-9 completed Maximum Cleaning program
+                - paragraph: 6s ago
+                - button:
+                  - img
+              - generic:
+                - generic:
+                  - img
+                  - generic: 3-14
+                - paragraph: Station 3-14 completed Maximum Cleaning program
+                - paragraph: 6s ago
+                - button:
+                  - img
+              - generic:
+                - generic:
+                  - img
+                  - generic: 3-15
+                - paragraph: Station 3-15 completed ECO program
+                - paragraph: 7s ago
+                - button:
+                  - img
+              - generic:
+                - generic:
+                  - img
+                  - generic: 1-02
+                - paragraph: Station 1-2 encountered a fault - requires maintenance
+                - paragraph: 12s ago
+                - button:
+                  - img
+              - generic:
+                - generic:
+                  - img
+                  - generic: 2-16
+                - paragraph: Station 2-16 completed Glass Washer program
+                - paragraph: 12s ago
+                - button:
+                  - img
+          - generic:
+            - button:
+              - img
+              - generic: 收起
+        - main:
+          - generic:
+            - generic:
+              - generic:
+                - heading [level=2]: A组
+                - generic: 12 个工位
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: A-9
+                      - generic: Running
+                    - generic: SJ43EB24KC SJ43EB24...C/17
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 10 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "606"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: 日常洗
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: A1
+                      - generic: Completed
+                    - generic: QMT-300 YW133AA.3ZQ
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "150"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: A2
+                      - generic: Completed
+                    - generic: QMT-500 IY698HP.8HB
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "821"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: A3
+                      - generic: Running
+                    - generic: QMT-300 PI571JI.1DC
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 21 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "653"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 77℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 2.0L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: A4
+                      - generic: Running
+                    - generic: QMT-500 CP271YN.1JY
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 37 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "361"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 72℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 2.4L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: A5
+                      - generic: Completed
+                    - generic: WD-Pro YH157XO.0CB
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "21"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: A6
+                      - generic: Completed
+                    - generic: QMT-500 BJ362RH.1SG
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "99"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: ECO
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: A7
+                      - generic: Running
+                    - generic: HD-Max SS566YU.7MP
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 13 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "624"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 81℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 4.2L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: A8
+                      - generic: Completed
+                    - generic: QMT-500 SR544OI.9LW
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "800"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: A10
+                      - generic: Completed
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "192"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: A11
+                      - generic: Running
+                    - generic: QMT-300 AG960TG.0ML
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 6 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "70"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Quick Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 70℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 4.1L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: A12
+                      - generic: Running
+                    - generic: WD-Pro IO831LC.0GS
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 32 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "712"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 64℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 2.8L
+            - generic:
+              - generic:
+                - heading [level=2]: 1组
+                - generic: 24 个工位
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-1
+                      - generic: Idle
+                    - generic: QMT-500 PO665WD.9PB
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "894"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-2
+                      - generic: Fault
+                    - generic: HD-Max TS647QL.1HN
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "21"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Maintenance required
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-3
+                      - generic: Running
+                    - generic: WD-Pro US495YD.9VX
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 13 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "272"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: ECO
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 66℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 3.3L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-4
+                      - generic: Completed
+                    - generic: QMT-300 PV352NY.1PP
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "930"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-5
+                      - generic: Completed
+                    - generic: WD-Pro DA090LZ.6SP
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "791"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-6
+                      - generic: Completed
+                    - generic: HD-Max OP924SX.4SE
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "33"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-7
+                      - generic: Completed
+                    - generic: QMT-500 PD769QC.3AY
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "288"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-8
+                      - generic: Fault
+                    - generic: HD-Max DE739UW.5WN
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "449"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: ECO
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Maintenance required
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-9
+                      - generic: Completed
+                    - generic: QMT-300 FD379NW.8DC
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "169"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-10
+                      - generic: Idle
+                    - generic: HD-Max KS757RA.7TR
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "684"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-11
+                      - generic: Completed
+                    - generic: QMT-300 LY826YU.5XP
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "719"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-12
+                      - generic: Completed
+                    - generic: WD-Pro XE573SO.9HQ
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "367"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-13
+                      - generic: Completed
+                    - generic: QMT-300 XV388GA.8ZR
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "937"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Quick Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-14
+                      - generic: Running
+                    - generic: WD-Pro EJ269KF.0FL
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 17 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "149"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Quick Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 85℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 2.1L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-15
+                      - generic: Completed
+                    - generic: QMT-500 CK223MA.4YG
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "492"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-16
+                      - generic: Running
+                    - generic: QMT-500 GX371QK.6AS
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 3 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "925"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 83℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 2.0L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-17
+                      - generic: Completed
+                    - generic: HD-Max FQ461RN.8WV
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "111"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-18
+                      - generic: Completed
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "346"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-19
+                      - generic: Completed
+                    - generic: QMT-300 QN221UV.4YC
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "794"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-20
+                      - generic: Completed
+                    - generic: QMT-500 YW126EZ.0JC
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "63"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-21
+                      - generic: Idle
+                    - generic: HD-Max YE084GW.2LB
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "206"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-22
+                      - generic: Fault
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "947"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Maintenance required
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-23
+                      - generic: Fault
+                    - generic: QMT-300 ZI140SD.2AY
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "600"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Quick Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Maintenance required
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 1-24
+                      - generic: Idle
+                    - generic: QMT-500 LV420WJ.1JL
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "337"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+            - generic:
+              - generic:
+                - heading [level=2]: 2组
+                - generic: 24 个工位
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-1
+                      - generic: Completed
+                    - generic: WD-Pro JD494MX.2HB
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "976"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-2
+                      - generic: Running
+                    - generic: HD-Max TF910WF.3ZJ
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 34 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "397"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Quick Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 67℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 2.7L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-3
+                      - generic: Completed
+                    - generic: HD-Max WR676JR.8VQ
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "720"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-4
+                      - generic: Completed
+                    - generic: QMT-500 ZU633EH.5IP
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "236"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-5
+                      - generic: Completed
+                    - generic: HD-Max ZR622NZ.0ZX
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "386"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: ECO
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-6
+                      - generic: Running
+                    - generic: QMT-300 WD110FG.2NO
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 31 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "342"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 82℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 3.8L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-7
+                      - generic: Completed
+                    - generic: HD-Max YK495IQ.5IN
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "379"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-8
+                      - generic: Fault
+                    - generic: WD-Pro XW963RW.9JM
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "366"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Maintenance required
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-9
+                      - generic: Running
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 28 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "869"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 69℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 3.2L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-10
+                      - generic: Completed
+                    - generic: HD-Max AY503EL.9CH
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "646"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-11
+                      - generic: Completed
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "388"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-12
+                      - generic: Completed
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "909"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-13
+                      - generic: Completed
+                    - generic: HD-Max WM298NT.5XR
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "296"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Quick Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-14
+                      - generic: Fault
+                    - generic: QMT-300 QG076PI.2GB
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "187"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: ECO
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Maintenance required
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-15
+                      - generic: Completed
+                    - generic: QMT-500 RV095BC.3AV
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "809"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-16
+                      - generic: Completed
+                    - generic: QMT-500 NM823VD.2UY
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "567"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-17
+                      - generic: Completed
+                    - generic: QMT-500 DK758VW.1TC
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "921"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-18
+                      - generic: Running
+                    - generic: HD-Max VP692FM.7LK
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 5 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "499"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 74℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 3.3L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-19
+                      - generic: Idle
+                    - generic: QMT-300 KZ400YN.1BX
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "308"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-20
+                      - generic: Running
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 37 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "135"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 68℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 3.8L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-21
+                      - generic: Completed
+                    - generic: WD-Pro JM594TZ.1TX
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "226"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-22
+                      - generic: Completed
+                    - generic: HD-Max TQ857HW.0PF
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "34"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-23
+                      - generic: Completed
+                    - generic: WD-Pro RB526TJ.1UH
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "961"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: ECO
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 2-24
+                      - generic: Fault
+                    - generic: HD-Max SP830YB.6YF
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "598"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Maintenance required
+            - generic:
+              - generic:
+                - heading [level=2]: 3组
+                - generic: 24 个工位
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-1
+                      - generic: Running
+                    - generic: QMT-500 CK743KE.7FC
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 1h 2m
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "368"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 80℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 3.5L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-2
+                      - generic: Completed
+                    - generic: WD-Pro GT141EU.1JU
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "472"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: ECO
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-3
+                      - generic: Completed
+                    - generic: WD-Pro AL886KG.5BP
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "144"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-4
+                      - generic: Completed
+                    - generic: WD-Pro KP650YB.5QQ
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "837"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-05
+                      - generic: Completed
+                    - generic: SJ45ZB99MC SJ45ZB99...C/26
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "120"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-6
+                      - generic: Idle
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "402"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-7
+                      - generic: Idle
+                    - generic: WD-Pro IP042NJ.6JX
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "567"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-8
+                      - generic: Running
+                    - generic: WD-Pro NP479QY.9RE
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 42 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "452"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 76℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 3.7L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-9
+                      - generic: Completed
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "993"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-10
+                      - generic: Idle
+                    - generic: QMT-300 VY584AJ.8LE
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "538"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-11
+                      - generic: Disconnected
+                    - generic: WD-Pro FU824UO.5BB
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "601"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Connection lost
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-12
+                      - generic: Idle
+                    - generic: WD-Pro NR362RV.7DF
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "497"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-13
+                      - generic: Completed
+                    - generic: HD-Max BT467AD.8FZ
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "893"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: ECO
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-14
+                      - generic: Completed
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "121"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-15
+                      - generic: Completed
+                    - generic: QMT-300 LA545UI.6EN
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "585"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: ECO
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-16
+                      - generic: Completed
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "378"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-17
+                      - generic: Completed
+                    - generic: WD-Pro IV753OG.9SY
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "780"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Quick Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-18
+                      - generic: Completed
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "9"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: ECO
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-19
+                      - generic: Completed
+                    - generic: QMT-300 TC804UO.0RP
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "231"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-20
+                      - generic: Completed
+                    - generic: QMT-500 WD212ZD.8MI
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "132"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-21
+                      - generic: Running
+                    - generic: WD-Pro IK319FK.3MP
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 40 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "990"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 72℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 3.9L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-22
+                      - generic: Running
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 15 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "473"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 74℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 2.8L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-23
+                      - generic: Idle
+                    - generic: HD-Max PE600QS.1FO
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "546"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 3-24
+                      - generic: Completed
+                    - generic: QMT-300 TX706UT.5EM
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "157"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Quick Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+            - generic:
+              - generic:
+                - heading [level=2]: 4组
+                - generic: 24 个工位
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-1
+                      - generic: Completed
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "627"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-2
+                      - generic: Idle
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "988"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-3
+                      - generic: Completed
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "641"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-4
+                      - generic: Completed
+                    - generic: QMT-300 YK744SN.6HF
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "454"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-5
+                      - generic: Running
+                    - generic: QMT-300 RD352YJ.1IB
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 6 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "268"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 81℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 4.5L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-6
+                      - generic: Completed
+                    - generic: HD-Max YX292IX.2NA
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "775"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-7
+                      - generic: Completed
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "687"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-8
+                      - generic: Completed
+                    - generic: QMT-300 QS341AV.7JN
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "517"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Quick Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-9
+                      - generic: Completed
+                    - generic: QMT-500 FS254LU.5EN
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "741"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Quick Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-10
+                      - generic: Running
+                    - generic: WD-Pro ZJ967XD.6ZZ
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 36 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "720"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Quick Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 75℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 3.7L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-11
+                      - generic: Disconnected
+                    - generic: QMT-300 VK666MP.2KR
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "926"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Connection lost
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-12
+                      - generic: Completed
+                    - generic: QMT-300 RM022NR.2JT
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "794"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Quick Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-13
+                      - generic: Completed
+                    - generic: WD-Pro DM567CS.1KL
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "287"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-14
+                      - generic: Completed
+                    - generic: WD-Pro YE026HC.2WR
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "489"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: ECO
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-15
+                      - generic: Idle
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "583"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-16
+                      - generic: Idle
+                    - generic: WD-Pro YG965DS.6QI
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "747"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-17
+                      - generic: Completed
+                    - generic: HD-Max YU158WG.3FG
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "59"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-18
+                      - generic: Idle
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "104"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-19
+                      - generic: Idle
+                    - generic: QMT-500 CL257LR.6EO
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "560"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-20
+                      - generic: Running
+                    - generic: WD-Pro QW966PO.7XA
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 22 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "120"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Maximum Cleaning
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 82℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 2.8L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-21
+                      - generic: Fault
+                    - generic: QMT-500 YA670OM.7JV
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "550"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Maintenance required
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-22
+                      - generic: Completed
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "850"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Quick Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-23
+                      - generic: Completed
+                    - generic: WD-Pro WN451FX.0UG
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "790"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: 4-24
+                      - generic: Completed
+                    - generic: QMT-500 JN136OI.5RA
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "962"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+            - generic:
+              - generic:
+                - heading [level=2]: V组
+                - generic: 10 个工位
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: V-1
+                      - generic: Completed
+                    - generic: HD-Max UL001RB.9CZ
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "779"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: ECO
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: V-2
+                      - generic: Running
+                    - generic: No device assigned
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 25 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "531"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Quick Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 73℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 2.3L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: V-3
+                      - generic: Fault
+                    - generic: HD-Max CH520IH.4QR
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "777"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: ECO
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Maintenance required
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: V-4
+                      - generic: Running
+                    - generic: WD-Pro UE504MT.4JE
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                          - generic: Time remaining
+                        - generic: 20 min
+                      - progressbar
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "147"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: 85℃
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: 3.6L
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: V-5
+                      - generic: Completed
+                    - generic: QMT-300 IT816KM.6EZ
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "818"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Glass Washer
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: V-6
+                      - generic: Fault
+                    - generic: WD-Pro MQ238TB.2JJ
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "132"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: ECO
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Maintenance required
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: V-7
+                      - generic: Completed
+                    - generic: WD-Pro IK263MW.4GM
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "584"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: Magic Daily
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic: Task completed successfully
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: V-8
+                      - generic: Idle
+                    - generic: HD-Max PN115CZ.5SB
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "46"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: V-9
+                      - generic: Idle
+                    - generic: QMT-500 LA343CL.4XK
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "396"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                    - generic:
+                      - generic: V-10
+                      - generic: Idle
+                    - generic: WD-Pro DU492NB.1ML
+                    - generic:
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Cycles
+                          - generic: "485"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Program
+                          - generic: None
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Temp
+                          - generic: "--"
+                      - generic:
+                        - generic:
+                          - img
+                        - generic:
+                          - generic: Inflow
+                          - generic: "--"
+                    - generic:
+                      - generic: i
+                      - text: Station free - ready for new task
+  - dialog "A-9" [ref=e7517]:
+    - generic [ref=e7518]:
+      - generic [ref=e7519]:
+        - generic [ref=e7520]:
+          - heading "A-9" [level=2] [ref=e7521]
+          - paragraph [ref=e7522]: Group A Â· SJ43EB24KC Â· B24KC/17
+        - generic [ref=e7523]:
+          - generic [ref=e7524]: Home Connect
+          - generic [ref=e7525]: Running
+      - generic [ref=e7531]:
+        - img "running station animation"
+      - generic [ref=e7533]:
+        - generic [ref=e7534]: Progress
+        - generic [ref=e7535]: 93%
+    - generic [ref=e7538]:
+      - generic [ref=e7539]:
+        - paragraph [ref=e7540]: Live Metrics
+        - generic [ref=e7541]:
+          - generic [ref=e7542]:
+            - img [ref=e7544]
+            - generic [ref=e7547]:
+              - paragraph [ref=e7548]: Cycles
+              - paragraph [ref=e7549]: "606"
+          - generic [ref=e7550]:
+            - img [ref=e7552]
+            - generic [ref=e7563]:
+              - paragraph [ref=e7564]: Program
+              - paragraph [ref=e7565]: 日常洗
+          - generic [ref=e7566]:
+            - img [ref=e7568]
+            - generic [ref=e7570]:
+              - paragraph [ref=e7571]: Temperature
+              - paragraph [ref=e7572]: "--"
+          - generic [ref=e7573]:
+            - img [ref=e7575]
+            - generic [ref=e7578]:
+              - paragraph [ref=e7579]: Inflow
+              - paragraph [ref=e7580]: "--"
+          - generic [ref=e7581]:
+            - img [ref=e7583]
+            - generic [ref=e7586]:
+              - paragraph [ref=e7587]: Time Remaining
+              - paragraph [ref=e7588]: 10 min
+          - generic [ref=e7589]:
+            - img [ref=e7591]
+            - generic [ref=e7595]:
+              - paragraph [ref=e7596]: Total Time
+              - paragraph [ref=e7597]: 143 min
+      - generic [ref=e7598]:
+        - paragraph [ref=e7599]: Device Info
+        - generic [ref=e7600]:
+          - generic [ref=e7601]:
+            - img [ref=e7602]
+            - generic [ref=e7605]: Station ID
+            - generic [ref=e7606]: A09
+          - generic [ref=e7607]:
+            - img [ref=e7608]
+            - generic [ref=e7611]: Device Model
+            - generic [ref=e7612]: SJ43EB24KC
+          - generic [ref=e7613]:
+            - img [ref=e7614]
+            - generic [ref=e7617]: Device SN
+            - generic [ref=e7618]: SJ43EB24KC/17
+          - generic [ref=e7619]:
+            - img [ref=e7620]
+            - generic [ref=e7622]: Last Updated
+            - generic [ref=e7623]: May 12, 2026, 02:31 PM
+      - generic [ref=e7624]:
+        - paragraph [ref=e7626]: Controls
+        - generic [ref=e7627]: This station is bound to a live Home Connect appliance. Status, program, and remaining time are synchronized automatically and cannot be edited here.
+    - button "Close" [active] [ref=e7628] [cursor=pointer]:
+      - img [ref=e7629]
+      - generic [ref=e7632]: Close

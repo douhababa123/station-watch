@@ -1,0 +1,19 @@
+6 个 Home Connect 账号，每个账号绑定 9 台设备
+每个账号开 9 个 SSE 连接（< 10 的上限）
+初始加载时串行分批，不要全部并发，避免超过 50次/分钟限制
+用一个 OAuth Client（同一个应用），6 个不同的用户账号
+或者，如果这是 Bosch 内部项目，可以联系 Home Connect 官方申请提高配额限制。
+官方文档（api-docs.home-connect.com/general#rate-limiting）的限速政策如下：
+Home Connect API 访问限制政策
+基于数量（Amount-based）— 无 Retry-After 头
+限制 说明
+每秒 10 次（突发最多 20） 超出返回 429，漏桶算法
+最多 10 个事件监控通道 同一 client + 账户同时在线
+基于时间（Time-based）— 有 Retry-After 响应头（单位：秒）
+限制 说明
+每分钟 50 次请求 超出则封禁整整 1 分钟
+每天 1000 次请求 每 client + 用户账户
+每分钟 10 次 Token 刷新 每天最多 100 次
+每分钟 5 次启动程序 超出封禁 1 分钟
+每分钟 5 次停止程序 超出封禁 1 分钟
+10 分钟内连续 10 次错误请求 封禁 10 分钟

@@ -1,0 +1,946 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - heading "Dishwasher Test Dashboard" [level=1] [ref=e7]
+          - generic [ref=e8]: Live Monitor
+        - generic [ref=e9]:
+          - generic [ref=e10]:
+            - img [ref=e11]
+            - combobox [ref=e13] [cursor=pointer]:
+              - generic: All Groups
+              - img [ref=e14]
+          - combobox [ref=e16] [cursor=pointer]:
+            - generic: All Status
+            - img [ref=e17]
+          - generic [ref=e19]:
+            - img [ref=e20]
+            - textbox "Search station ID or device SN..." [ref=e23]
+          - generic [ref=e24]:
+            - switch [ref=e25] [cursor=pointer]
+            - generic [ref=e26]:
+              - img [ref=e27]
+              - generic [ref=e30]: Hide Disconnected
+          - button "紧凑" [ref=e31] [cursor=pointer]:
+            - img
+            - generic [ref=e32]: 紧凑
+        - generic [ref=e34]:
+          - img [ref=e35]
+          - generic [ref=e38]: May 12, 2026, 14:31:53
+    - generic [ref=e39]:
+      - complementary [ref=e40]:
+        - generic [ref=e41]:
+          - paragraph [ref=e42]: System Statistics
+          - generic [ref=e43]:
+            - generic [ref=e44]:
+              - generic [ref=e45]:
+                - paragraph [ref=e46]: 总工站数量
+                - paragraph [ref=e47]: "118"
+              - img [ref=e49]
+            - generic [ref=e53]:
+              - generic [ref=e54]:
+                - paragraph [ref=e55]: 测试机器数量
+                - paragraph [ref=e56]: "35"
+              - img [ref=e58]
+            - generic [ref=e69]:
+              - generic [ref=e70]:
+                - paragraph [ref=e71]: 空余工站
+                - paragraph [ref=e72]: "73"
+              - img [ref=e74]
+            - generic [ref=e77]:
+              - generic [ref=e78]:
+                - paragraph [ref=e79]: 维修工站
+                - paragraph [ref=e80]: "10"
+              - img [ref=e82]
+        - navigation [ref=e84]:
+          - button "A组 12 6 6" [ref=e7395] [cursor=pointer]:
+            - generic [ref=e86]:
+              - generic [ref=e87]:
+                - generic [ref=e88]: A组
+                - generic [ref=e89]: "12"
+              - generic [ref=e90]:
+                - generic [ref=e91]: "6"
+                - generic [ref=e7226]: "6"
+          - button "1组 24 7 10 4 3" [ref=e7396] [cursor=pointer]:
+            - generic [ref=e94]:
+              - generic [ref=e95]:
+                - generic [ref=e96]: 1组
+                - generic [ref=e97]: "24"
+              - generic [ref=e98]:
+                - generic [ref=e99]: "7"
+                - generic [ref=e101]: "10"
+                - generic [ref=e103]: "4"
+                - generic [ref=e7229]: "3"
+          - button "2组 24 9 12 1 2" [ref=e7397] [cursor=pointer]:
+            - generic [ref=e106]:
+              - generic [ref=e107]:
+                - generic [ref=e108]: 2组
+                - generic [ref=e109]: "24"
+              - generic [ref=e110]:
+                - generic [ref=e111]: "9"
+                - generic [ref=e113]: "12"
+                - generic [ref=e115]: "1"
+                - generic [ref=e117]: "2"
+          - button "3组 24 8 10 5 1" [ref=e7398] [cursor=pointer]:
+            - generic [ref=e120]:
+              - generic [ref=e121]:
+                - generic [ref=e122]: 3组
+                - generic [ref=e123]: "24"
+              - generic [ref=e124]:
+                - generic [ref=e125]: "8"
+                - generic [ref=e127]: "10"
+                - generic [ref=e129]: "5"
+                - generic [ref=e131]: "1"
+          - button "4组 24 3 14 5 1 1" [ref=e7233] [cursor=pointer]:
+            - generic [ref=e134]:
+              - generic [ref=e135]:
+                - generic [ref=e136]: 4组
+                - generic [ref=e137]: "24"
+              - generic [ref=e138]:
+                - generic [ref=e139]: "3"
+                - generic [ref=e141]: "14"
+                - generic [ref=e143]: "5"
+                - generic [ref=e145]: "1"
+                - generic [ref=e147]: "1"
+          - button "V组 10 2 3 3 2" [ref=e7234] [cursor=pointer]:
+            - generic [ref=e150]:
+              - generic [ref=e151]:
+                - generic [ref=e152]: V组
+                - generic [ref=e153]: "10"
+              - generic [ref=e154]:
+                - generic [ref=e155]: "2"
+                - generic [ref=e157]: "3"
+                - generic [ref=e159]: "3"
+                - generic [ref=e161]: "2"
+        - generic [ref=e163]:
+          - generic [ref=e164]:
+            - paragraph [ref=e165]: Notifications
+            - generic [ref=e166]: "10"
+          - generic [ref=e167]:
+            - generic [ref=e7399]:
+              - generic [ref=e7400]:
+                - img [ref=e7401]
+                - generic [ref=e7404]: 1-13
+              - paragraph [ref=e7405]: Station 1-13 completed Quick Washer program
+              - paragraph [ref=e7406]: 1s ago
+              - button [ref=e7407] [cursor=pointer]:
+                - img [ref=e7408]
+            - generic [ref=e7411]:
+              - generic [ref=e7412]:
+                - img [ref=e7413]
+                - generic [ref=e7416]: 1-06
+              - paragraph [ref=e7417]: Station 1-6 completed Glass Washer program
+              - paragraph [ref=e7418]: 4s ago
+              - button [ref=e7419] [cursor=pointer]:
+                - img [ref=e7420]
+            - generic [ref=e7423]:
+              - generic [ref=e7424]:
+                - img [ref=e7425]
+                - generic [ref=e7428]: 3-24
+              - paragraph [ref=e7429]: Station 3-24 completed Quick Washer program
+              - paragraph [ref=e7430]: 4s ago
+              - button [ref=e7431] [cursor=pointer]:
+                - img [ref=e7432]
+            - generic [ref=e7435]:
+              - generic [ref=e7436]:
+                - img [ref=e7437]
+                - generic [ref=e7440]: 3-20
+              - paragraph [ref=e7441]: Station 3-20 completed Glass Washer program
+              - paragraph [ref=e7442]: 7s ago
+              - button [ref=e7443] [cursor=pointer]:
+                - img [ref=e7444]
+            - generic [ref=e7447]:
+              - generic [ref=e7448]:
+                - img [ref=e7449]
+                - generic [ref=e7452]: 1-12
+              - paragraph [ref=e7453]: Station 1-12 completed Magic Daily program
+              - paragraph [ref=e7454]: 8s ago
+              - button [ref=e7455] [cursor=pointer]:
+                - img [ref=e7456]
+            - generic [ref=e7459]:
+              - generic [ref=e7460]:
+                - img [ref=e7461]
+                - generic [ref=e7464]: 3-04
+              - paragraph [ref=e7465]: Station 3-4 completed Magic Daily program
+              - paragraph [ref=e7466]: 8s ago
+              - button [ref=e7467] [cursor=pointer]:
+                - img [ref=e7468]
+            - generic [ref=e7471]:
+              - generic [ref=e7472]:
+                - img [ref=e7473]
+                - generic [ref=e7476]: A10
+              - paragraph [ref=e7477]: Station A10 completed Maximum Cleaning program
+              - paragraph [ref=e7478]: 11s ago
+              - button [ref=e7479] [cursor=pointer]:
+                - img [ref=e7480]
+            - generic [ref=e7483]:
+              - generic [ref=e7484]:
+                - img [ref=e7485]
+                - generic [ref=e7488]: 2-12
+              - paragraph [ref=e7489]: Station 2-12 completed Glass Washer program
+              - paragraph [ref=e7490]: 11s ago
+              - button [ref=e7491] [cursor=pointer]:
+                - img [ref=e7492]
+            - generic [ref=e7495]:
+              - generic [ref=e7496]:
+                - img [ref=e7497]
+                - generic [ref=e7500]: 2-13
+              - paragraph [ref=e7501]: Station 2-13 completed Quick Washer program
+              - paragraph [ref=e7502]: 14s ago
+              - button [ref=e7503] [cursor=pointer]:
+                - img [ref=e7504]
+            - generic [ref=e7235]:
+              - generic [ref=e7236]:
+                - img [ref=e7237]
+                - generic [ref=e7240]: 2-03
+              - paragraph [ref=e7241]: Station 2-3 completed Glass Washer program
+              - paragraph [ref=e7242]: 19s ago
+              - button [ref=e7243] [cursor=pointer]:
+                - img [ref=e7244]
+        - button "收起" [ref=e174] [cursor=pointer]:
+          - img [ref=e175]
+          - generic [ref=e177]: 收起
+      - main [ref=e178]:
+        - generic [ref=e179]:
+          - generic [ref=e180]:
+            - generic [ref=e181]:
+              - heading "A组" [level=2] [ref=e182]
+              - generic [ref=e183]: 12 个工位
+            - generic [ref=e185]:
+              - generic [ref=e683] [cursor=pointer]:
+                - generic [ref=e686]
+                - generic [ref=e687]
+                - generic [ref=e693]: SJ43EB24KC SJ43EB24...C/17
+                - generic [ref=e694]
+                - generic [ref=e704]
+              - generic [ref=e187] [cursor=pointer]:
+                - generic [ref=e190]
+                - generic [ref=e191]
+                - generic [ref=e197]: QMT-300 YW133AA.3ZQ
+                - generic [ref=e208]
+                - generic [ref=e7354]: Task completed successfully
+              - generic [ref=e249] [cursor=pointer]:
+                - generic [ref=e252]
+                - generic [ref=e253]
+                - generic [ref=e259]: QMT-500 IY698HP.8HB
+                - generic [ref=e270]
+                - generic [ref=e7355]: Task completed successfully
+              - generic [ref=e311] [cursor=pointer]:
+                - generic [ref=e314]
+                - generic [ref=e315]
+                - generic [ref=e321]: QMT-300 PI571JI.1DC
+                - generic [ref=e322]
+                - generic [ref=e332]
+              - generic [ref=e373] [cursor=pointer]:
+                - generic [ref=e376]
+                - generic [ref=e377]
+                - generic [ref=e383]: QMT-500 CP271YN.1JY
+                - generic [ref=e384]
+                - generic [ref=e394]
+              - generic [ref=e435] [cursor=pointer]:
+                - generic [ref=e438]
+                - generic [ref=e439]
+                - generic [ref=e445]: WD-Pro YH157XO.0CB
+                - generic [ref=e456]
+                - generic [ref=e7356]: Task completed successfully
+              - generic [ref=e497] [cursor=pointer]:
+                - generic [ref=e500]
+                - generic [ref=e501]
+                - generic [ref=e507]: QMT-500 BJ362RH.1SG
+                - generic [ref=e518]
+                - generic [ref=e7357]: Task completed successfully
+              - generic [ref=e559] [cursor=pointer]:
+                - generic [ref=e562]
+                - generic [ref=e563]
+                - generic [ref=e569]: HD-Max SS566YU.7MP
+                - generic [ref=e570]
+                - generic [ref=e580]
+              - generic [ref=e621] [cursor=pointer]:
+                - generic [ref=e624]
+                - generic [ref=e625]
+                - generic [ref=e631]: QMT-500 SR544OI.9LW
+                - generic [ref=e642]
+                - generic [ref=e7358]: Task completed successfully
+              - generic [ref=e745] [cursor=pointer]:
+                - generic [ref=e748]
+                - generic [ref=e749]
+                - generic [ref=e755]: No device assigned
+                - generic [ref=e766]
+                - generic [ref=e7507]: Task completed successfully
+              - generic [ref=e807] [cursor=pointer]:
+                - generic [ref=e810]
+                - generic [ref=e811]
+                - generic [ref=e817]: QMT-300 AG960TG.0ML
+                - generic [ref=e818]
+                - generic [ref=e828]
+              - generic [ref=e869] [cursor=pointer]:
+                - generic [ref=e872]
+                - generic [ref=e873]
+                - generic [ref=e879]: WD-Pro IO831LC.0GS
+                - generic [ref=e880]
+                - generic [ref=e890]
+          - generic [ref=e930]:
+            - generic [ref=e931]:
+              - heading "1组" [level=2] [ref=e932]
+              - generic [ref=e933]: 24 个工位
+            - generic [ref=e935]:
+              - generic [ref=e937] [cursor=pointer]:
+                - generic [ref=e940]
+                - generic [ref=e941]
+                - generic [ref=e946]: QMT-500 PO665WD.9PB
+                - generic [ref=e947]
+                - generic [ref=e987]
+              - generic [ref=e990] [cursor=pointer]:
+                - generic [ref=e993]
+                - generic [ref=e994]
+                - generic [ref=e1000]: HD-Max TS647QL.1HN
+                - generic [ref=e1001]
+                - generic [ref=e1011]
+              - generic [ref=e1052] [cursor=pointer]:
+                - generic [ref=e1055]
+                - generic [ref=e1056]
+                - generic [ref=e1062]: WD-Pro US495YD.9VX
+                - generic [ref=e1063]
+                - generic [ref=e1073]
+              - generic [ref=e1114] [cursor=pointer]:
+                - generic [ref=e1117]
+                - generic [ref=e1118]
+                - generic [ref=e1124]: QMT-300 PV352NY.1PP
+                - generic [ref=e1135]
+                - generic [ref=e7359]: Task completed successfully
+              - generic [ref=e1176] [cursor=pointer]:
+                - generic [ref=e1179]
+                - generic [ref=e1180]
+                - generic [ref=e1186]: WD-Pro DA090LZ.6SP
+                - generic [ref=e1197]
+                - generic [ref=e7360]: Task completed successfully
+              - generic [ref=e1238] [cursor=pointer]:
+                - generic [ref=e1241]
+                - generic [ref=e1242]
+                - generic [ref=e1248]: HD-Max OP924SX.4SE
+                - generic [ref=e1259]
+                - generic [ref=e7508]: Task completed successfully
+              - generic [ref=e1300] [cursor=pointer]:
+                - generic [ref=e1303]
+                - generic [ref=e1304]
+                - generic [ref=e1310]: QMT-500 PD769QC.3AY
+                - generic [ref=e1321]
+                - generic [ref=e7361]: Task completed successfully
+              - generic [ref=e1362] [cursor=pointer]:
+                - generic [ref=e1365]
+                - generic [ref=e1366]
+                - generic [ref=e1372]: HD-Max DE739UW.5WN
+                - generic [ref=e1383]
+                - generic [ref=e7362]: Maintenance required
+              - generic [ref=e1424] [cursor=pointer]:
+                - generic [ref=e1427]
+                - generic [ref=e1428]
+                - generic [ref=e1433]: QMT-300 FD379NW.8DC
+                - generic [ref=e1434]
+                - generic [ref=e1474]: Task completed successfully
+              - generic [ref=e1476] [cursor=pointer]:
+                - generic [ref=e1479]
+                - generic [ref=e1480]
+                - generic [ref=e1485]: HD-Max KS757RA.7TR
+                - generic [ref=e1486]
+                - generic [ref=e1526]
+              - generic [ref=e1529] [cursor=pointer]:
+                - generic [ref=e1532]
+                - generic [ref=e1533]
+                - generic [ref=e1539]: QMT-300 LY826YU.5XP
+                - generic [ref=e1540]
+                - generic [ref=e1550]
+              - generic [ref=e1591] [cursor=pointer]:
+                - generic [ref=e1594]
+                - generic [ref=e1595]
+                - generic [ref=e1601]: WD-Pro XE573SO.9HQ
+                - generic [ref=e1612]
+                - generic [ref=e7509]: Task completed successfully
+              - generic [ref=e1653] [cursor=pointer]:
+                - generic [ref=e1656]
+                - generic [ref=e1657]
+                - generic [ref=e1663]: QMT-300 XV388GA.8ZR
+                - generic [ref=e1674]
+                - generic [ref=e7510]: Task completed successfully
+              - generic [ref=e1715] [cursor=pointer]:
+                - generic [ref=e1718]
+                - generic [ref=e1719]
+                - generic [ref=e1725]: WD-Pro EJ269KF.0FL
+                - generic [ref=e1726]
+                - generic [ref=e1736]
+              - generic [ref=e1777] [cursor=pointer]:
+                - generic [ref=e1780]
+                - generic [ref=e1781]
+                - generic [ref=e1787]: QMT-500 CK223MA.4YG
+                - generic [ref=e1788]
+                - generic [ref=e1798]
+              - generic [ref=e1839] [cursor=pointer]:
+                - generic [ref=e1842]
+                - generic [ref=e1843]
+                - generic [ref=e1849]: QMT-500 GX371QK.6AS
+                - generic [ref=e1850]
+                - generic [ref=e1860]
+              - generic [ref=e1901] [cursor=pointer]:
+                - generic [ref=e1904]
+                - generic [ref=e1905]
+                - generic [ref=e1911]: HD-Max FQ461RN.8WV
+                - generic [ref=e1912]
+                - generic [ref=e1922]
+              - generic [ref=e1963] [cursor=pointer]:
+                - generic [ref=e1966]
+                - generic [ref=e1967]
+                - generic [ref=e1973]: No device assigned
+                - generic [ref=e1984]
+                - generic [ref=e7363]: Task completed successfully
+              - generic [ref=e2025] [cursor=pointer]:
+                - generic [ref=e2028]
+                - generic [ref=e2029]
+                - generic [ref=e2035]: QMT-300 QN221UV.4YC
+                - generic [ref=e2046]
+                - generic [ref=e7364]: Task completed successfully
+              - generic [ref=e2087] [cursor=pointer]:
+                - generic [ref=e2090]
+                - generic [ref=e2091]
+                - generic [ref=e2096]: QMT-500 YW126EZ.0JC
+                - generic [ref=e2097]
+                - generic [ref=e2137]: Task completed successfully
+              - generic [ref=e2139] [cursor=pointer]:
+                - generic [ref=e2142]
+                - generic [ref=e2143]
+                - generic [ref=e2148]: HD-Max YE084GW.2LB
+                - generic [ref=e2149]
+                - generic [ref=e2189]
+              - generic [ref=e2192] [cursor=pointer]:
+                - generic [ref=e2195]
+                - generic [ref=e2196]
+                - generic [ref=e2202]: No device assigned
+                - generic [ref=e2213]
+                - generic [ref=e7365]: Maintenance required
+              - generic [ref=e2254] [cursor=pointer]:
+                - generic [ref=e2257]
+                - generic [ref=e2258]
+                - generic [ref=e2264]: QMT-300 ZI140SD.2AY
+                - generic [ref=e2275]
+                - generic [ref=e7366]: Maintenance required
+              - generic [ref=e2316] [cursor=pointer]:
+                - generic [ref=e2319]
+                - generic [ref=e2320]
+                - generic [ref=e2325]: QMT-500 LV420WJ.1JL
+                - generic [ref=e2326]
+                - generic [ref=e2366]
+          - generic [ref=e2368]:
+            - generic [ref=e2369]:
+              - heading "2组" [level=2] [ref=e2370]
+              - generic [ref=e2371]: 24 个工位
+            - generic [ref=e2373]:
+              - generic [ref=e2375] [cursor=pointer]:
+                - generic [ref=e2378]
+                - generic [ref=e2379]
+                - generic [ref=e2385]: WD-Pro JD494MX.2HB
+                - generic [ref=e2396]
+                - generic [ref=e7367]: Task completed successfully
+              - generic [ref=e2437] [cursor=pointer]:
+                - generic [ref=e2440]
+                - generic [ref=e2441]
+                - generic [ref=e2447]: HD-Max TF910WF.3ZJ
+                - generic [ref=e2448]
+                - generic [ref=e2458]
+              - generic [ref=e2499] [cursor=pointer]:
+                - generic [ref=e2502]
+                - generic [ref=e2503]
+                - generic [ref=e2509]: HD-Max WR676JR.8VQ
+                - generic [ref=e2520]
+                - generic [ref=e7368]: Task completed successfully
+              - generic [ref=e2561] [cursor=pointer]:
+                - generic [ref=e2564]
+                - generic [ref=e2565]
+                - generic [ref=e2571]: QMT-500 ZU633EH.5IP
+                - generic [ref=e2582]
+                - generic [ref=e7369]: Task completed successfully
+              - generic [ref=e2623] [cursor=pointer]:
+                - generic [ref=e2626]
+                - generic [ref=e2627]
+                - generic [ref=e2633]: HD-Max ZR622NZ.0ZX
+                - generic [ref=e2634]
+                - generic [ref=e2644]
+              - generic [ref=e2685] [cursor=pointer]:
+                - generic [ref=e2688]
+                - generic [ref=e2689]
+                - generic [ref=e2695]: QMT-300 WD110FG.2NO
+                - generic [ref=e2696]
+                - generic [ref=e2706]
+              - generic [ref=e2747] [cursor=pointer]:
+                - generic [ref=e2750]
+                - generic [ref=e2751]
+                - generic [ref=e2757]: HD-Max YK495IQ.5IN
+                - generic [ref=e2768]
+                - generic [ref=e7370]: Task completed successfully
+              - generic [ref=e2809] [cursor=pointer]:
+                - generic [ref=e2812]
+                - generic [ref=e2813]
+                - generic [ref=e2819]: WD-Pro XW963RW.9JM
+                - generic [ref=e2820]
+                - generic [ref=e2860]: Maintenance required
+              - generic [ref=e2862] [cursor=pointer]:
+                - generic [ref=e2865]
+                - generic [ref=e2866]
+                - generic [ref=e2872]: No device assigned
+                - generic [ref=e2873]
+                - generic [ref=e2883]
+              - generic [ref=e2924] [cursor=pointer]:
+                - generic [ref=e2927]
+                - generic [ref=e2928]
+                - generic [ref=e2934]: HD-Max AY503EL.9CH
+                - generic [ref=e2945]
+                - generic [ref=e7371]: Task completed successfully
+              - generic [ref=e2986] [cursor=pointer]:
+                - generic [ref=e2989]
+                - generic [ref=e2990]
+                - generic [ref=e2996]: No device assigned
+                - generic [ref=e3007]
+                - generic [ref=e7372]: Task completed successfully
+              - generic [ref=e3048] [cursor=pointer]:
+                - generic [ref=e3051]
+                - generic [ref=e3052]
+                - generic [ref=e3058]: No device assigned
+                - generic [ref=e3069]
+                - generic [ref=e7511]: Task completed successfully
+              - generic [ref=e3110] [cursor=pointer]:
+                - generic [ref=e3113]
+                - generic [ref=e3114]
+                - generic [ref=e3120]: HD-Max WM298NT.5XR
+                - generic [ref=e3131]
+                - generic [ref=e7512]: Task completed successfully
+              - generic [ref=e3172] [cursor=pointer]:
+                - generic [ref=e3175]
+                - generic [ref=e3176]
+                - generic [ref=e3182]: QMT-300 QG076PI.2GB
+                - generic [ref=e3183]
+                - generic [ref=e3193]
+              - generic [ref=e3234] [cursor=pointer]:
+                - generic [ref=e3237]
+                - generic [ref=e3238]
+                - generic [ref=e3244]: QMT-500 RV095BC.3AV
+                - generic [ref=e3255]
+                - generic [ref=e7373]: Task completed successfully
+              - generic [ref=e3296] [cursor=pointer]:
+                - generic [ref=e3299]
+                - generic [ref=e3300]
+                - generic [ref=e3306]: QMT-500 NM823VD.2UY
+                - generic [ref=e3307]
+                - generic [ref=e3317]
+              - generic [ref=e3358] [cursor=pointer]:
+                - generic [ref=e3361]
+                - generic [ref=e3362]
+                - generic [ref=e3368]: QMT-500 DK758VW.1TC
+                - generic [ref=e3379]
+                - generic [ref=e7374]: Task completed successfully
+              - generic [ref=e3420] [cursor=pointer]:
+                - generic [ref=e3423]
+                - generic [ref=e3424]
+                - generic [ref=e3430]: HD-Max VP692FM.7LK
+                - generic [ref=e3431]
+                - generic [ref=e3441]
+              - generic [ref=e3482] [cursor=pointer]:
+                - generic [ref=e3485]
+                - generic [ref=e3486]
+                - generic [ref=e3491]: QMT-300 KZ400YN.1BX
+                - generic [ref=e3492]
+                - generic [ref=e3532]
+              - generic [ref=e3535] [cursor=pointer]:
+                - generic [ref=e3538]
+                - generic [ref=e3539]
+                - generic [ref=e3545]: No device assigned
+                - generic [ref=e3546]
+                - generic [ref=e3556]
+              - generic [ref=e3597] [cursor=pointer]:
+                - generic [ref=e3600]
+                - generic [ref=e3601]
+                - generic [ref=e3606]: WD-Pro JM594TZ.1TX
+                - generic [ref=e3607]
+                - generic [ref=e3647]: Task completed successfully
+              - generic [ref=e3649] [cursor=pointer]:
+                - generic [ref=e3652]
+                - generic [ref=e3653]
+                - generic [ref=e3659]: HD-Max TQ857HW.0PF
+                - generic [ref=e3670]
+                - generic [ref=e7375]: Task completed successfully
+              - generic [ref=e3711] [cursor=pointer]:
+                - generic [ref=e3714]
+                - generic [ref=e3715]
+                - generic [ref=e3721]: WD-Pro RB526TJ.1UH
+                - generic [ref=e3722]
+                - generic [ref=e3732]
+              - generic [ref=e3773] [cursor=pointer]:
+                - generic [ref=e3776]
+                - generic [ref=e3777]
+                - generic [ref=e3783]: HD-Max SP830YB.6YF
+                - generic [ref=e3784]
+                - generic [ref=e3824]: Maintenance required
+          - generic [ref=e3825]:
+            - generic [ref=e3826]:
+              - heading "3组" [level=2] [ref=e3827]
+              - generic [ref=e3828]: 24 个工位
+            - generic [ref=e3830]:
+              - generic [ref=e3832] [cursor=pointer]:
+                - generic [ref=e3835]
+                - generic [ref=e3836]
+                - generic [ref=e3842]: QMT-500 CK743KE.7FC
+                - generic [ref=e3843]
+                - generic [ref=e3853]
+              - generic [ref=e3894] [cursor=pointer]:
+                - generic [ref=e3897]
+                - generic [ref=e3898]
+                - generic [ref=e3904]: WD-Pro GT141EU.1JU
+                - generic [ref=e3915]
+                - generic [ref=e7376]: Task completed successfully
+              - generic [ref=e3956] [cursor=pointer]:
+                - generic [ref=e3959]
+                - generic [ref=e3960]
+                - generic [ref=e3966]: WD-Pro AL886KG.5BP
+                - generic [ref=e3977]
+                - generic [ref=e7377]: Task completed successfully
+              - generic [ref=e4018] [cursor=pointer]:
+                - generic [ref=e4021]
+                - generic [ref=e4022]
+                - generic [ref=e4028]: WD-Pro KP650YB.5QQ
+                - generic [ref=e4039]
+                - generic [ref=e7513]: Task completed successfully
+              - generic [ref=e4080] [cursor=pointer]:
+                - generic [ref=e4083]
+                - generic [ref=e4084]
+                - generic [ref=e4090]: SJ45ZB99MC SJ45ZB99...C/26
+                - generic [ref=e4101]
+                - generic [ref=e7378]: Task completed successfully
+              - generic [ref=e4142] [cursor=pointer]:
+                - generic [ref=e4145]
+                - generic [ref=e4146]
+                - generic [ref=e4151]: No device assigned
+                - generic [ref=e4152]
+                - generic [ref=e4192]
+              - generic [ref=e4195] [cursor=pointer]:
+                - generic [ref=e4198]
+                - generic [ref=e4199]
+                - generic [ref=e4204]: WD-Pro IP042NJ.6JX
+                - generic [ref=e4205]
+                - generic [ref=e4245]
+              - generic [ref=e4248] [cursor=pointer]:
+                - generic [ref=e4251]
+                - generic [ref=e4252]
+                - generic [ref=e4258]: WD-Pro NP479QY.9RE
+                - generic [ref=e4259]
+                - generic [ref=e4269]
+              - generic [ref=e4310] [cursor=pointer]:
+                - generic [ref=e4313]
+                - generic [ref=e4314]
+                - generic [ref=e4320]: No device assigned
+                - generic [ref=e4321]
+                - generic [ref=e4331]
+              - generic [ref=e4372] [cursor=pointer]:
+                - generic [ref=e4375]
+                - generic [ref=e4376]
+                - generic [ref=e4381]: QMT-300 VY584AJ.8LE
+                - generic [ref=e4382]
+                - generic [ref=e4422]
+              - generic [ref=e4425] [cursor=pointer]:
+                - generic [ref=e4428]
+                - generic [ref=e4429]
+                - generic [ref=e4434]: WD-Pro FU824UO.5BB
+                - generic [ref=e4435]
+                - generic [ref=e4475]: Connection lost
+              - generic [ref=e4477] [cursor=pointer]:
+                - generic [ref=e4480]
+                - generic [ref=e4481]
+                - generic [ref=e4486]: WD-Pro NR362RV.7DF
+                - generic [ref=e4487]
+                - generic [ref=e4527]
+              - generic [ref=e4530] [cursor=pointer]:
+                - generic [ref=e4533]
+                - generic [ref=e4534]
+                - generic [ref=e4539]: HD-Max BT467AD.8FZ
+                - generic [ref=e4540]
+                - generic [ref=e4580]: Task completed successfully
+              - generic [ref=e4582] [cursor=pointer]:
+                - generic [ref=e4585]
+                - generic [ref=e4586]
+                - generic [ref=e4592]: No device assigned
+                - generic [ref=e4593]
+                - generic [ref=e4603]
+              - generic [ref=e4644] [cursor=pointer]:
+                - generic [ref=e4647]
+                - generic [ref=e4648]
+                - generic [ref=e4654]: QMT-300 LA545UI.6EN
+                - generic [ref=e4655]
+                - generic [ref=e4665]
+              - generic [ref=e4706] [cursor=pointer]:
+                - generic [ref=e4709]
+                - generic [ref=e4710]
+                - generic [ref=e4716]: No device assigned
+                - generic [ref=e4717]
+                - generic [ref=e4727]
+              - generic [ref=e4768] [cursor=pointer]:
+                - generic [ref=e4771]
+                - generic [ref=e4772]
+                - generic [ref=e4778]: WD-Pro IV753OG.9SY
+                - generic [ref=e4789]
+                - generic [ref=e7379]: Task completed successfully
+              - generic [ref=e4830] [cursor=pointer]:
+                - generic [ref=e4833]
+                - generic [ref=e4834]
+                - generic [ref=e4840]: No device assigned
+                - generic [ref=e4851]
+                - generic [ref=e7380]: Task completed successfully
+              - generic [ref=e4892] [cursor=pointer]:
+                - generic [ref=e4895]
+                - generic [ref=e4896]
+                - generic [ref=e4902]: QMT-300 TC804UO.0RP
+                - generic [ref=e4913]
+                - generic [ref=e7381]: Task completed successfully
+              - generic [ref=e4954] [cursor=pointer]:
+                - generic [ref=e4957]
+                - generic [ref=e4958]
+                - generic [ref=e4964]: QMT-500 WD212ZD.8MI
+                - generic [ref=e4975]
+                - generic [ref=e7514]: Task completed successfully
+              - generic [ref=e5016] [cursor=pointer]:
+                - generic [ref=e5019]
+                - generic [ref=e5020]
+                - generic [ref=e5026]: WD-Pro IK319FK.3MP
+                - generic [ref=e5027]
+                - generic [ref=e5037]
+              - generic [ref=e5078] [cursor=pointer]:
+                - generic [ref=e5081]
+                - generic [ref=e5082]
+                - generic [ref=e5088]: No device assigned
+                - generic [ref=e5089]
+                - generic [ref=e5099]
+              - generic [ref=e5140] [cursor=pointer]:
+                - generic [ref=e5143]
+                - generic [ref=e5144]
+                - generic [ref=e5149]: HD-Max PE600QS.1FO
+                - generic [ref=e5150]
+                - generic [ref=e5190]
+              - generic [ref=e5193] [cursor=pointer]:
+                - generic [ref=e5196]
+                - generic [ref=e5197]
+                - generic [ref=e5203]: QMT-300 TX706UT.5EM
+                - generic [ref=e5214]
+                - generic [ref=e7515]: Task completed successfully
+          - generic [ref=e5254]:
+            - generic [ref=e5255]:
+              - heading "4组" [level=2] [ref=e5256]
+              - generic [ref=e5257]: 24 个工位
+            - generic [ref=e5259]:
+              - generic [ref=e5261] [cursor=pointer]:
+                - generic [ref=e5264]
+                - generic [ref=e5265]
+                - generic [ref=e5271]: No device assigned
+                - generic [ref=e5282]
+                - generic [ref=e7382]: Task completed successfully
+              - generic [ref=e5323] [cursor=pointer]:
+                - generic [ref=e5326]
+                - generic [ref=e5327]
+                - generic [ref=e5332]: No device assigned
+                - generic [ref=e5333]
+                - generic [ref=e5373]
+              - generic [ref=e5376] [cursor=pointer]:
+                - generic [ref=e5379]
+                - generic [ref=e5380]
+                - generic [ref=e5386]: No device assigned
+                - generic [ref=e5397]
+                - generic [ref=e7383]: Task completed successfully
+              - generic [ref=e5438] [cursor=pointer]:
+                - generic [ref=e5441]
+                - generic [ref=e5442]
+                - generic [ref=e5448]: QMT-300 YK744SN.6HF
+                - generic [ref=e5459]
+                - generic [ref=e7384]: Task completed successfully
+              - generic [ref=e5500] [cursor=pointer]:
+                - generic [ref=e5503]
+                - generic [ref=e5504]
+                - generic [ref=e5510]: QMT-300 RD352YJ.1IB
+                - generic [ref=e5511]
+                - generic [ref=e5521]
+              - generic [ref=e5562] [cursor=pointer]:
+                - generic [ref=e5565]
+                - generic [ref=e5566]
+                - generic [ref=e5572]: HD-Max YX292IX.2NA
+                - generic [ref=e5583]
+                - generic [ref=e7385]: Task completed successfully
+              - generic [ref=e5624] [cursor=pointer]:
+                - generic [ref=e5627]
+                - generic [ref=e5628]
+                - generic [ref=e5634]: No device assigned
+                - generic [ref=e5645]
+                - generic [ref=e7386]: Task completed successfully
+              - generic [ref=e5686] [cursor=pointer]:
+                - generic [ref=e5689]
+                - generic [ref=e5690]
+                - generic [ref=e5695]: QMT-300 QS341AV.7JN
+                - generic [ref=e5696]
+                - generic [ref=e5736]: Task completed successfully
+              - generic [ref=e5738] [cursor=pointer]:
+                - generic [ref=e5741]
+                - generic [ref=e5742]
+                - generic [ref=e5748]: QMT-500 FS254LU.5EN
+                - generic [ref=e5759]
+                - generic [ref=e7387]: Task completed successfully
+              - generic [ref=e5800] [cursor=pointer]:
+                - generic [ref=e5803]
+                - generic [ref=e5804]
+                - generic [ref=e5810]: WD-Pro ZJ967XD.6ZZ
+                - generic [ref=e5811]
+                - generic [ref=e5821]
+              - generic [ref=e5862] [cursor=pointer]:
+                - generic [ref=e5865]
+                - generic [ref=e5866]
+                - generic [ref=e5871]: QMT-300 VK666MP.2KR
+                - generic [ref=e5872]
+                - generic [ref=e5912]: Connection lost
+              - generic [ref=e5914] [cursor=pointer]:
+                - generic [ref=e5917]
+                - generic [ref=e5918]
+                - generic [ref=e5924]: QMT-300 RM022NR.2JT
+                - generic [ref=e5935]
+                - generic [ref=e7388]: Task completed successfully
+              - generic [ref=e5976] [cursor=pointer]:
+                - generic [ref=e5979]
+                - generic [ref=e5980]
+                - generic [ref=e5986]: WD-Pro DM567CS.1KL
+                - generic [ref=e5997]
+                - generic [ref=e7389]: Task completed successfully
+              - generic [ref=e6038] [cursor=pointer]:
+                - generic [ref=e6041]
+                - generic [ref=e6042]
+                - generic [ref=e6048]: WD-Pro YE026HC.2WR
+                - generic [ref=e6059]
+                - generic [ref=e7390]: Task completed successfully
+              - generic [ref=e6100] [cursor=pointer]:
+                - generic [ref=e6103]
+                - generic [ref=e6104]
+                - generic [ref=e6109]: No device assigned
+                - generic [ref=e6110]
+                - generic [ref=e6150]
+              - generic [ref=e6153] [cursor=pointer]:
+                - generic [ref=e6156]
+                - generic [ref=e6157]
+                - generic [ref=e6162]: WD-Pro YG965DS.6QI
+                - generic [ref=e6163]
+                - generic [ref=e6203]
+              - generic [ref=e6206] [cursor=pointer]:
+                - generic [ref=e6209]
+                - generic [ref=e6210]
+                - generic [ref=e6216]: HD-Max YU158WG.3FG
+                - generic [ref=e6227]
+                - generic [ref=e7391]: Task completed successfully
+              - generic [ref=e6268] [cursor=pointer]:
+                - generic [ref=e6271]
+                - generic [ref=e6272]
+                - generic [ref=e6277]: No device assigned
+                - generic [ref=e6278]
+                - generic [ref=e6318]
+              - generic [ref=e6321] [cursor=pointer]:
+                - generic [ref=e6324]
+                - generic [ref=e6325]
+                - generic [ref=e6330]: QMT-500 CL257LR.6EO
+                - generic [ref=e6331]
+                - generic [ref=e6371]
+              - generic [ref=e6374] [cursor=pointer]:
+                - generic [ref=e6377]
+                - generic [ref=e6378]
+                - generic [ref=e6384]: WD-Pro QW966PO.7XA
+                - generic [ref=e6385]
+                - generic [ref=e6395]
+              - generic [ref=e6436] [cursor=pointer]:
+                - generic [ref=e6439]
+                - generic [ref=e6440]
+                - generic [ref=e6446]: QMT-500 YA670OM.7JV
+                - generic [ref=e6447]
+                - generic [ref=e6487]: Maintenance required
+              - generic [ref=e6489] [cursor=pointer]:
+                - generic [ref=e6492]
+                - generic [ref=e6493]
+                - generic [ref=e6499]: No device assigned
+                - generic [ref=e6510]
+                - generic [ref=e7392]: Task completed successfully
+              - generic [ref=e6551] [cursor=pointer]:
+                - generic [ref=e6554]
+                - generic [ref=e6555]
+                - generic [ref=e6561]: WD-Pro WN451FX.0UG
+                - generic [ref=e6572]
+                - generic [ref=e7393]: Task completed successfully
+              - generic [ref=e6613] [cursor=pointer]:
+                - generic [ref=e6616]
+                - generic [ref=e6617]
+                - generic [ref=e6622]: QMT-500 JN136OI.5RA
+                - generic [ref=e6623]
+                - generic [ref=e6663]: Task completed successfully
+          - generic [ref=e6664]:
+            - generic [ref=e6665]:
+              - heading "V组" [level=2] [ref=e6666]
+              - generic [ref=e6667]: 10 个工位
+            - generic [ref=e6669]:
+              - generic [ref=e6671] [cursor=pointer]:
+                - generic [ref=e6674]
+                - generic [ref=e6675]
+                - generic [ref=e6681]: HD-Max UL001RB.9CZ
+                - generic [ref=e6692]
+                - generic [ref=e7394]: Task completed successfully
+              - generic [ref=e6733] [cursor=pointer]:
+                - generic [ref=e6736]
+                - generic [ref=e6737]
+                - generic [ref=e6743]: No device assigned
+                - generic [ref=e6744]
+                - generic [ref=e6754]
+              - generic [ref=e6795] [cursor=pointer]:
+                - generic [ref=e6798]
+                - generic [ref=e6799]
+                - generic [ref=e6805]: HD-Max CH520IH.4QR
+                - generic [ref=e6806]
+                - generic [ref=e6846]: Maintenance required
+              - generic [ref=e6848] [cursor=pointer]:
+                - generic [ref=e6851]
+                - generic [ref=e6852]
+                - generic [ref=e6858]: WD-Pro UE504MT.4JE
+                - generic [ref=e6859]
+                - generic [ref=e6869]
+              - generic [ref=e6910] [cursor=pointer]:
+                - generic [ref=e6913]
+                - generic [ref=e6914]
+                - generic [ref=e6919]: QMT-300 IT816KM.6EZ
+                - generic [ref=e6920]
+                - generic [ref=e6960]: Task completed successfully
+              - generic [ref=e6962] [cursor=pointer]:
+                - generic [ref=e6965]
+                - generic [ref=e6966]
+                - generic [ref=e6972]: WD-Pro MQ238TB.2JJ
+                - generic [ref=e6973]
+                - generic [ref=e7013]: Maintenance required
+              - generic [ref=e7015] [cursor=pointer]:
+                - generic [ref=e7018]
+                - generic [ref=e7019]
+                - generic [ref=e7024]: WD-Pro IK263MW.4GM
+                - generic [ref=e7025]
+                - generic [ref=e7065]: Task completed successfully
+              - generic [ref=e7067] [cursor=pointer]:
+                - generic [ref=e7070]
+                - generic [ref=e7071]
+                - generic [ref=e7076]: HD-Max PN115CZ.5SB
+                - generic [ref=e7077]
+                - generic [ref=e7117]
+              - generic [ref=e7120] [cursor=pointer]:
+                - generic [ref=e7123]
+                - generic [ref=e7124]
+                - generic [ref=e7129]: QMT-500 LA343CL.4XK
+                - generic [ref=e7130]
+                - generic [ref=e7170]
+              - generic [ref=e7173] [cursor=pointer]:
+                - generic [ref=e7176]
+                - generic [ref=e7177]
+                - generic [ref=e7182]: WD-Pro DU492NB.1ML
+                - generic [ref=e7183]
+                - generic [ref=e7223]

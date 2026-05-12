@@ -1,0 +1,18 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]
+        - generic [ref=e9]
+        - generic [ref=e34]
+    - generic [ref=e39]:
+      - complementary [ref=e40]:
+        - generic [ref=e41]
+        - navigation [ref=e84]
+        - generic [ref=e163]
+        - button "收起" [ref=e174] [cursor=pointer]
+      - main [ref=e178]:
+        - generic [ref=e179]

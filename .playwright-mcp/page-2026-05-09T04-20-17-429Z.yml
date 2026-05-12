@@ -1,0 +1,11 @@
+- generic [ref=e2]:
+  - generic [ref=e3]: 🍽️
+  - heading "Home Connect 洗碗机监控" [level=2] [ref=e4]
+  - paragraph [ref=e5]:
+    - text: 本地 token 无法自动恢复时，
+    - text: 页面只会停留在这里等待你手动决定是否重登。
+  - generic [ref=e6]:
+    - button "📱 重新登录 Home Connect（中国账户）" [ref=e7] [cursor=pointer]
+    - paragraph [ref=e8]:
+      - text: 点击后将在浏览器中打开 Home Connect 中国登录页面
+      - text: 使用手机号 + 验证码完成登录，授权后自动返回本页面。

@@ -1,0 +1,20 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]: 🍽️
+      - generic [ref=e6]:
+        - heading "Home Connect 洗碗机监控" [level=1] [ref=e7]
+        - generic [ref=e8]: 实时设备数据 · Home Connect API
+    - generic [ref=e9]:
+      - generic [ref=e10]: 已认证
+      - button "🔄 刷新" [ref=e12] [cursor=pointer]
+      - button "退出" [ref=e13] [cursor=pointer]
+  - generic [ref=e14]:
+    - generic [ref=e15]:
+      - text: "🔑 Scope:"
+      - strong [ref=e16]: IdentifyAppliance Dishwasher-Monitor
+    - generic [ref=e17]:
+      - text: "⏱ Token 剩余:"
+      - strong [ref=e18]: 23:42:50
+  - heading "我的家电设备" [level=2] [ref=e19]
+  - generic [ref=e21]: 加载设备列表…
