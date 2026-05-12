@@ -1,0 +1,3498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home Connect 洗碗机监控</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22263a;
+      --border: #2e3450;
+      --accent: #4f8ef7;
+      --accent2: #7c5dfa;
+      --success: #22c55e;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --text: #e2e8f0;
+      --text2: #94a3b8;
+      --text3: #64748b;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px;
+    }
+    h1 { font-size: 1.6rem; font-weight: 700; }
+    h2 { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; }
+    h3 { font-size: 0.95rem; font-weight: 600; color: var(--text2); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* ── Header ─────────────────────────────────────── */
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-icon { font-size: 2rem; }
+    .subtitle { font-size: 0.85rem; color: var(--text2); margin-top: 2px; }
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+
+    /* ── Buttons ─────────────────────────────────────── */
+    button {
+      cursor: pointer; border: none; border-radius: var(--radius);
+      font-size: 0.875rem; font-weight: 600; padding: 9px 18px;
+      transition: opacity 0.15s, transform 0.1s;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    button:hover { opacity: 0.88; }
+    button:active { transform: scale(0.97); }
+    button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
+
+    /* ── Status pill ─────────────────────────────────── */
+    .pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 600;
+    }
+    .pill-green { background: #14532d55; color: var(--success); border: 1px solid #22c55e44; }
+    .pill-red   { background: #7f1d1d55; color: var(--danger); border: 1px solid #ef444444; }
+    .pill-yellow { background: #78350f55; color: var(--warn); border: 1px solid #f59e0b44; }
+    .pill-blue  { background: #1e3a8a55; color: var(--accent); border: 1px solid #4f8ef744; }
+    .pill-gray  { background: #1e293b; color: var(--text2); border: 1px solid var(--border); }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+    /* ── Auth section ────────────────────────────────── */
+    #auth-section {
+      max-width: 520px; margin: 80px auto; text-align: center;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 48px 36px;
+    }
+    #auth-section .icon { font-size: 3.5rem; margin-bottom: 16px; }
+    #auth-section h2 { font-size: 1.4rem; margin-bottom: 8px; }
+    #auth-section p { color: var(--text2); margin-bottom: 24px; line-height: 1.6; }
+    #auth-error {
+      margin-top: 16px; padding: 10px 16px;
+      background: #7f1d1d33; border: 1px solid var(--danger);
+      border-radius: 8px; font-size: 0.85rem; color: #fca5a5;
+      display: none;
+    }
+
+    /* ── Main dashboard ──────────────────────────────── */
+    #dashboard { display: none; }
+    .info-bar {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      margin-bottom: 20px; padding: 12px 16px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); font-size: 0.85rem; color: var(--text2);
+    }
+    .info-bar span { display: flex; align-items: center; gap: 5px; }
+
+    /* ── Grid of appliances ──────────────────────────── */
+    .appliances-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    .appliance-list-note {
+      display: none;
+      margin: -4px 0 16px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--text2);
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+    .appliance-list-note.visible { display: block; }
+    .appliance-list-note.info { border-color: var(--border); color: var(--text2); }
+    .appliance-list-note.success { border-color: #22c55e44; color: #bbf7d0; background: #14532d33; }
+    .appliance-list-note.warn { border-color: #f59e0b44; color: #fcd34d; background: #78350f33; }
+    .appliance-list-note.danger { border-color: #ef444444; color: #fca5a5; background: #7f1d1d33; }
+    .cache-tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+      margin: 0 0 24px;
+    }
+    .cache-diagnostics {
+      display: grid;
+      gap: 10px;
+    }
+    .cache-diagnostic-block {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface2);
+      padding: 12px;
+    }
+    .cache-diagnostic-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.84rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .cache-diagnostic-meta {
+      display: grid;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text2);
+    }
+    .cache-diagnostic-meta strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .rate-limit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .rate-limit-metric {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface2);
+      padding: 12px;
+      display: grid;
+      gap: 6px;
+    }
+    .rate-limit-label {
+      color: var(--text2);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .rate-limit-value {
+      color: var(--text);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+    .rate-limit-subtext {
+      color: var(--text3);
+      font-size: 0.76rem;
+      line-height: 1.5;
+    }
+    .rate-limit-hints {
+      display: grid;
+      gap: 8px;
+    }
+    .rate-limit-hint {
+      border: 1px solid #f59e0b44;
+      border-radius: 8px;
+      background: #78350f22;
+      color: #fde68a;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+    .request-log-list {
+      display: grid;
+      gap: 8px;
+      max-height: 360px;
+      overflow-y: auto;
+    }
+    .request-log-item {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface2);
+      padding: 10px 12px;
+      display: grid;
+      gap: 6px;
+    }
+    .request-log-item.is-429 {
+      border-color: #ef444444;
+      background: #7f1d1d33;
+    }
+    .request-log-item.is-sse {
+      border-color: #4f8ef744;
+      background: #1e3a8a22;
+    }
+    .request-log-item.is-cache {
+      border-color: #f59e0b44;
+      background: #78350f22;
+    }
+    .request-log-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+    .request-log-path {
+      color: var(--text);
+      font-family: 'Courier New', monospace;
+      font-size: 0.76rem;
+      word-break: break-all;
+    }
+    .request-log-meta {
+      color: var(--text2);
+      font-size: 0.78rem;
+    }
+    .import-tools {
+      display: grid;
+      gap: 12px;
+    }
+    .import-textarea {
+      width: 100%;
+      min-height: 180px;
+      resize: vertical;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #0d1117;
+      color: #cbd5e1;
+      padding: 12px;
+      font-size: 0.8rem;
+      font-family: 'Courier New', monospace;
+      line-height: 1.5;
+    }
+    .import-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .file-trigger {
+      position: relative;
+      overflow: hidden;
+    }
+    .file-trigger input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .import-hint {
+      font-size: 0.78rem;
+      color: var(--text3);
+      line-height: 1.5;
+    }
+    .import-status {
+      min-height: 20px;
+      font-size: 0.8rem;
+      color: var(--text2);
+    }
+    .import-status.success { color: #bbf7d0; }
+    .import-status.error { color: #fca5a5; }
+    .token-debug-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .token-debug-metric {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface2);
+      padding: 12px;
+      display: grid;
+      gap: 6px;
+    }
+    .token-debug-label {
+      color: var(--text2);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .token-debug-value {
+      color: var(--text);
+      font-size: 0.94rem;
+      font-weight: 600;
+      word-break: break-all;
+    }
+    .token-debug-subtext {
+      color: var(--text3);
+      font-size: 0.76rem;
+      line-height: 1.5;
+    }
+    .token-textarea {
+      width: 100%;
+      min-height: 140px;
+      resize: vertical;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #0d1117;
+      color: #cbd5e1;
+      padding: 12px;
+      font-size: 0.78rem;
+      font-family: 'Courier New', monospace;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .token-debug-status {
+      min-height: 20px;
+      font-size: 0.8rem;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+    .token-debug-status.success { color: #bbf7d0; }
+    .token-debug-status.error { color: #fca5a5; }
+    .manual-input {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #0d1117;
+      color: var(--text);
+      padding: 10px 12px;
+      font-size: 0.84rem;
+    }
+    .manual-status {
+      min-height: 20px;
+      font-size: 0.8rem;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+    .manual-status.success { color: #bbf7d0; }
+    .manual-status.error { color: #fca5a5; }
+    .appliance-select-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 20px;
+      width: 100%; text-align: left; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .appliance-select-btn:hover { border-color: var(--accent); background: var(--surface2); }
+    .appliance-select-btn.selected { border-color: var(--accent); background: var(--surface2); }
+    .appliance-icon { font-size: 2rem; flex-shrink: 0; }
+    .appliance-meta { flex: 1; min-width: 0; }
+    .appliance-name { font-weight: 600; font-size: 0.95rem; }
+    .appliance-sub { font-size: 0.8rem; color: var(--text2); margin-top: 3px; word-break: break-all; }
+
+    /* ── Detail panel ────────────────────────────────── */
+    #detail-panel { display: none; }
+    .tabs { display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tab-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text2); border-radius: 8px; padding: 8px 16px;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tab-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ── Card ────────────────────────────────────────── */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; margin-bottom: 16px;
+    }
+    .card-header {
+      padding: 14px 18px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .card-body { padding: 18px; }
+
+    /* ── KV table ────────────────────────────────────── */
+    .kv-table { width: 100%; border-collapse: collapse; }
+    .kv-table tr:not(:last-child) td { border-bottom: 1px solid var(--border); }
+    .kv-table td { padding: 9px 12px; font-size: 0.85rem; vertical-align: top; }
+    .kv-table td:first-child {
+      color: var(--text2); width: 45%; font-family: 'Courier New', monospace;
+      font-size: 0.78rem; word-break: break-all;
+    }
+    .kv-table td:last-child { color: var(--text); word-break: break-all; }
+
+    /* ── Program block ───────────────────────────────── */
+    .program-card {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 16px; margin-bottom: 10px;
+    }
+    .program-name { font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .option-row { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 0.82rem; }
+    .option-key { color: var(--text3); font-family: 'Courier New', monospace; font-size: 0.76rem; flex: 1; }
+    .option-val { color: var(--text); }
+    .option-unit { color: var(--text3); font-size: 0.76rem; }
+
+    /* ── Events feed ─────────────────────────────────── */
+    #events-feed {
+      background: #0d1117; border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 12px; max-height: 440px; overflow-y: auto; font-family: 'Courier New', monospace;
+      font-size: 0.78rem; line-height: 1.6;
+    }
+    .event-line { padding: 4px 0; border-bottom: 1px solid #1e293b; }
+    .event-time { color: var(--text3); margin-right: 8px; }
+    .event-key { color: #7dd3fc; }
+    .event-val { color: #86efac; }
+    .event-keep-alive { color: var(--text3); font-style: italic; }
+    .event-connected { color: var(--success); }
+    .event-disconnected { color: var(--danger); }
+    .dishwasher-sse-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .dishwasher-sse-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface2);
+      padding: 14px;
+      display: grid;
+      gap: 8px;
+      min-height: 144px;
+    }
+    .dishwasher-sse-card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .dishwasher-sse-card-title {
+      color: var(--text);
+      font-size: 0.88rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    .dishwasher-sse-card-desc {
+      color: var(--text3);
+      font-size: 0.76rem;
+      line-height: 1.5;
+    }
+    .dishwasher-sse-card-value {
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    .dishwasher-sse-card-meta {
+      display: grid;
+      gap: 4px;
+      color: var(--text2);
+      font-size: 0.76rem;
+      line-height: 1.45;
+    }
+    .dishwasher-sse-card-key {
+      color: var(--text3);
+      font-size: 0.72rem;
+      font-family: 'Courier New', monospace;
+      word-break: break-all;
+    }
+    .freshness-pill-live { background: #14532d55; color: var(--success); border: 1px solid #22c55e44; }
+    .freshness-pill-aging { background: #78350f55; color: var(--warn); border: 1px solid #f59e0b44; }
+    .freshness-pill-stale { background: #7f1d1d55; color: #fca5a5; border: 1px solid #ef444444; }
+    .freshness-pill-empty { background: #1e293b; color: var(--text2); border: 1px solid var(--border); }
+    .dishwasher-sse-catalog {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface2);
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .dishwasher-sse-catalog summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 12px 14px;
+      color: var(--text);
+      font-size: 0.84rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .dishwasher-sse-catalog summary::-webkit-details-marker { display: none; }
+    .dishwasher-sse-catalog summary::after {
+      content: '展开';
+      color: var(--text3);
+      font-size: 0.76rem;
+      font-weight: 500;
+    }
+    .dishwasher-sse-catalog[open] summary::after { content: '收起'; }
+    .dishwasher-sse-catalog-body {
+      border-top: 1px solid var(--border);
+      padding: 14px;
+      display: grid;
+      gap: 14px;
+    }
+    .dishwasher-sse-group {
+      display: grid;
+      gap: 8px;
+    }
+    .dishwasher-sse-group-title {
+      color: var(--text2);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .dishwasher-sse-support-list {
+      display: grid;
+      gap: 8px;
+    }
+    .dishwasher-sse-support-item {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(15, 17, 23, 0.5);
+      padding: 10px 12px;
+      display: grid;
+      gap: 6px;
+    }
+    .dishwasher-sse-support-item.is-observed {
+      border-color: #22c55e44;
+      background: #14532d22;
+    }
+    .dishwasher-sse-support-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .dishwasher-sse-support-title {
+      color: var(--text);
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+    .dishwasher-sse-support-desc {
+      color: var(--text3);
+      font-size: 0.75rem;
+      line-height: 1.45;
+    }
+    .dishwasher-sse-support-value {
+      color: var(--text2);
+      font-size: 0.76rem;
+      line-height: 1.45;
+    }
+    .dishwasher-sse-support-key {
+      color: var(--text3);
+      font-size: 0.72rem;
+      font-family: 'Courier New', monospace;
+      word-break: break-all;
+    }
+
+    /* ── Loading / empty states ──────────────────────── */
+    .loading {
+      display: flex; align-items: center; gap: 10px; padding: 24px;
+      color: var(--text2); font-size: 0.9rem;
+    }
+    .spinner {
+      width: 20px; height: 20px; border: 2px solid var(--border);
+      border-top-color: var(--accent); border-radius: 50%;
+      animation: spin 0.8s linear infinite; flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes highlight { 0% { background: rgba(79,142,247,0.25); } 100% { background: transparent; } }
+    .empty { padding: 24px; color: var(--text3); font-size: 0.85rem; text-align: center; }
+
+    /* ── Refresh row ─────────────────────────────────── */
+    .refresh-row {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
+    }
+    .last-updated { font-size: 0.78rem; color: var(--text3); }
+
+    /* ── Raw JSON ────────────────────────────────────── */
+    pre.raw {
+      background: #0d1117; border: 1px solid var(--border); border-radius: 8px;
+      padding: 14px; font-size: 0.75rem; overflow: auto; max-height: 500px;
+      color: #a5f3fc; white-space: pre-wrap; word-break: break-all;
+    }
+
+    /* ── Responsive ──────────────────────────────────── */
+    @media (max-width: 640px) {
+      body { padding: 16px; }
+      header { flex-direction: column; align-items: flex-start; }
+      .appliances-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!--  AUTH SCREEN                                       -->
+<!-- ══════════════════════════════════════════════════ -->
+<div id="auth-section">
+  <div class="icon">🍽️</div>
+  <h2>Home Connect 洗碗机监控</h2>
+  <p id="auth-description">
+    通过 Home Connect API 实时读取你账户下洗碗机的<br/>
+    状态、程序、设置及所有传感器数据。
+  </p>
+
+  <!-- Login button: Auth Code Flow — browser handles proxy & phone+SMS login -->
+  <div id="login-section">
+    <button class="btn-primary" id="login-btn" onclick="beginManualLogin()"
+       style="display:inline-block;padding:14px 28px;border-radius:10px;">
+      📱 重新登录 Home Connect（中国账户）
+    </button>
+    <p id="auth-hint" style="margin-top:14px;font-size:0.82rem;color:var(--text2);">
+      点击后将在浏览器中打开 Home Connect 中国登录页面<br/>
+      使用手机号 + 验证码完成登录，授权后自动返回本页面。
+    </p>
+    <div id="auth-status-note" style="margin-top:12px;color:var(--text2);font-size:0.85rem;"></div>
+    <div id="auth-error" style="margin-top:12px;color:var(--danger);display:none;font-size:0.88rem;"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!--  MAIN DASHBOARD                                    -->
+<!-- ══════════════════════════════════════════════════ -->
+<div id="dashboard">
+  <header>
+    <div class="logo">
+      <span class="logo-icon">🍽️</span>
+      <div>
+        <h1>Home Connect 洗碗机监控</h1>
+        <div class="subtitle">实时设备数据 · Home Connect API</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <span id="auth-status-pill" class="pill pill-green"><span class="dot"></span>已认证</span>
+      <button class="btn-secondary btn-sm" onclick="refreshAllData()">🔄 刷新</button>
+      <button class="btn-danger btn-sm" onclick="logout()">退出</button>
+    </div>
+  </header>
+
+  <!-- Info bar -->
+  <div class="info-bar">
+    <span>🔑 Scope: <strong id="scope-display">—</strong></span>
+    <span>⏱ Token 剩余: <strong id="token-ttl">—</strong></span>
+  </div>
+
+  <div class="card" style="margin-bottom:24px;">
+    <div class="card-header">
+      <h3>Token 调试面板</h3>
+      <div class="import-toolbar">
+        <button class="btn-secondary btn-sm" onclick="refreshTokenDebugPanel()">↻ 刷新状态</button>
+        <button class="btn-secondary btn-sm" onclick="beginManualLogin()">📱 重新登录</button>
+        <button class="btn-secondary btn-sm" onclick="copyAccessToken()">📋 复制 token</button>
+        <button class="btn-danger btn-sm" onclick="logout()">🗑 清空 token</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="token-debug-grid" id="token-debug-panel">
+        <div class="empty">正在读取 token 调试信息…</div>
+      </div>
+      <textarea id="access-token-output" class="token-textarea" readonly placeholder="当前未拿到 access token"></textarea>
+      <div class="import-hint">此面板只读展示当前本地会话。若需切换 Home Connect application，请手动修改 GetDWinfo/homeconnect.local.json 中的 client_id/client_secret 后重新登录。</div>
+      <div id="token-debug-status" class="token-debug-status"></div>
+    </div>
+  </div>
+
+  <!-- Appliances list -->
+  <h2>我的家电设备</h2>
+  <div id="appliances-status-note" class="appliance-list-note"></div>
+  <div id="appliances-grid" class="appliances-grid">
+    <div class="loading"><div class="spinner"></div>加载设备列表…</div>
+  </div>
+
+  <!-- Detail panel for selected appliance -->
+  <div id="detail-panel">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+      <div>
+        <h2 id="detail-title">设备详情</h2>
+        <div id="detail-subtitle" style="font-size:0.85rem;color:var(--text2);"></div>
+      </div>
+      <div class="refresh-row">
+        <button class="btn-secondary btn-sm" onclick="loadDetailData()">🔄 刷新详情</button>
+        <span class="last-updated" id="last-updated-time"></span>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('overview')">📋 概览</button>
+      <button class="tab-btn" onclick="switchTab('status')">📊 状态</button>
+      <button class="tab-btn" onclick="switchTab('settings')">⚙️ 设置</button>
+      <button class="tab-btn" onclick="switchTab('programs')">▶️ 程序</button>
+      <button class="tab-btn" onclick="switchTab('events')">📡 实时事件</button>
+      <button class="tab-btn" onclick="switchTab('raw')">🗂 原始数据</button>
+    </div>
+
+    <!-- Tab: Overview -->
+    <div id="tab-overview" class="tab-content active">
+      <div class="card">
+        <div class="card-header"><h3>设备基本信息</h3></div>
+        <div class="card-body">
+          <table class="kv-table" id="overview-table">
+            <tr><td colspan="2"><div class="loading"><div class="spinner"></div>加载中…</div></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Status -->
+    <div id="tab-status" class="tab-content">
+      <div class="card">
+        <div class="card-header"><h3>所有状态值</h3></div>
+        <div class="card-body">
+          <table class="kv-table" id="status-table">
+            <tr><td colspan="2"><div class="loading"><div class="spinner"></div>加载中…</div></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Settings -->
+    <div id="tab-settings" class="tab-content">
+      <div class="card">
+        <div class="card-header"><h3>所有设置值</h3></div>
+        <div class="card-body">
+          <table class="kv-table" id="settings-table">
+            <tr><td colspan="2"><div class="loading"><div class="spinner"></div>加载中…</div></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Programs -->
+    <div id="tab-programs" class="tab-content">
+      <div class="card" id="active-program-card">
+        <div class="card-header">
+          <h3>当前激活程序</h3>
+          <span id="active-pill" class="pill pill-gray">无</span>
+        </div>
+        <div class="card-body" id="active-program-body">
+          <div class="empty">没有正在运行的程序</div>
+        </div>
+      </div>
+
+      <div class="card" id="selected-program-card">
+        <div class="card-header">
+          <h3>已选程序</h3>
+        </div>
+        <div class="card-body" id="selected-program-body">
+          <div class="loading"><div class="spinner"></div>加载中…</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h3>可用程序列表</h3></div>
+        <div class="card-body" id="available-programs-body">
+          <div class="loading"><div class="spinner"></div>加载中…</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Events -->
+    <div id="tab-events" class="tab-content">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
+        <button class="btn-primary btn-sm" onclick="startEventStream()" id="event-start-btn">▶ 开始监听</button>
+        <button class="btn-secondary btn-sm" onclick="stopEventStream()" id="event-stop-btn" disabled>⏹ 停止</button>
+        <button class="btn-secondary btn-sm" onclick="clearEvents()">🗑 清空</button>
+        <span id="event-status" class="pill pill-gray">未连接</span>
+      </div>
+      <p style="font-size:0.8rem;color:var(--text3);margin-bottom:12px;">
+          通过 SSE 实时接收设备推送：STATUS（状态变化）· NOTIFY（选项/剩余时间）· EVENT（程序结束等事件）· CONNECTED / DISCONNECTED（上下线）
+      </p>
+      <div class="dishwasher-sse-summary" id="dishwasher-sse-summary-panel"></div>
+      <details class="dishwasher-sse-catalog" id="dishwasher-sse-catalog">
+        <summary>查看全部官方支持项</summary>
+        <div class="dishwasher-sse-catalog-body" id="dishwasher-sse-catalog-body"></div>
+      </details>
+      <div id="events-feed">
+          <div class="event-line event-keep-alive">点击"开始监听"或切换到此页签自动建立 SSE 连接</div>
+      </div>
+    </div>
+
+    <!-- Tab: Raw JSON -->
+    <div id="tab-raw" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h3>原始 API 响应</h3>
+          <select id="raw-select" onchange="showRaw(this.value)"
+            style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:6px;font-size:0.82rem;">
+            <option value="appliance">设备信息</option>
+            <option value="status">状态</option>
+            <option value="settings">设置</option>
+            <option value="programs_all">所有程序</option>
+            <option value="programs_available">可用程序</option>
+            <option value="programs_details">程序选项详情</option>
+            <option value="programs_active">激活程序</option>
+            <option value="programs_active_options">激活程序选项</option>
+            <option value="programs_selected">已选程序</option>
+            <option value="programs_selected_options">已选程序选项</option>
+          </select>
+        </div>
+        <div class="card-body">
+          <pre class="raw" id="raw-output">选择一个数据类型查看原始 JSON</pre>
+        </div>
+      </div>
+    </div>
+  </div><!-- /detail-panel -->
+
+  <div class="cache-tools-grid">
+    <div class="card">
+      <div class="card-header">
+        <h3>缓存诊断</h3>
+        <div class="import-toolbar">
+          <button class="btn-secondary btn-sm" onclick="exportCacheDiagnosticsReport()">导出当前诊断报告</button>
+          <button class="btn-secondary btn-sm" onclick="refreshCacheDiagnostics()">↻ 刷新诊断</button>
+        </div>
+      </div>
+      <div class="card-body cache-diagnostics" id="cache-diagnostics-panel">
+        <div class="empty">正在读取缓存诊断…</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>手工导入设备快照</h3></div>
+      <div class="card-body import-tools">
+        <div class="import-toolbar">
+          <label class="btn-secondary btn-sm file-trigger">
+            选择 JSON 文件
+            <input id="snapshot-import-file" type="file" accept=".json,application/json" onchange="handleSnapshotFileSelected(event)" />
+          </label>
+          <button class="btn-primary btn-sm" onclick="importApplianceSnapshot()">导入快照</button>
+          <button class="btn-secondary btn-sm" onclick="clearImportedSnapshotInput()">清空输入</button>
+        </div>
+        <div class="import-toolbar">
+          <button class="btn-secondary btn-sm" onclick="exportBrowserApplianceSnapshot()">导出浏览器快照</button>
+          <button class="btn-secondary btn-sm" onclick="exportServerApplianceCache()">导出服务端缓存</button>
+          <button class="btn-secondary btn-sm" onclick="clearBrowserApplianceSnapshot()">清空浏览器快照</button>
+          <button class="btn-danger btn-sm" onclick="clearServerApplianceCache()">清空服务端缓存</button>
+        </div>
+        <textarea id="snapshot-import-input" class="import-textarea" placeholder='支持三种格式：
+1. Home Connect 响应：{"data":{"homeappliances":[...]}}
+2. 扁平对象：{"homeappliances":[...]}
+3. 纯数组：[{"haId":"..."}]'></textarea>
+        <div class="import-hint">导入成功后会同时写入浏览器快照和服务端 .appliances-cache.json，即使 Home Connect 继续返回 429，也能先展示这份设备列表。</div>
+        <div id="snapshot-import-status" class="import-status"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>手动设备接入</h3></div>
+      <div class="card-body import-tools">
+        <input id="manual-haid-input" class="manual-input" type="text" placeholder="输入已知 haId，例如 296010398026007511" />
+        <div class="import-toolbar">
+          <button class="btn-primary btn-sm" onclick="attachManualApplianceByHaId()">验证并接入</button>
+          <button class="btn-secondary btn-sm" onclick="fillManualHaIdWithSelection()">使用当前选中 haId</button>
+          <button class="btn-secondary btn-sm" onclick="clearManualApplianceTarget()">清空当前目标</button>
+        </div>
+        <div class="import-hint">当设备列表接口仍然被 429 限流时，可直接输入已知属于当前账号的 haId，先恢复单台设备的 SSE 监控能力。</div>
+        <div id="manual-haid-status" class="manual-status"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>限流判因面板</h3>
+        <div class="import-toolbar">
+          <button class="btn-secondary btn-sm" onclick="refreshRateLimitDiagnostics()">↻ 刷新判因</button>
+        </div>
+      </div>
+      <div class="card-body" id="rate-limit-diagnostics-panel">
+        <div class="empty">正在读取限流诊断…</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>请求日志</h3>
+        <div class="import-toolbar">
+          <button class="btn-secondary btn-sm" onclick="refreshRequestLog()">↻ 刷新日志</button>
+          <button class="btn-secondary btn-sm" onclick="clearRequestLog()">🗑 清空日志</button>
+        </div>
+      </div>
+      <div class="card-body request-log-list" id="request-log-panel">
+        <div class="empty">正在读取请求日志…</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /dashboard -->
+
+<script>
+// ══════════════════════════════════════════════════════
+//  State
+// ══════════════════════════════════════════════════════
+let selectedHaId = null;
+let selectedAppliance = null;
+let rawData = {};       // key → parsed JSON response
+let eventSource = null;
+let tokenTtlInterval = null;
+let authRecoveryPromise = null;
+let authCallbackMessage = '';
+let startupRecoveryAttempted = false;
+let runtimeRecoveryAttempted = false;
+let detailLoadVersion = 0;
+let applianceBackgroundRefreshPromise = null;
+let latestServerCacheDiagnostics = null;
+let latestRequestLog = null;
+let latestRateLimitDiagnostics = null;
+let latestTokenDebug = null;
+let selectedSource = null;
+let manualTargetHaId = null;
+let renderedAppliancesById = new Map();
+let dishwasherSseObservations = {};
+let dishwasherSseFreshnessInterval = null;
+
+const APPLIANCE_SNAPSHOT_STORAGE_KEY = 'getdwinfo.appliances.snapshot';
+const APPLIANCE_SNAPSHOT_TTL_MS = 24 * 60 * 60 * 1000;
+const DETAIL_TAB_NAMES = ['status', 'settings', 'raw'];
+const DISHWASHER_SSE_LIVE_MS = 2 * 60 * 1000;
+const DISHWASHER_SSE_STALE_MS = 10 * 60 * 1000;
+const DISHWASHER_SSE_SUMMARY_KEYS = [
+  'BSH.Common.Event.ProgramFinished',
+  'BSH.Common.Event.ProgramAborted',
+  'BSH.Common.Status.OperationState',
+  'BSH.Common.Option.RemainingProgramTime',
+  'BSH.Common.Option.ProgramProgress',
+  'BSH.Common.Status.DoorState',
+  'BSH.Common.Status.RemoteControlActive',
+  'BSH.Common.Status.RemoteControlStartAllowed',
+  'Dishcare.Dishwasher.Event.SaltNearlyEmpty',
+  'Dishcare.Dishwasher.Event.RinseAidNearlyEmpty',
+];
+const DISHWASHER_SSE_CATALOG_GROUPS = [
+  {
+    title: 'Program Changes',
+    keys: [
+      'BSH.Common.Root.SelectedProgram',
+      'BSH.Common.Root.ActiveProgram',
+    ],
+  },
+  {
+    title: 'Option Changes',
+    keys: [
+      'BSH.Common.Option.StartInRelative',
+      'BSH.Common.Option.FinishInRelative',
+      'BSH.Common.Option.Duration',
+      'Dishcare.Dishwasher.Option.IntensivZone',
+      'Dishcare.Dishwasher.Option.BrillianceDry',
+      'Dishcare.Dishwasher.Option.VarioSpeedPlus',
+      'Dishcare.Dishwasher.Option.SilenceOnDemand',
+      'Dishcare.Dishwasher.Option.HalfLoad',
+      'Dishcare.Dishwasher.Option.ExtraDry',
+      'Dishcare.Dishwasher.Option.HygienePlus',
+      'Dishcare.Dishwasher.Option.EcoDry',
+      'Dishcare.Dishwasher.Option.ZeoliteDry',
+    ],
+  },
+  {
+    title: 'Program Progress Changes',
+    keys: [
+      'BSH.Common.Option.ElapsedProgramTime',
+      'BSH.Common.Option.RemainingProgramTime',
+      'BSH.Common.Option.RemainingProgramTimeIsEstimated',
+      'BSH.Common.Option.EstimatedTotalProgramTime',
+      'BSH.Common.Option.ProgramProgress',
+      'BSH.Common.Status.OperationState',
+    ],
+  },
+  {
+    title: 'Program Progress Events',
+    keys: [
+      'BSH.Common.Event.ProgramAborted',
+      'BSH.Common.Event.ProgramFinished',
+    ],
+  },
+  {
+    title: 'Home Appliance State Changes',
+    keys: [
+      'BSH.Common.Setting.PowerState',
+      'BSH.Common.Status.RemoteControlActive',
+      'BSH.Common.Status.RemoteControlStartAllowed',
+      'BSH.Common.Status.LocalControlActive',
+      'BSH.Common.Status.DoorState',
+    ],
+  },
+  {
+    title: 'Home Appliance Events',
+    keys: [
+      'Dishcare.Dishwasher.Event.SaltNearlyEmpty',
+      'Dishcare.Dishwasher.Event.RinseAidNearlyEmpty',
+    ],
+  },
+];
+const DISHWASHER_SSE_META = {
+  'BSH.Common.Event.ProgramFinished': { title: '程序完成', description: '洗碗程序已成功完成。', kind: 'event' },
+  'BSH.Common.Event.ProgramAborted': { title: '程序中止', description: '洗碗程序被成功取消或中止。', kind: 'event' },
+  'BSH.Common.Status.OperationState': { title: '运行状态', description: '设备当前所处的运行阶段。', kind: 'state' },
+  'BSH.Common.Option.RemainingProgramTime': { title: '剩余时间', description: '距离当前程序结束还剩多少时间。', kind: 'state', valueType: 'durationSeconds' },
+  'BSH.Common.Option.ProgramProgress': { title: '进度百分比', description: '当前程序的整体完成百分比。', kind: 'state', valueType: 'percent' },
+  'BSH.Common.Status.DoorState': { title: '门状态', description: '洗碗机门当前是打开、关闭还是锁定。', kind: 'state' },
+  'BSH.Common.Status.RemoteControlActive': { title: '远程控制激活', description: '设备是否允许远程控制。', kind: 'state', valueType: 'boolean', trueLabel: '已开启', falseLabel: '未开启' },
+  'BSH.Common.Status.RemoteControlStartAllowed': { title: '远程启动允许', description: '设备当前是否允许远程启动程序。', kind: 'state', valueType: 'boolean', trueLabel: '允许', falseLabel: '不允许' },
+  'Dishcare.Dishwasher.Event.SaltNearlyEmpty': { title: '盐量不足', description: '洗碗盐余量偏低，需要补充。', kind: 'event', activeLabel: '盐量不足', inactiveLabel: '正常' },
+  'Dishcare.Dishwasher.Event.RinseAidNearlyEmpty': { title: '漂洗剂不足', description: '漂洗剂余量偏低，需要补充。', kind: 'event', activeLabel: '漂洗剂不足', inactiveLabel: '正常' },
+  'BSH.Common.Root.SelectedProgram': { title: '已选程序', description: '面板上当前被选择、尚未必然运行的程序。', kind: 'state' },
+  'BSH.Common.Root.ActiveProgram': { title: '激活程序', description: '设备当前正在执行的程序。', kind: 'state' },
+  'BSH.Common.Option.StartInRelative': { title: '延时启动', description: '距离程序计划启动还剩多久。', kind: 'state', valueType: 'durationSeconds' },
+  'BSH.Common.Option.FinishInRelative': { title: '计划完成时间', description: '距离程序预计完成还剩多久。', kind: 'state', valueType: 'durationSeconds' },
+  'BSH.Common.Option.Duration': { title: '程序时长', description: '当前程序设定的总时长。', kind: 'state', valueType: 'durationSeconds' },
+  'Dishcare.Dishwasher.Option.IntensivZone': { title: '加强洗', description: '下层餐具加强冲洗选项。', kind: 'state', valueType: 'boolean', trueLabel: '已开启', falseLabel: '未开启' },
+  'Dishcare.Dishwasher.Option.BrillianceDry': { title: '晶亮烘干', description: '提升烘干效果的选项。', kind: 'state', valueType: 'boolean', trueLabel: '已开启', falseLabel: '未开启' },
+  'Dishcare.Dishwasher.Option.VarioSpeedPlus': { title: '超快洗', description: '缩短程序时间的加速选项。', kind: 'state', valueType: 'boolean', trueLabel: '已开启', falseLabel: '未开启' },
+  'Dishcare.Dishwasher.Option.SilenceOnDemand': { title: '静音模式', description: '按需降低噪音的程序选项。', kind: 'state', valueType: 'boolean', trueLabel: '已开启', falseLabel: '未开启' },
+  'Dishcare.Dishwasher.Option.HalfLoad': { title: '半载模式', description: '针对少量餐具的节能节水模式。', kind: 'state', valueType: 'boolean', trueLabel: '已开启', falseLabel: '未开启' },
+  'Dishcare.Dishwasher.Option.ExtraDry': { title: '加强烘干', description: '提升烘干强度的选项。', kind: 'state', valueType: 'boolean', trueLabel: '已开启', falseLabel: '未开启' },
+  'Dishcare.Dishwasher.Option.HygienePlus': { title: '卫生加强', description: '提高卫生等级的清洗选项。', kind: 'state', valueType: 'boolean', trueLabel: '已开启', falseLabel: '未开启' },
+  'Dishcare.Dishwasher.Option.EcoDry': { title: '节能烘干', description: '偏节能的烘干策略。', kind: 'state', valueType: 'boolean', trueLabel: '已开启', falseLabel: '未开启' },
+  'Dishcare.Dishwasher.Option.ZeoliteDry': { title: '沸石烘干', description: '使用沸石烘干能力的选项。', kind: 'state', valueType: 'boolean', trueLabel: '已开启', falseLabel: '未开启' },
+  'BSH.Common.Option.ElapsedProgramTime': { title: '已运行时间', description: '程序从开始到当前已经运行多久。', kind: 'state', valueType: 'durationSeconds' },
+  'BSH.Common.Option.RemainingProgramTimeIsEstimated': { title: '剩余时间是否估算', description: '剩余时间是否为估算值。', kind: 'state', valueType: 'boolean', trueLabel: '估算值', falseLabel: '精确值' },
+  'BSH.Common.Option.EstimatedTotalProgramTime': { title: '预计总时长', description: '在程序选择阶段给出的预计总时长。', kind: 'state', valueType: 'durationSeconds' },
+  'BSH.Common.Setting.PowerState': { title: '电源状态', description: '设备当前的电源状态。', kind: 'state' },
+  'BSH.Common.Status.LocalControlActive': { title: '本地操作中', description: '设备是否正在被人手动操作。', kind: 'state', valueType: 'boolean', trueLabel: '是', falseLabel: '否' },
+};
+
+// ══════════════════════════════════════════════════════
+//  Init
+// ══════════════════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', async () => {
+  document.getElementById('appliances-grid').addEventListener('click', handleApplianceGridClick);
+  dishwasherSseFreshnessInterval = window.setInterval(() => {
+    if (selectedHaId) {
+      refreshDishwasherSsePanels();
+    }
+  }, 30000);
+
+  // Clean any stray OAuth redirect params (legacy auth code flow)
+  const params = new URLSearchParams(location.search);
+  const authErr = params.get('error');
+  const authSuccess = params.get('auth');
+  if (params.get('auth') || authErr) {
+    history.replaceState({}, '', '/');
+  }
+  if (authSuccess) {
+    authCallbackMessage = '授权成功，正在检查本地会话…';
+  }
+  if (authErr) {
+    authCallbackMessage = '';
+    showAuthError('授权回调失败: ' + decodeURIComponent(authErr));
+  }
+  renderCacheDiagnostics(null);
+  renderRateLimitDiagnostics(null);
+  renderRequestLog(null);
+  renderTokenDebugPanel(null);
+  await checkAuthAndInit();
+});
+
+async function checkAuthAndInit() {
+  try {
+    renderAuthState('loading', {
+      note: authCallbackMessage || '正在检查本地会话…',
+      showButton: false,
+    });
+
+    const data = await fetchAuthStatus();
+
+    if (data.auth_state === 'authenticated') {
+      showDashboard(data);
+      await loadAppliances();
+      return;
+    }
+
+    if (data.auth_state === 'recoverable') {
+      const recovered = await attemptSessionRecovery('startup');
+      if (recovered) {
+        return;
+      }
+    }
+
+    renderAuthState(data.auth_state === 'logged_out' ? 'logged-out' : 'reauth-required', {
+      error: data.last_refresh_error,
+      cooldownSeconds: data.login_cooldown_seconds,
+      note: authCallbackMessage,
+    });
+  } catch (e) {
+    showAuthError('无法连接到本地服务器，请确保 server.js 正在运行');
+  }
+}
+
+// ══════════════════════════════════════════════════════
+//  Auth helpers
+// ══════════════════════════════════════════════════════
+
+async function logout() {
+  stopEventStream();
+  await fetch('/auth/logout');
+  clearInterval(tokenTtlInterval);
+  selectedHaId = null;
+  rawData = {};
+  latestTokenDebug = null;
+  renderTokenDebugPanel(null);
+  renderAuthState('logged-out', {
+    note: '已退出本地会话。只有手动点击时才会重新进入中国区登录页。',
+  });
+}
+
+function beginManualLogin() {
+  window.location.href = '/auth/login';
+}
+
+function showAuthScreen() {
+  renderAuthState('reauth-required');
+}
+
+function renderAuthState(state, options = {}) {
+  const loginBtn = document.getElementById('login-btn');
+  const description = document.getElementById('auth-description');
+  const hint = document.getElementById('auth-hint');
+  const note = document.getElementById('auth-status-note');
+
+  document.getElementById('auth-section').style.display = '';
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('auth-error').style.display = 'none';
+
+  const showButton = options.showButton ?? (state !== 'loading' && state !== 'recovering');
+  loginBtn.style.display = showButton ? 'inline-block' : 'none';
+  loginBtn.disabled = state === 'recovering';
+
+  if (state === 'loading') {
+    description.innerHTML = '优先检查本地 token 与 refresh token，<br/>仅在必要时才允许你重新登录。';
+    hint.innerHTML = '当前不会自动跳转到中国区短信登录页。';
+  } else if (state === 'recovering') {
+    description.innerHTML = '检测到本地会话可恢复，<br/>正在自动尝试刷新 token。';
+    hint.innerHTML = '本次页面生命周期内只会自动恢复一次，避免重复触发登录。';
+  } else if (state === 'logged-out') {
+    description.innerHTML = '本地会话已退出。<br/>需要时可手动重新登录。';
+    hint.innerHTML = '重新登录必须由你手动触发，不会自动跳转。';
+  } else {
+    description.innerHTML = '本地 token 无法自动恢复时，<br/>页面只会停留在这里等待你手动决定是否重登。';
+    hint.innerHTML = '点击后将在浏览器中打开 Home Connect 中国登录页面<br/>使用手机号 + 验证码完成登录，授权后自动返回本页面。';
+  }
+
+  note.textContent = '';
+  if (options.note) {
+    note.textContent = options.note;
+  }
+  if (options.cooldownSeconds > 0) {
+    note.textContent = `刚刚已发起登录，请先完成验证码流程，避免重复触发。建议等待 ${options.cooldownSeconds} 秒。`;
+  }
+  showAuthError(options.error || '');
+}
+
+function showDashboard(authStatus) {
+  document.getElementById('auth-section').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  document.getElementById('scope-display').textContent = authStatus.scope || '—';
+  document.getElementById('auth-status-pill').className = 'pill pill-green';
+  document.getElementById('auth-status-pill').innerHTML = '<span class="dot"></span>已认证';
+  authCallbackMessage = '';
+
+  // Token TTL countdown
+  let ttl = typeof authStatus.expires_in === 'number' ? authStatus.expires_in : 0;
+  updateTtl(ttl);
+  clearInterval(tokenTtlInterval);
+  tokenTtlInterval = setInterval(() => {
+    ttl = Math.max(0, ttl - 1);
+    updateTtl(ttl);
+    if (ttl === 0) autoRefreshToken();
+  }, 1000);
+
+  refreshCacheDiagnostics();
+  refreshRateLimitDiagnostics();
+  refreshRequestLog();
+  refreshTokenDebugPanel();
+}
+
+function updateTtl(seconds) {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  document.getElementById('token-ttl').textContent =
+    `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+async function autoRefreshToken() {
+  const recovered = await attemptSessionRecovery('token-expired');
+  if (recovered) {
+    const data = await fetchAuthStatus();
+    if (data.auth_state === 'authenticated') {
+      showDashboard(data);
+    }
+  }
+}
+
+function showAuthError(msg) {
+  const el = document.getElementById('auth-error');
+  el.textContent = msg;
+  el.style.display = msg ? '' : 'none';
+}
+
+async function fetchAuthStatus() {
+  const res = await fetch('/auth/status');
+  return res.json();
+}
+
+async function fetchTokenDebug() {
+  const res = await fetch('/debug/token');
+  if (!res.ok) {
+    throw new Error(`HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
+function setTokenDebugStatus(message = '', tone = '') {
+  const el = document.getElementById('token-debug-status');
+  el.className = 'token-debug-status';
+  if (tone) el.classList.add(tone);
+  el.textContent = message;
+}
+
+function formatDateTime(timestamp) {
+  if (typeof timestamp !== 'number' || !Number.isFinite(timestamp)) return '—';
+  return new Date(timestamp).toLocaleString('zh-CN');
+}
+
+function renderTokenDebugPanel(data) {
+  const panel = document.getElementById('token-debug-panel');
+  const tokenOutput = document.getElementById('access-token-output');
+
+  if (!data) {
+    panel.innerHTML = '<div class="empty">当前尚未读取到 token 调试信息。</div>';
+    tokenOutput.value = '';
+    setTokenDebugStatus('');
+    return;
+  }
+
+  latestTokenDebug = data;
+  const authPill = data.authenticated
+    ? '<span class="pill pill-green"><span class="dot"></span>已认证</span>'
+    : '<span class="pill pill-yellow"><span class="dot"></span>未认证</span>';
+  const refreshPill = data.has_refresh_token
+    ? '<span class="pill pill-green"><span class="dot"></span>有</span>'
+    : '<span class="pill pill-gray">无</span>';
+
+  panel.innerHTML = `
+    <div class="token-debug-metric">
+      <div class="token-debug-label">认证状态</div>
+      <div class="token-debug-value">${authPill}</div>
+      <div class="token-debug-subtext">auth_state: ${data.auth_state || '—'}</div>
+    </div>
+    <div class="token-debug-metric">
+      <div class="token-debug-label">剩余有效期</div>
+      <div class="token-debug-value">${typeof data.expires_in === 'number' ? `${data.expires_in} 秒` : '—'}</div>
+      <div class="token-debug-subtext">obtained_at: ${formatDateTime(data.obtained_at)}</div>
+    </div>
+    <div class="token-debug-metric">
+      <div class="token-debug-label">Refresh Token</div>
+      <div class="token-debug-value">${refreshPill}</div>
+      <div class="token-debug-subtext">refresh_token_present: ${data.refresh_token_present ? 'true' : 'false'}</div>
+    </div>
+    <div class="token-debug-metric">
+      <div class="token-debug-label">Client</div>
+      <div class="token-debug-value">${data.client_id_masked || '—'}</div>
+      <div class="token-debug-subtext">redirect_uri: ${data.redirect_uri || '—'}</div>
+    </div>
+    <div class="token-debug-metric">
+      <div class="token-debug-label">Scope</div>
+      <div class="token-debug-value">${data.scope || '—'}</div>
+      <div class="token-debug-subtext">用于确认当前 application 实际授予的权限</div>
+    </div>
+    <div class="token-debug-metric">
+      <div class="token-debug-label">Hosts</div>
+      <div class="token-debug-value">${data.api_host || '—'}</div>
+      <div class="token-debug-subtext">auth: ${data.authorize_host || '—'} · token: ${data.token_host || '—'}</div>
+    </div>
+  `;
+
+  tokenOutput.value = data.access_token || '';
+  setTokenDebugStatus(data.access_token ? '当前已拿到完整 access token，可直接复制用于对照测试。' : '当前还没有 access token。请先重新登录。', data.access_token ? 'success' : 'error');
+}
+
+async function refreshTokenDebugPanel() {
+  try {
+    setTokenDebugStatus('正在刷新 token 调试信息…');
+    const data = await fetchTokenDebug();
+    renderTokenDebugPanel(data);
+  } catch (error) {
+    setTokenDebugStatus(`读取 token 调试信息失败：${error.message}`, 'error');
+  }
+}
+
+async function copyAccessToken() {
+  const token = latestTokenDebug?.access_token || document.getElementById('access-token-output').value || '';
+  if (!token) {
+    setTokenDebugStatus('当前没有可复制的 access token。', 'error');
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(token);
+    setTokenDebugStatus('access token 已复制到剪贴板。', 'success');
+  } catch (error) {
+    setTokenDebugStatus(`复制失败：${error.message}`, 'error');
+  }
+}
+
+async function attemptSessionRecovery(reason = 'general') {
+  if (authRecoveryPromise) {
+    return authRecoveryPromise;
+  }
+  const isStartupRecovery = reason === 'startup';
+  if (isStartupRecovery && startupRecoveryAttempted) {
+    return false;
+  }
+  if (!isStartupRecovery && runtimeRecoveryAttempted) {
+    return false;
+  }
+
+  if (isStartupRecovery) {
+    startupRecoveryAttempted = true;
+  } else {
+    runtimeRecoveryAttempted = true;
+  }
+  authRecoveryPromise = (async () => {
+    const dashboardVisible = document.getElementById('dashboard').style.display !== 'none';
+    if (dashboardVisible) {
+      document.getElementById('auth-status-pill').className = 'pill pill-yellow';
+      document.getElementById('auth-status-pill').innerHTML = '<span class="dot"></span>恢复中';
+    } else {
+      renderAuthState('recovering', {
+        note: reason === 'startup' ? '检测到 refresh token，正在自动恢复登录状态…' : '正在尝试恢复会话…',
+        showButton: false,
+      });
+    }
+
+    try {
+      const refreshRes = await fetch('/auth/refresh');
+      const refreshData = await refreshRes.json();
+      const statusData = await fetchAuthStatus();
+
+      if (refreshData.ok && statusData.auth_state === 'authenticated') {
+        if (!dashboardVisible || reason === 'startup' || reason === 'token-expired') {
+          showDashboard(statusData);
+          if (reason === 'startup') {
+            await loadAppliances();
+          }
+        }
+        return true;
+      }
+
+      renderAuthState('reauth-required', {
+        error: refreshData.error || statusData.last_refresh_error || '自动恢复失败，请手动重新登录。',
+        cooldownSeconds: statusData.login_cooldown_seconds,
+      });
+      return false;
+    } catch (error) {
+      renderAuthState('reauth-required', {
+        error: error.message || '自动恢复失败，请手动重新登录。',
+      });
+      return false;
+    } finally {
+      authRecoveryPromise = null;
+    }
+  })();
+
+  return authRecoveryPromise;
+}
+
+// ══════════════════════════════════════════════════════
+//  Appliances
+// ══════════════════════════════════════════════════════
+function getApplianceSnapshotAgeMs(snapshot) {
+  if (!snapshot || typeof snapshot.cachedAt !== 'number') return null;
+  const ageMs = Date.now() - snapshot.cachedAt;
+  return ageMs >= 0 ? ageMs : null;
+}
+
+function isApplianceSnapshotFresh(snapshot) {
+  const ageMs = getApplianceSnapshotAgeMs(snapshot);
+  return ageMs !== null && ageMs <= APPLIANCE_SNAPSHOT_TTL_MS;
+}
+
+function formatSnapshotAge(ageMs) {
+  if (ageMs == null) return '未知时间';
+  const minutes = Math.max(1, Math.floor(ageMs / (60 * 1000)));
+  if (minutes < 60) return `${minutes} 分钟前`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} 小时前`;
+  const days = Math.floor(hours / 24);
+  return `${days} 天前`;
+}
+
+function formatSnapshotTimestamp(timestamp) {
+  if (typeof timestamp !== 'number' || !Number.isFinite(timestamp)) return '未知';
+  return new Date(timestamp).toLocaleString('zh-CN');
+}
+
+function setApplianceListStatus(message = '', tone = 'info') {
+  const note = document.getElementById('appliances-status-note');
+  note.className = 'appliance-list-note';
+  if (!message) {
+    note.textContent = '';
+    return;
+  }
+  note.textContent = message;
+  note.classList.add('visible', tone);
+}
+
+function describeSnapshot(snapshot) {
+  const ageMs = getApplianceSnapshotAgeMs(snapshot);
+  return `更新时间 ${formatSnapshotTimestamp(snapshot?.cachedAt)}（${formatSnapshotAge(ageMs)}）`;
+}
+
+function setSnapshotImportStatus(message = '', tone = '') {
+  const el = document.getElementById('snapshot-import-status');
+  if (!el) return;
+  el.className = 'import-status';
+  if (tone) el.classList.add(tone);
+  el.textContent = message;
+}
+
+function setManualHaIdStatus(message = '', tone = '') {
+  const el = document.getElementById('manual-haid-status');
+  if (!el) return;
+  el.className = 'manual-status';
+  if (tone) el.classList.add(tone);
+  el.textContent = message;
+}
+
+function getManualHaIdInputValue() {
+  return String(document.getElementById('manual-haid-input')?.value || '').trim();
+}
+
+function setManualHaIdInputValue(value = '') {
+  const input = document.getElementById('manual-haid-input');
+  if (input) input.value = value;
+}
+
+function fillManualHaIdWithSelection() {
+  if (!selectedHaId) {
+    setManualHaIdStatus('当前还没有选中的设备可供回填。', 'error');
+    return;
+  }
+  setManualHaIdInputValue(selectedHaId);
+  setManualHaIdStatus(`已回填当前选中设备的 haId：${selectedHaId}`);
+}
+
+function normalizeImportedSnapshot(input) {
+  if (Array.isArray(input)) {
+    return { data: { homeappliances: input } };
+  }
+  if (Array.isArray(input?.data?.homeappliances)) {
+    return { data: { homeappliances: input.data.homeappliances } };
+  }
+  if (Array.isArray(input?.homeappliances)) {
+    return { data: { homeappliances: input.homeappliances } };
+  }
+  if (typeof input?.body === 'string') {
+    try {
+      return normalizeImportedSnapshot(JSON.parse(input.body));
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
+function sanitizeFileTimestamp(value) {
+  return value.replace(/[:.]/g, '-');
+}
+
+function downloadJsonFile(data, filenamePrefix) {
+  const timestamp = sanitizeFileTimestamp(new Date().toISOString());
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json;charset=utf-8' });
+  const objectUrl = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = objectUrl;
+  link.download = `${filenamePrefix}-${timestamp}.json`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(objectUrl);
+}
+
+function getBrowserCacheDiagnostics() {
+  const snapshot = loadCachedApplianceSnapshot();
+  const ageMs = getApplianceSnapshotAgeMs(snapshot);
+  return {
+    hasSnapshot: !!snapshot,
+    cachedAt: snapshot?.cachedAt || null,
+    ageMs,
+    applianceCount: snapshot?.data?.homeappliances?.length || 0,
+    isFreshWithin24h: !!snapshot && isApplianceSnapshotFresh(snapshot),
+  };
+}
+
+function getCacheLayerSummary(serverDiagnostics = latestServerCacheDiagnostics) {
+  const browser = getBrowserCacheDiagnostics();
+  const server = serverDiagnostics?.server || null;
+  const serverHasUsableCache = !!(
+    server?.loaded_in_memory &&
+    (server?.appliance_count ?? 0) > 0 &&
+    (server?.is_fresh_within_24h || server?.is_usable_stale)
+  );
+
+  return {
+    browserHasSnapshot: browser.hasSnapshot,
+    serverHasUsableCache,
+    serverMemoryOnly: !!(serverHasUsableCache && !server?.cache_file_exists),
+  };
+}
+
+async function ensureCacheDiagnosticsLoaded() {
+  try {
+    const response = await fetch('/cache/diagnostics');
+    const data = await response.json();
+    latestServerCacheDiagnostics = data;
+    return data;
+  } catch {
+    return latestServerCacheDiagnostics;
+  }
+}
+
+async function exportCacheDiagnosticsReport() {
+  setSnapshotImportStatus('正在生成当前诊断报告…');
+  try {
+    let serverDiagnostics = latestServerCacheDiagnostics;
+    if (!serverDiagnostics) {
+      const response = await fetch('/cache/diagnostics');
+      serverDiagnostics = await response.json();
+      latestServerCacheDiagnostics = serverDiagnostics;
+    }
+
+    const report = {
+      exportedAt: Date.now(),
+      exportedAtIso: new Date().toISOString(),
+      origin: window.location.origin,
+      pathname: window.location.pathname,
+      selectedHaId,
+      browser: getBrowserCacheDiagnostics(),
+      server: serverDiagnostics?.server || null,
+      rateLimitDiagnostics: latestRateLimitDiagnostics,
+      requestLog: latestRequestLog?.entries || [],
+    };
+
+    downloadJsonFile(report, 'appliances-cache-diagnostics-report');
+    setSnapshotImportStatus('已导出当前诊断报告。', 'success');
+  } catch (error) {
+    setSnapshotImportStatus(`导出诊断报告失败：${error.message}`, 'error');
+  }
+}
+
+function formatRetryAfterValue(value) {
+  if (value == null || value === '') return '无';
+  return `${value} 秒`;
+}
+
+function renderRateLimitDiagnostics(diagnostics = latestRateLimitDiagnostics) {
+  latestRateLimitDiagnostics = diagnostics || null;
+  const panel = document.getElementById('rate-limit-diagnostics-panel');
+  if (!panel) return;
+
+  if (!diagnostics) {
+    panel.innerHTML = '<div class="empty">当前还没有可用的限流诊断数据。</div>';
+    return;
+  }
+
+  const hints = diagnostics.hints || [];
+  const last429Meta = diagnostics.last429Path
+    ? `${formatSnapshotTimestamp(diagnostics.last429At)} · ${diagnostics.last429Method || 'GET'} ${diagnostics.last429Path}`
+    : '暂未记录到 429';
+
+  panel.innerHTML = `
+    <div class="rate-limit-grid">
+      <div class="rate-limit-metric">
+        <div class="rate-limit-label">Retry-After</div>
+        <div class="rate-limit-value">${formatRetryAfterValue(diagnostics.lastRetryAfter)}</div>
+        <div class="rate-limit-subtext">最近一次 429 的冷却提示</div>
+      </div>
+      <div class="rate-limit-metric">
+        <div class="rate-limit-label">错误计数</div>
+        <div class="rate-limit-value">${diagnostics.totalErrorCount ?? 0}</div>
+        <div class="rate-limit-subtext">本地服务启动后的上游错误累计</div>
+      </div>
+      <div class="rate-limit-metric">
+        <div class="rate-limit-label">SSE 通道数</div>
+        <div class="rate-limit-value">${diagnostics.activeSseChannels ?? 0}</div>
+        <div class="rate-limit-subtext">当前由本地服务代管的上游事件流</div>
+      </div>
+      <div class="rate-limit-metric">
+        <div class="rate-limit-label">最近 10 分钟错误</div>
+        <div class="rate-limit-value">${diagnostics.recentErrorCount10m ?? 0}</div>
+        <div class="rate-limit-subtext">对应官方连续错误惩罚规则观察值</div>
+      </div>
+    </div>
+    <div class="cache-diagnostic-block" style="margin-bottom:12px;">
+      <div class="cache-diagnostic-title">
+        <span>最近一次 429</span>
+        <span class="pill ${diagnostics.last429Path ? 'pill-red' : 'pill-gray'}">${diagnostics.last429Source || '无记录'}</span>
+      </div>
+      <div class="cache-diagnostic-meta">
+        <div>路径: <strong>${diagnostics.last429Path || '—'}</strong></div>
+        <div>时间: <strong>${last429Meta}</strong></div>
+        <div>请求日志条数: <strong>${diagnostics.requestLogSize ?? 0}</strong></div>
+      </div>
+    </div>
+    <div class="rate-limit-hints">
+      ${hints.map((hint) => `<div class="rate-limit-hint">${hint}</div>`).join('')}
+    </div>`;
+}
+
+async function refreshRateLimitDiagnostics() {
+  const panel = document.getElementById('rate-limit-diagnostics-panel');
+  if (panel) {
+    panel.innerHTML = '<div class="empty">正在刷新限流诊断…</div>';
+  }
+
+  try {
+    const response = await fetch('/debug/rate-limit-diagnostics');
+    const data = await response.json();
+    renderRateLimitDiagnostics(data);
+  } catch (error) {
+    latestRateLimitDiagnostics = null;
+    renderRateLimitDiagnostics(null);
+    if (panel) {
+      panel.innerHTML += `<div class="empty" style="padding-top:0;color:var(--danger)">读取限流诊断失败：${error.message}</div>`;
+    }
+  }
+}
+
+function renderRequestLog(logData = latestRequestLog) {
+  latestRequestLog = logData || null;
+  const panel = document.getElementById('request-log-panel');
+  if (!panel) return;
+
+  const entries = logData?.entries || [];
+  if (!entries.length) {
+    panel.innerHTML = '<div class="empty">当前还没有记录到 Home Connect 上游请求。</div>';
+    return;
+  }
+
+  panel.innerHTML = entries.map((entry) => {
+    const is429 = String(entry.status) === '429';
+    const isSse = entry.kind === 'sse';
+    const isCache = entry.kind === 'cache' || String(entry.source || '').startsWith('cache');
+    const classes = [
+      'request-log-item',
+      is429 ? 'is-429' : '',
+      isSse ? 'is-sse' : '',
+      isCache ? 'is-cache' : '',
+    ].filter(Boolean).join(' ');
+    const statusTone = is429 ? 'pill-red' : (isCache ? 'pill-yellow' : (isSse ? 'pill-blue' : 'pill-gray'));
+    const time = formatSnapshotTimestamp(entry.time);
+    const retryAfter = entry.retryAfter ? ` · Retry-After ${entry.retryAfter}s` : '';
+    const duration = entry.durationMs != null ? ` · ${entry.durationMs}ms` : '';
+    return `
+      <div class="${classes}">
+        <div class="request-log-row">
+          <span class="pill ${statusTone}">${entry.method} ${entry.kind}</span>
+          <span class="pill pill-gray">${entry.status ?? 'unknown'}</span>
+          <span class="pill pill-gray">${entry.source || 'network'}</span>
+        </div>
+        <div class="request-log-path">${entry.path}</div>
+        <div class="request-log-meta">${time}${duration}${retryAfter}</div>
+      </div>`;
+  }).join('');
+}
+
+async function refreshRequestLog() {
+  const panel = document.getElementById('request-log-panel');
+  if (panel) {
+    panel.innerHTML = '<div class="empty">正在刷新请求日志…</div>';
+  }
+
+  try {
+    const response = await fetch('/debug/request-log');
+    const data = await response.json();
+    renderRequestLog(data);
+    refreshRateLimitDiagnostics();
+  } catch (error) {
+    latestRequestLog = null;
+    renderRequestLog(null);
+    if (panel) {
+      panel.innerHTML += `<div class="empty" style="padding-top:0;color:var(--danger)">读取请求日志失败：${error.message}</div>`;
+    }
+  }
+}
+
+async function clearRequestLog() {
+  try {
+    const response = await fetch('/debug/request-log/clear', {
+      method: 'POST',
+    });
+    const data = await response.json();
+    renderRequestLog(data);
+    refreshRateLimitDiagnostics();
+  } catch (error) {
+    const panel = document.getElementById('request-log-panel');
+    if (panel) {
+      panel.innerHTML = `<div class="empty" style="color:var(--danger)">清空请求日志失败：${error.message}</div>`;
+    }
+  }
+}
+
+function renderCacheDiagnostics(serverDiagnostics = latestServerCacheDiagnostics) {
+  latestServerCacheDiagnostics = serverDiagnostics || null;
+  const panel = document.getElementById('cache-diagnostics-panel');
+  if (!panel) return;
+
+  const browser = getBrowserCacheDiagnostics();
+  const server = serverDiagnostics?.server || null;
+  const browserState = browser.hasSnapshot ? (browser.isFreshWithin24h ? '24h 内有效' : '已过 24h') : '无快照';
+  const serverState = server?.loaded_in_memory
+    ? (server.is_fresh_within_24h ? '24h 内有效' : (server.is_usable_stale ? '可作陈旧回退' : '已失效'))
+    : (server?.cache_file_exists ? '文件存在但未加载' : '无缓存文件');
+
+  panel.innerHTML = `
+    <div class="cache-diagnostic-block">
+      <div class="cache-diagnostic-title">
+        <span>浏览器快照</span>
+        <span class="pill ${browser.hasSnapshot ? (browser.isFreshWithin24h ? 'pill-green' : 'pill-yellow') : 'pill-gray'}">${browserState}</span>
+      </div>
+      <div class="cache-diagnostic-meta">
+        <div>是否存在: <strong>${browser.hasSnapshot ? '是' : '否'}</strong></div>
+        <div>设备数: <strong>${browser.applianceCount}</strong></div>
+        <div>缓存时间: <strong>${formatSnapshotTimestamp(browser.cachedAt)}</strong></div>
+        <div>缓存年龄: <strong>${formatSnapshotAge(browser.ageMs)}</strong></div>
+      </div>
+    </div>
+    <div class="cache-diagnostic-block">
+      <div class="cache-diagnostic-title">
+        <span>服务端磁盘缓存</span>
+        <span class="pill ${server?.loaded_in_memory ? (server.is_fresh_within_24h ? 'pill-green' : (server.is_usable_stale ? 'pill-yellow' : 'pill-red')) : 'pill-gray'}">${serverState}</span>
+      </div>
+      <div class="cache-diagnostic-meta">
+        <div>文件存在: <strong>${server?.cache_file_exists ? '是' : '否'}</strong></div>
+        <div>已加载到内存: <strong>${server?.loaded_in_memory ? '是' : '否'}</strong></div>
+        <div>持久化状态: <strong>${server?.loaded_in_memory && !server?.cache_file_exists ? '仅内存缓存，重启后会丢失' : (server?.cache_file_exists ? '磁盘文件存在' : '无磁盘缓存')}</strong></div>
+        <div>设备数: <strong>${server?.appliance_count ?? 0}</strong></div>
+        <div>缓存时间: <strong>${formatSnapshotTimestamp(server?.cached_at ?? null)}</strong></div>
+        <div>缓存年龄: <strong>${formatSnapshotAge(server?.age_ms ?? null)}</strong></div>
+      </div>
+    </div>`;
+}
+
+async function refreshCacheDiagnostics() {
+  const panel = document.getElementById('cache-diagnostics-panel');
+  if (panel) {
+    panel.innerHTML = '<div class="empty">正在刷新缓存诊断…</div>';
+  }
+
+  try {
+    const res = await fetch('/cache/diagnostics');
+    const data = await res.json();
+    renderCacheDiagnostics(data);
+  } catch (error) {
+    latestServerCacheDiagnostics = null;
+    renderCacheDiagnostics(null);
+    if (panel) {
+      panel.innerHTML += `<div class="empty" style="padding-top:0;color:var(--danger)">读取服务端诊断失败：${error.message}</div>`;
+    }
+  }
+}
+
+async function handleSnapshotFileSelected(event) {
+  const file = event.target.files?.[0];
+  if (!file) return;
+
+  try {
+    const text = await file.text();
+    document.getElementById('snapshot-import-input').value = text;
+    setSnapshotImportStatus(`已载入文件：${file.name}`);
+  } catch (error) {
+    setSnapshotImportStatus(`读取文件失败：${error.message}`, 'error');
+  }
+}
+
+function clearImportedSnapshotInput() {
+  document.getElementById('snapshot-import-input').value = '';
+  document.getElementById('snapshot-import-file').value = '';
+  setSnapshotImportStatus('');
+}
+
+function exportBrowserApplianceSnapshot() {
+  const snapshot = loadCachedApplianceSnapshot();
+  if (!snapshot?.data?.homeappliances?.length) {
+    setSnapshotImportStatus('当前浏览器没有可导出的设备快照。', 'error');
+    return;
+  }
+
+  downloadJsonFile(snapshot, 'appliances-browser-snapshot');
+  setSnapshotImportStatus(`已导出浏览器快照，共 ${snapshot.data.homeappliances.length} 台设备。`, 'success');
+}
+
+async function exportServerApplianceCache() {
+  setSnapshotImportStatus('正在导出服务端缓存…');
+  try {
+    const response = await fetch('/cache/appliances/export?source=server');
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || `HTTP ${response.status}`);
+    }
+
+    downloadJsonFile(result, 'appliances-server-cache');
+    setSnapshotImportStatus(`已导出服务端缓存，共 ${result.data?.homeappliances?.length || 0} 台设备。`, 'success');
+  } catch (error) {
+    setSnapshotImportStatus(`导出服务端缓存失败：${error.message}`, 'error');
+  }
+}
+
+function clearBrowserApplianceSnapshot() {
+  const snapshot = loadCachedApplianceSnapshot();
+  localStorage.removeItem(APPLIANCE_SNAPSHOT_STORAGE_KEY);
+  renderCacheDiagnostics(latestServerCacheDiagnostics);
+
+  if (snapshot?.data?.homeappliances?.length) {
+    setApplianceListStatus('浏览器回退快照已删除。当前页若未刷新，仍会暂时保留已渲染列表；刷新后将不再有浏览器层回退能力。', 'warn');
+    setSnapshotImportStatus('已清空浏览器快照。', 'success');
+  } else {
+    setSnapshotImportStatus('浏览器快照本来就是空的。', 'success');
+  }
+}
+
+async function clearServerApplianceCache() {
+  setSnapshotImportStatus('正在清空服务端缓存…');
+  try {
+    const response = await fetch('/cache/clear', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ scope: 'server' }),
+    });
+    const result = await response.json();
+
+    if (!response.ok || !result.ok) {
+      throw new Error(result.error || `HTTP ${response.status}`);
+    }
+
+    latestServerCacheDiagnostics = { server: result.server };
+    renderCacheDiagnostics(latestServerCacheDiagnostics);
+    setApplianceListStatus('服务端磁盘缓存已清空。若浏览器快照也为空，则下次刷新页面时将没有任何本地设备回退列表。', 'warn');
+    setSnapshotImportStatus('已清空服务端缓存。', 'success');
+  } catch (error) {
+    setSnapshotImportStatus(`清空服务端缓存失败：${error.message}`, 'error');
+  }
+}
+
+async function importApplianceSnapshot() {
+  const textarea = document.getElementById('snapshot-import-input');
+  const raw = textarea.value.trim();
+
+  if (!raw) {
+    setSnapshotImportStatus('请先粘贴 JSON 或选择本地文件。', 'error');
+    return;
+  }
+
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (error) {
+    setSnapshotImportStatus(`JSON 解析失败：${error.message}`, 'error');
+    return;
+  }
+
+  const normalized = normalizeImportedSnapshot(parsed);
+  if (!normalized?.data?.homeappliances?.length) {
+    setSnapshotImportStatus('导入内容不合法：需要包含 homeappliances 数组。', 'error');
+    return;
+  }
+
+  if (normalized.data.homeappliances.some(item => typeof item?.haId !== 'string' || !item.haId.trim())) {
+    setSnapshotImportStatus('导入内容不合法：每台设备都必须包含 haId。', 'error');
+    return;
+  }
+
+  setSnapshotImportStatus('正在导入设备快照…');
+
+  try {
+    const response = await fetch('/cache/appliances/import', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(parsed),
+    });
+    const result = await response.json();
+
+    if (!response.ok || !result.ok) {
+      throw new Error(result.error || `HTTP ${response.status}`);
+    }
+
+    saveApplianceSnapshot({ data: result.data }, {
+      cachedAt: result.cached_at,
+      cacheSource: 'manual-import',
+    });
+    latestServerCacheDiagnostics = { server: result.server };
+    renderApplianceList(result.data.homeappliances);
+    renderCacheDiagnostics(latestServerCacheDiagnostics);
+    setApplianceListStatus(`当前展示的是手工导入的设备快照，更新时间 ${formatSnapshotTimestamp(result.cached_at)}。`, 'success');
+    setSnapshotImportStatus(`导入成功，已写入浏览器和服务端缓存，共 ${result.appliance_count} 台设备。`, 'success');
+  } catch (error) {
+    setSnapshotImportStatus(`导入失败：${error.message}`, 'error');
+  }
+}
+
+async function fetchApplianceListFromServer(options = {}) {
+  const query = options.forceRefresh ? '?refresh=1' : '';
+  return fetchProxy(`/homeappliances${query}`, { withMeta: true });
+}
+
+async function loadAppliances(options = {}) {
+  const forceRefresh = options.forceRefresh === true;
+  const grid = document.getElementById('appliances-grid');
+  const cachedSnapshot = loadCachedApplianceSnapshot();
+  const hasCachedSnapshot = !!cachedSnapshot?.data?.homeappliances?.length;
+
+  if (!hasCachedSnapshot) {
+    const diagnostics = await ensureCacheDiagnosticsLoaded();
+    renderCacheDiagnostics(diagnostics);
+  } else {
+    renderCacheDiagnostics(latestServerCacheDiagnostics);
+  }
+
+  if (!forceRefresh && hasCachedSnapshot) {
+    renderApplianceList(cachedSnapshot.data.homeappliances);
+
+    if (isApplianceSnapshotFresh(cachedSnapshot)) {
+      setApplianceListStatus(`当前展示的是本地设备快照，${describeSnapshot(cachedSnapshot)}。缓存未过 24 小时，本次不主动请求 Home Connect。`, 'info');
+      return;
+    }
+
+    setApplianceListStatus(`当前先展示本地设备快照，${describeSnapshot(cachedSnapshot)}。缓存已超过 24 小时，正在后台同步 Home Connect 最新设备列表…`, 'warn');
+    triggerApplianceBackgroundRefresh(cachedSnapshot);
+    return;
+  }
+
+  if (!hasCachedSnapshot) {
+    const cacheLayers = getCacheLayerSummary();
+    grid.innerHTML = '<div class="loading"><div class="spinner"></div>加载设备列表…</div>';
+    if (cacheLayers.serverHasUsableCache) {
+      setApplianceListStatus(
+        cacheLayers.serverMemoryOnly
+          ? '当前浏览器里还没有设备快照，但服务端仍保留一份仅存在于内存中的缓存。本次会先尝试读取这份服务端缓存并同步到浏览器；如果服务重启，这份缓存会丢失。'
+          : '当前浏览器里还没有设备快照，但服务端仍有可用缓存。本次会先尝试读取服务端缓存并同步到浏览器。',
+        'warn'
+      );
+    } else {
+      setApplianceListStatus('当前浏览器和服务端都还没有可用的设备快照，本次需要直接请求 Home Connect 才能建立第一份本地缓存。', 'warn');
+    }
+  }
+
+  if (hasCachedSnapshot || forceRefresh) {
+    setApplianceListStatus(
+      forceRefresh
+        ? '正在主动刷新 Home Connect 设备列表…'
+        : '正在加载设备列表…',
+      'info'
+    );
+  }
+
+  await refreshApplianceListFromServer({ forceRefresh, cachedSnapshot });
+}
+
+function triggerApplianceBackgroundRefresh(cachedSnapshot) {
+  if (applianceBackgroundRefreshPromise) {
+    return applianceBackgroundRefreshPromise;
+  }
+
+  applianceBackgroundRefreshPromise = refreshApplianceListFromServer({
+    forceRefresh: true,
+    cachedSnapshot,
+    background: true,
+  }).finally(() => {
+    applianceBackgroundRefreshPromise = null;
+  });
+
+  return applianceBackgroundRefreshPromise;
+}
+
+async function refreshApplianceListFromServer(options = {}) {
+  const { forceRefresh = false, cachedSnapshot = null, background = false } = options;
+  const grid = document.getElementById('appliances-grid');
+  const hasCachedSnapshot = !!cachedSnapshot?.data?.homeappliances?.length;
+
+  try {
+    const response = await fetchApplianceListFromServer({ forceRefresh });
+    const json = response.data;
+
+    // Handle HTTP errors (429, 401, 5xx, etc.)
+    if (json._status !== undefined) {
+      const status = json._status;
+      if (status === 429) {
+        if (cachedSnapshot?.data?.homeappliances?.length) {
+          if (!background) {
+            renderApplianceList(cachedSnapshot.data.homeappliances);
+          }
+          setApplianceListStatus(`Home Connect 当前返回 429，继续展示本地设备快照。${describeSnapshot(cachedSnapshot)}。`, 'warn');
+          return;
+        }
+
+        const diagnostics = await ensureCacheDiagnosticsLoaded();
+        renderCacheDiagnostics(diagnostics);
+        const cacheLayers = getCacheLayerSummary(diagnostics);
+
+        const retryAfter = response.meta.retryAfter;
+        const retryHint = retryAfter
+          ? `Home Connect 限流中，建议 ${retryAfter} 秒后再试。`
+          : 'Home Connect 限流中，请稍等约 1 分钟后刷新。';
+        if (cacheLayers.serverHasUsableCache) {
+          grid.innerHTML = `<div class="empty">请求太频繁 (429)。${retryHint}<br/>当前浏览器快照为空，但诊断显示服务端仍有可用缓存。请先点击“刷新诊断”确认当前端口实例，再刷新页面重试。</div>`;
+          setApplianceListStatus(
+            cacheLayers.serverMemoryOnly
+              ? `设备列表刷新失败：${retryHint} 当前浏览器快照为空，但服务端仍保留一份仅存在于内存中的缓存；如果服务刚重启或端口切换，页面状态可能尚未同步。`
+              : `设备列表刷新失败：${retryHint} 当前浏览器快照为空，但服务端诊断显示仍存在可用缓存，说明当前页面与服务端缓存状态没有同步。`,
+            'danger'
+          );
+        } else {
+          grid.innerHTML = `<div class="empty">请求太频繁 (429)。${retryHint}<br/>当前浏览器和服务端都没有可用设备快照，所以这次无法回退显示设备列表。</div>`;
+          setApplianceListStatus(`设备列表刷新失败：${retryHint} 当前浏览器和服务端都没有历史设备快照，所以这次无法先显示本地设备列表。`, 'danger');
+        }
+      } else if (status === 401 || status === 403) {
+        if (hasCachedSnapshot) {
+          setApplianceListStatus(`设备列表刷新失败：认证状态异常 (${status})，继续展示本地设备快照。${describeSnapshot(cachedSnapshot)}。`, 'warn');
+          return;
+        }
+        grid.innerHTML = `<div class="empty">认证失败 (${status})，请重新登录</div>`;
+        setApplianceListStatus(`设备列表加载失败：认证状态异常 (${status})。`, 'danger');
+      } else {
+        if (hasCachedSnapshot) {
+          setApplianceListStatus(`设备列表刷新失败：HTTP ${status}，继续展示本地设备快照。${describeSnapshot(cachedSnapshot)}。`, 'warn');
+          return;
+        }
+        grid.innerHTML = `<div class="empty">加载失败 (HTTP ${status})，请稍后重试</div>`;
+        setApplianceListStatus(`设备列表加载失败：HTTP ${status}。`, 'danger');
+      }
+      return;
+    }
+
+    // Handle API-level error response
+    if (json.error) {
+      if (hasCachedSnapshot) {
+        setApplianceListStatus(`设备列表刷新失败：${json.error.description || json.error.key || '未知错误'}，继续展示本地设备快照。${describeSnapshot(cachedSnapshot)}。`, 'warn');
+        return;
+      }
+      grid.innerHTML = `<div class="empty">API 错误: ${json.error.description || json.error.key || '未知错误'}</div>`;
+      setApplianceListStatus(`设备列表加载失败：${json.error.description || json.error.key || '未知错误'}`, 'danger');
+      return;
+    }
+
+    if (!json.data?.homeappliances?.length) {
+      grid.innerHTML = '<div class="empty">该账户下没有已配对的家电设备</div>';
+      setApplianceListStatus('Home Connect 当前未返回已配对设备。', 'info');
+      return;
+    }
+
+    const appliances = json.data.homeappliances;
+    saveApplianceSnapshot(json, response.meta);
+    renderApplianceList(appliances);
+
+    const cachedAt = Number.isFinite(response.meta.cachedAt) && response.meta.cachedAt > 0
+      ? response.meta.cachedAt
+      : Date.now();
+    const snapshotSummary = `更新时间 ${formatSnapshotTimestamp(cachedAt)}（${formatSnapshotAge(Date.now() - cachedAt)}）`;
+
+    if (response.meta.cacheSource === 'fresh') {
+      setApplianceListStatus(`当前展示的是服务端 24 小时缓存的设备清单，${snapshotSummary}。`, 'info');
+    } else if (response.meta.cacheSource === 'stale-on-429') {
+      setApplianceListStatus(`Home Connect 本次刷新被限流，当前展示的是服务端缓存快照，${snapshotSummary}。`, 'warn');
+    } else if (response.meta.cacheSource === 'manual-import') {
+      setApplianceListStatus(`当前展示的是手工导入的服务端设备快照，${snapshotSummary}。`, 'success');
+    } else {
+      setApplianceListStatus(
+        background
+          ? `后台同步完成，已更新为 Home Connect 最新设备清单，${snapshotSummary}。`
+          : `已从 Home Connect 更新设备清单，${snapshotSummary}。`,
+        'success'
+      );
+    }
+
+    refreshCacheDiagnostics();
+
+  } catch (e) {
+    if (cachedSnapshot?.data?.homeappliances?.length) {
+      if (!background) {
+        renderApplianceList(cachedSnapshot.data.homeappliances);
+      }
+      setApplianceListStatus(`刷新失败，继续展示本地设备快照。${describeSnapshot(cachedSnapshot)}。错误：${e.message}`, 'warn');
+      return;
+    }
+
+    grid.innerHTML = `<div class="empty">加载失败: ${e.message}</div>`;
+    setApplianceListStatus(`设备列表加载失败：${e.message}`, 'danger');
+  }
+}
+
+function renderApplianceList(appliances, options = {}) {
+  const grid = document.getElementById('appliances-grid');
+  grid.innerHTML = '';
+  renderedAppliancesById = new Map(appliances.map((appliance) => [appliance.haId, appliance]));
+
+  if (options.warning) {
+    const warning = document.createElement('div');
+    warning.className = 'empty';
+    warning.style.gridColumn = '1 / -1';
+    warning.style.marginBottom = '4px';
+    warning.style.border = '1px solid var(--warn)';
+    warning.style.borderRadius = '10px';
+    warning.style.background = '#78350f33';
+    warning.style.color = '#fcd34d';
+    warning.textContent = options.warning;
+    grid.appendChild(warning);
+  }
+
+  appliances.forEach(a => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'appliance-select-btn';
+    btn.dataset.haid = a.haId;
+
+    const icon = getApplianceIcon(a.type);
+    const connPill = a.connected
+      ? '<span class="pill pill-green" style="font-size:0.72rem"><span class="dot"></span>在线</span>'
+      : '<span class="pill pill-red" style="font-size:0.72rem"><span class="dot"></span>离线</span>';
+
+    btn.innerHTML = `
+      <div class="appliance-icon">${icon}</div>
+      <div class="appliance-meta">
+        <div class="appliance-name">${a.name || a.haId} ${connPill}</div>
+        <div class="appliance-sub">${a.brand || ''} · ${translateType(a.type)}</div>
+        <div class="appliance-sub" style="color:var(--text3);font-size:0.75rem;margin-top:2px;">${a.haId}</div>
+      </div>`;
+    grid.appendChild(btn);
+  });
+
+  const preferred = appliances.find(a => a.haId === selectedHaId)
+    || appliances.find(a => a.type?.toLowerCase().includes('dishwasher'))
+    || appliances[0];
+
+  if (selectedHaId && preferred) {
+    selectAppliance(preferred, { reveal: false });
+    return;
+  }
+
+  if (!selectedHaId) {
+    document.getElementById('detail-panel').style.display = 'none';
+  }
+}
+
+function handleApplianceGridClick(event) {
+  const trigger = event.target.closest('.appliance-select-btn');
+  if (!trigger) return;
+
+  event.preventDefault();
+  const appliance = renderedAppliancesById.get(trigger.dataset.haid);
+  if (!appliance) return;
+
+  selectAppliance(appliance);
+}
+
+function saveApplianceSnapshot(json, meta = {}) {
+  const cachedAt = Number(meta.cachedAt);
+  const safeCachedAt = Number.isFinite(cachedAt) && cachedAt > 0 ? cachedAt : Date.now();
+  try {
+    localStorage.setItem(APPLIANCE_SNAPSHOT_STORAGE_KEY, JSON.stringify({
+      cachedAt: safeCachedAt,
+      cacheSource: meta.cacheSource || 'browser',
+      data: json.data,
+    }));
+  } catch {}
+  renderCacheDiagnostics(latestServerCacheDiagnostics);
+}
+
+function loadCachedApplianceSnapshot() {
+  try {
+    const raw = localStorage.getItem(APPLIANCE_SNAPSHOT_STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed?.data?.homeappliances)) return null;
+    return {
+      cachedAt: typeof parsed.cachedAt === 'number' ? parsed.cachedAt : null,
+      cacheSource: parsed.cacheSource || 'browser',
+      data: parsed.data,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function updateBrowserApplianceSnapshotConnection(haId, connected) {
+  if (!haId) return false;
+
+  const snapshot = loadCachedApplianceSnapshot();
+  const appliances = snapshot?.data?.homeappliances;
+  if (!appliances?.length) return false;
+
+  let changed = false;
+  const nextAppliances = appliances.map((appliance) => {
+    if (appliance?.haId !== haId) return appliance;
+    if (appliance.connected === connected) return appliance;
+    changed = true;
+    return {
+      ...appliance,
+      connected,
+    };
+  });
+
+  if (!changed) return false;
+
+  try {
+    localStorage.setItem(APPLIANCE_SNAPSHOT_STORAGE_KEY, JSON.stringify({
+      cachedAt: snapshot.cachedAt,
+      cacheSource: snapshot.cacheSource || 'browser',
+      data: {
+        ...snapshot.data,
+        homeappliances: nextAppliances,
+      },
+    }));
+  } catch {}
+
+  renderCacheDiagnostics(latestServerCacheDiagnostics);
+  return true;
+}
+
+function updateApplianceListButtonConnection(haId, connected, applianceName = null) {
+  if (!haId) return;
+
+  const selectedButton = document.querySelector(`.appliance-select-btn[data-haid="${haId}"]`);
+  if (!selectedButton) return;
+
+  const nameRow = selectedButton.querySelector('.appliance-name');
+  if (!nameRow) return;
+
+  const currentName = applianceName || selectedAppliance?.name || selectedAppliance?.haId || haId;
+  const connPill = connected
+    ? '<span class="pill pill-green" style="font-size:0.72rem"><span class="dot"></span>在线</span>'
+    : '<span class="pill pill-red" style="font-size:0.72rem"><span class="dot"></span>离线</span>';
+  nameRow.innerHTML = `${currentName} ${connPill}`;
+}
+
+function ensureStatusItemsContainer() {
+  if (!rawData.status || typeof rawData.status !== 'object') {
+    rawData.status = { data: { status: [] } };
+  }
+  if (!rawData.status.data || typeof rawData.status.data !== 'object') {
+    rawData.status.data = { status: [] };
+  }
+  if (!Array.isArray(rawData.status.data.status)) {
+    rawData.status.data.status = [];
+  }
+  return rawData.status.data.status;
+}
+
+function upsertStatusItem(nextItem) {
+  const items = ensureStatusItemsContainer();
+  const itemKey = nextItem?.key;
+  if (!itemKey) return { changed: false, inserted: false };
+
+  const existingIndex = items.findIndex(item => item.key === itemKey);
+  if (existingIndex === -1) {
+    items.push({ ...nextItem });
+    return { changed: true, inserted: true };
+  }
+
+  const current = items[existingIndex] || {};
+  const merged = { ...current, ...nextItem };
+  const changed = JSON.stringify(current) !== JSON.stringify(merged);
+  if (changed) {
+    items[existingIndex] = merged;
+  }
+  return { changed, inserted: false };
+}
+
+function upsertProgramOption(bucketKey, nextItem) {
+  const bucket = rawData[bucketKey];
+  const optionKey = nextItem?.key;
+  if (!bucket?.data || !optionKey) return false;
+
+  if (!Array.isArray(bucket.data.options)) {
+    bucket.data.options = [];
+  }
+
+  const options = bucket.data.options;
+  const existingIndex = options.findIndex(option => option.key === optionKey);
+  if (existingIndex === -1) {
+    options.push({ ...nextItem });
+    return true;
+  }
+
+  const current = options[existingIndex] || {};
+  const merged = { ...current, ...nextItem };
+  const changed = JSON.stringify(current) !== JSON.stringify(merged);
+  if (changed) {
+    options[existingIndex] = merged;
+  }
+  return changed;
+}
+
+function getActiveTabName() {
+  const activeTabId = document.querySelector('.tab-content.active')?.id;
+  return activeTabId?.startsWith('tab-') ? activeTabId.slice(4) : null;
+}
+
+function hasDetailDataLoaded(haId = selectedHaId) {
+  return !!haId && rawData._detailsLoadedFor === haId;
+}
+
+function hasDetailDataLoading(haId = selectedHaId) {
+  return !!haId && rawData._detailsLoadingFor === haId;
+}
+
+async function ensureDetailDataForTab(tabName = getActiveTabName()) {
+  if (!selectedHaId) return;
+
+  if (tabName === 'programs') {
+    if (!hasDetailDataLoaded(selectedHaId) && !hasDetailDataLoading(selectedHaId)) {
+      await loadDetailData();
+      return;
+    }
+    if (rawData._programsLoadedFor !== selectedHaId && rawData._programsLoadingFor !== selectedHaId) {
+      await loadProgramData();
+    }
+    return;
+  }
+
+  if (!DETAIL_TAB_NAMES.includes(tabName)) {
+    return;
+  }
+
+  if (!hasDetailDataLoaded(selectedHaId) && !hasDetailDataLoading(selectedHaId)) {
+    await loadDetailData();
+    return;
+  }
+
+  if (tabName === 'raw') {
+    showRaw(document.getElementById('raw-select').value);
+  }
+}
+
+function applySseEventToState(eventType, eventPayload) {
+  const changeSet = {
+    overviewChanged: false,
+    statusChanged: false,
+    settingsChanged: false,
+    programsChanged: false,
+    rawChanged: false,
+    applianceListChanged: false,
+    connectionChanged: false,
+    summaryChanged: false,
+  };
+
+  if (eventType === 'CONNECTED' || eventType === 'DISCONNECTED') {
+    const connected = eventType === 'CONNECTED';
+
+    if (selectedAppliance && selectedHaId) {
+      updateSelectedApplianceConnection(connected);
+
+      changeSet.overviewChanged = true;
+      changeSet.rawChanged = true;
+      changeSet.applianceListChanged = true;
+      changeSet.connectionChanged = true;
+    }
+
+    return changeSet;
+  }
+
+  const payload = typeof eventPayload === 'string'
+    ? (() => {
+        try {
+          return JSON.parse(eventPayload);
+        } catch {
+          return null;
+        }
+      })()
+    : eventPayload;
+  const items = Array.isArray(payload?.items) ? payload.items : [];
+
+  if (!items.length) {
+    return changeSet;
+  }
+
+  for (const item of items) {
+    if (!item?.key) continue;
+
+    if (recordDishwasherSseObservation(item, eventType)) {
+      changeSet.summaryChanged = true;
+    }
+
+    if (eventType === 'STATUS') {
+      const result = upsertStatusItem(item);
+      if (result.changed) {
+        changeSet.statusChanged = true;
+        changeSet.rawChanged = true;
+
+        const lowerKey = item.key.toLowerCase();
+        if (
+          lowerKey.includes('operationstate') ||
+          lowerKey.includes('remainingprogramtime') ||
+          lowerKey.includes('remainingprogresstime') ||
+          lowerKey.includes('doorstate') ||
+          lowerKey.includes('remotecontrolactive') ||
+          lowerKey.includes('remotecontrolstartallowed')
+        ) {
+          changeSet.overviewChanged = true;
+        }
+      }
+      continue;
+    }
+
+    if (eventType === 'NOTIFY' || eventType === 'EVENT') {
+      const lowerKey = item.key.toLowerCase();
+      if (
+        lowerKey.includes('remainingprogramtime') ||
+        lowerKey.includes('elapsedprogramtime') ||
+        lowerKey.includes('estimatedtotalprogramtime') ||
+        lowerKey.includes('remainingprogramtimeisestimated') ||
+        lowerKey.includes('programprogress')
+      ) {
+        const result = upsertStatusItem(item);
+        if (result.changed) {
+          changeSet.statusChanged = true;
+          changeSet.rawChanged = true;
+          changeSet.overviewChanged = true;
+        }
+      }
+
+      const activeChanged = upsertProgramOption('programs_active', item);
+      const selectedChanged = upsertProgramOption('programs_selected', item);
+      if (activeChanged || selectedChanged) {
+        changeSet.programsChanged = true;
+        changeSet.rawChanged = true;
+      }
+    }
+  }
+
+  return changeSet;
+}
+
+function refreshUiAfterSse(changeSet) {
+  if (!changeSet) return;
+
+  if (changeSet.overviewChanged) {
+    renderOverview();
+  }
+  if (changeSet.statusChanged) {
+    renderStatus();
+  }
+  if (changeSet.settingsChanged) {
+    renderSettings();
+  }
+  if (changeSet.programsChanged && rawData._programsLoadedFor === selectedHaId) {
+    renderPrograms();
+  }
+  if (changeSet.rawChanged && getActiveTabName() === 'raw') {
+    showRaw(document.getElementById('raw-select').value);
+  }
+  if (changeSet.summaryChanged || changeSet.statusChanged || changeSet.settingsChanged || changeSet.connectionChanged) {
+    refreshDishwasherSsePanels();
+  }
+
+  if (changeSet.overviewChanged || changeSet.statusChanged || changeSet.programsChanged || changeSet.connectionChanged) {
+    document.getElementById('last-updated-time').textContent = `最后更新: ${new Date().toLocaleTimeString('zh-CN')}`;
+  }
+}
+
+function selectAppliance(appliance, options = {}) {
+  const shouldRevealDetail = options.reveal !== false;
+  selectedAppliance = appliance;
+  selectedHaId = appliance.haId;
+  selectedSource = options.source || 'list';
+
+  if (selectedSource === 'manual') {
+    manualTargetHaId = appliance.haId;
+    setManualHaIdInputValue(appliance.haId);
+    setManualHaIdStatus(`已接入手动目标 ${appliance.haId}。如需监听实时推送，请切换到“实时事件”页签或手动点击“开始监听”。`, 'success');
+  }
+
+  // Update selection highlight
+  document.querySelectorAll('.appliance-select-btn').forEach(b => b.classList.remove('selected'));
+  const btn = document.querySelector(`.appliance-select-btn[data-haid="${appliance.haId}"]`);
+  if (btn) btn.classList.add('selected');
+
+  // Update detail panel header
+  document.getElementById('detail-title').textContent = appliance.name || appliance.haId;
+  document.getElementById('detail-subtitle').textContent =
+    `${appliance.brand || ''} · ${translateType(appliance.type)} · ${appliance.haId}`;
+
+  const detailPanel = document.getElementById('detail-panel');
+  detailPanel.style.display = 'block';
+  resetDishwasherSseObservations();
+  rawData = {
+    appliance: { data: appliance },
+    programs_details: {},
+    _detailsLoadedFor: null,
+    _detailsLoadingFor: null,
+    _programsLoadedFor: null,
+    _programsLoadingFor: null,
+  };
+  resetDetailPanels();
+  renderOverview();
+  showRaw(document.getElementById('raw-select').value);
+  refreshDishwasherSsePanels();
+
+  stopEventStream();
+  if (getActiveTabName() === 'events') {
+    startEventStream();
+  }
+
+  setApplianceListStatus(`已选中 ${appliance.name || appliance.haId}，详情区已展开。可切换到“实时事件”或“原始数据”查看实时变化。`, 'success');
+
+  if (shouldRevealDetail) {
+    requestAnimationFrame(() => {
+      detailPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+}
+
+async function fetchManualApplianceProbe(haId) {
+  const doFetch = async () => fetch(`/debug/appliance-by-id?haId=${encodeURIComponent(haId)}`);
+  let response = await doFetch();
+
+  if (response.status === 401) {
+    const recovered = await attemptSessionRecovery('proxy-401');
+    if (recovered) {
+      response = await doFetch();
+    }
+  }
+
+  return response.json();
+}
+
+async function attachManualApplianceByHaId() {
+  const haId = getManualHaIdInputValue();
+  if (!haId) {
+    setManualHaIdStatus('请先输入已知属于当前账号的 haId。', 'error');
+    return;
+  }
+
+  setManualHaIdStatus(`正在验证 haId ${haId}…`);
+
+  try {
+    const result = await fetchManualApplianceProbe(haId);
+    if (!result?.ok || !result?.data?.haId) {
+      if (result?.upstreamStatus === 429) {
+        const retryHint = result.retryAfter ? `建议 ${result.retryAfter} 秒后再试。` : '当前未返回 Retry-After，请参考限流判因面板。';
+        setManualHaIdStatus(`该 haId 的最小探活请求也被 Home Connect 限流。${retryHint}`, 'error');
+      } else if (result?.upstreamStatus === 404) {
+        setManualHaIdStatus(`当前账号无法访问 haId=${haId}，请确认它确实属于当前 Home Connect 账号。`, 'error');
+      } else {
+        setManualHaIdStatus(`haId 验证失败：${result?.error || '未知错误'}。`, 'error');
+      }
+      await refreshRateLimitDiagnostics();
+      await refreshRequestLog();
+      return;
+    }
+
+    selectAppliance(result.data, { source: 'manual' });
+    await refreshRateLimitDiagnostics();
+    await refreshRequestLog();
+  } catch (error) {
+    setManualHaIdStatus(`haId 验证失败：${error.message}`, 'error');
+  }
+}
+
+function clearSelectedApplianceContext() {
+  stopEventStream();
+  selectedAppliance = null;
+  selectedHaId = null;
+  selectedSource = null;
+  rawData = {};
+  resetDishwasherSseObservations();
+  document.querySelectorAll('.appliance-select-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('detail-panel').style.display = 'none';
+  refreshDishwasherSsePanels();
+}
+
+function clearManualApplianceTarget() {
+  const previousManualHaId = manualTargetHaId;
+  manualTargetHaId = null;
+  setManualHaIdInputValue('');
+  setManualHaIdStatus(previousManualHaId ? `已清空手动目标 ${previousManualHaId}。` : '当前没有手动目标。');
+
+  if (selectedSource === 'manual') {
+    clearSelectedApplianceContext();
+  }
+}
+
+function updateSelectedApplianceConnection(connected) {
+  if (!selectedAppliance || !selectedHaId) return;
+
+  selectedAppliance = {
+    ...selectedAppliance,
+    connected,
+  };
+
+  updateApplianceListButtonConnection(selectedHaId, connected, selectedAppliance.name || selectedAppliance.haId);
+
+  if (rawData.appliance?.data) {
+    rawData.appliance.data.connected = connected;
+  }
+
+  updateBrowserApplianceSnapshotConnection(selectedHaId, connected);
+}
+
+function resetDetailPanels() {
+  document.getElementById('overview-table').innerHTML = '<tr><td colspan="2"><div class="empty">已从设备清单载入基础信息；实时变化优先通过 SSE 推送，更多详情按页签按需加载。</div></td></tr>';
+  document.getElementById('status-table').innerHTML = '<tr><td colspan="2"><div class="empty">切换到“状态”页签或点击“刷新详情”后再加载，避免默认额外请求。</div></td></tr>';
+  document.getElementById('settings-table').innerHTML = '<tr><td colspan="2"><div class="empty">切换到“设置”页签或点击“刷新详情”后再加载，避免默认额外请求。</div></td></tr>';
+  document.getElementById('active-pill').className = 'pill pill-gray';
+  document.getElementById('active-pill').textContent = '未加载';
+  document.getElementById('active-program-body').innerHTML = '<div class="empty">打开“程序”页签后再加载，避免默认额外请求。</div>';
+  document.getElementById('selected-program-body').innerHTML = '<div class="empty">打开“程序”页签后再加载，避免默认额外请求。</div>';
+  document.getElementById('available-programs-body').innerHTML = '<div class="empty">打开“程序”页签后再加载，避免一次性触发过多请求</div>';
+  document.getElementById('last-updated-time').textContent = '';
+  refreshDishwasherSsePanels();
+}
+
+async function loadDetailData() {
+  if (!selectedHaId) return;
+  if (hasDetailDataLoading(selectedHaId)) return;
+
+  const targetHaId = selectedHaId;
+  const loadVersion = ++detailLoadVersion;
+  rawData._detailsLoadingFor = targetHaId;
+  document.getElementById('last-updated-time').textContent = '';
+
+  try {
+    const [applianceRes, statusRes, settingsRes] =
+      await Promise.allSettled([
+        fetchProxy(`/homeappliances/${targetHaId}`),
+        fetchProxy(`/homeappliances/${targetHaId}/status`),
+        fetchProxy(`/homeappliances/${targetHaId}/settings`),
+      ]);
+
+    if (loadVersion !== detailLoadVersion || targetHaId !== selectedHaId) return;
+
+    const get = (r) => r.status === 'fulfilled' ? r.value : null;
+
+    rawData.appliance = get(applianceRes) || rawData.appliance;
+    rawData.status = get(statusRes);
+    rawData.settings = get(settingsRes);
+    rawData._detailsLoadedFor = targetHaId;
+    syncDishwasherSummaryFromDetailData();
+
+    renderOverview();
+    renderStatus();
+    renderSettings();
+    showRaw(document.getElementById('raw-select').value);
+    refreshDishwasherSsePanels();
+
+    const now = new Date().toLocaleTimeString('zh-CN');
+    document.getElementById('last-updated-time').textContent = `最后更新: ${now}`;
+
+    const activeTab = document.querySelector('.tab-content.active')?.id;
+    if (activeTab === 'tab-programs') {
+      await loadProgramData(loadVersion);
+    }
+  } finally {
+    if (rawData._detailsLoadingFor === targetHaId) {
+      rawData._detailsLoadingFor = null;
+    }
+  }
+}
+
+async function loadProgramData(loadVersion = detailLoadVersion) {
+  if (!selectedHaId) return;
+  if (rawData._programsLoadedFor === selectedHaId || rawData._programsLoadingFor === selectedHaId) return;
+
+  const targetHaId = selectedHaId;
+  rawData._programsLoadingFor = targetHaId;
+  document.getElementById('active-pill').className = 'pill pill-gray';
+  document.getElementById('active-pill').textContent = '加载中';
+  document.getElementById('active-program-body').innerHTML = '<div class="loading"><div class="spinner"></div>加载当前程序…</div>';
+  document.getElementById('selected-program-body').innerHTML = '<div class="loading"><div class="spinner"></div>加载已选程序…</div>';
+  document.getElementById('available-programs-body').innerHTML = '<div class="loading"><div class="spinner"></div>顺序加载程序详情，避免触发限流…</div>';
+
+  const [activeProgRes, selectedProgRes, availProgRes, allProgRes] = await Promise.allSettled([
+    fetchProxy(`/homeappliances/${targetHaId}/programs/active`),
+    fetchProxy(`/homeappliances/${targetHaId}/programs/selected`),
+    fetchProxy(`/homeappliances/${targetHaId}/programs/available`),
+    fetchProxy(`/homeappliances/${targetHaId}/programs`),
+  ]);
+
+  if (loadVersion !== detailLoadVersion || targetHaId !== selectedHaId) return;
+
+  const get = (r) => r.status === 'fulfilled' ? r.value : null;
+  rawData.programs_active = get(activeProgRes);
+  rawData.programs_selected = get(selectedProgRes);
+  rawData.programs_available = get(availProgRes);
+  rawData.programs_all = get(allProgRes);
+  rawData.programs_active_options = null;
+  rawData.programs_selected_options = null;
+  rawData.programs_details = {};
+
+  if (rawData.programs_active?.data?.key) {
+    rawData.programs_active_options = await fetchProxy(`/homeappliances/${targetHaId}/programs/active/options`).catch(() => null);
+    if (loadVersion !== detailLoadVersion || targetHaId !== selectedHaId) return;
+  }
+
+  if (rawData.programs_selected?.data?.key) {
+    rawData.programs_selected_options = await fetchProxy(`/homeappliances/${targetHaId}/programs/selected/options`).catch(() => null);
+    if (loadVersion !== detailLoadVersion || targetHaId !== selectedHaId) return;
+  }
+
+  const availProgs = rawData.programs_available?.data?.programs || [];
+  for (const program of availProgs) {
+    const detail = await fetchProxy(`/homeappliances/${targetHaId}/programs/available/${encodeURIComponent(program.key)}`).catch(() => null);
+    if (loadVersion !== detailLoadVersion || targetHaId !== selectedHaId) return;
+    if (detail?.data) {
+      rawData.programs_details[program.key] = detail;
+    }
+  }
+
+  rawData._programsLoadedFor = targetHaId;
+  rawData._programsLoadingFor = null;
+  renderPrograms();
+  showRaw(document.getElementById('raw-select').value);
+}
+
+async function refreshAllData() {
+  await loadAppliances({ forceRefresh: true });
+  await ensureDetailDataForTab(getActiveTabName());
+  await refreshCacheDiagnostics();
+  await refreshRateLimitDiagnostics();
+  await refreshRequestLog();
+}
+
+// ══════════════════════════════════════════════════════
+//  Fetch helper
+// ══════════════════════════════════════════════════════
+async function fetchProxy(path, options = {}) {
+  let res = await fetch(`/proxy${path}`);
+  if (res.status === 401) {
+    const recovered = await attemptSessionRecovery('proxy-401');
+    if (recovered) {
+      res = await fetch(`/proxy${path}`);
+    } else {
+      throw new Error('会话已失效，请手动重新登录');
+    }
+  }
+
+  const text = await res.text();
+  let data;
+  try { data = JSON.parse(text); } catch { data = { _raw: text, _status: res.status }; }
+
+  if (!options.withMeta) {
+    return data;
+  }
+
+  return {
+    data,
+    meta: {
+      status: res.status,
+      retryAfter: res.headers.get('Retry-After'),
+      cacheSource: res.headers.get('X-HomeConnect-Cache'),
+      cacheAgeSeconds: Number(res.headers.get('X-HomeConnect-Cache-Age-Seconds')),
+      cachedAt: Number(res.headers.get('X-HomeConnect-Cache-Cached-At')),
+    },
+  };
+}
+
+// ══════════════════════════════════════════════════════
+//  Renderers
+// ══════════════════════════════════════════════════════
+function renderOverview() {
+  const tbl = document.getElementById('overview-table');
+  const d = rawData.appliance?.data || selectedAppliance;
+  if (!d) { tbl.innerHTML = '<tr><td colspan="2"><div class="empty">无数据</div></td></tr>'; return; }
+
+  const operationState = findFeature(rawData.status?.data?.status, ['operationstate']);
+  const remainingTime = findFeature(rawData.status?.data?.status, ['remainingprogramtime', 'remainingprogresstime']);
+  const doorState = findFeature(rawData.status?.data?.status, ['doorstate']);
+  const remoteControl = findFeature(rawData.status?.data?.status, ['remotecontrolactive']);
+  const remoteStartAllowed = findFeature(rawData.status?.data?.status, ['remotecontrolstartallowed']);
+  const powerState = findFeature(rawData.settings?.data?.settings, ['powerstate']);
+  const childLock = findFeature(rawData.settings?.data?.settings, ['childlock']);
+
+  const rows = [
+    ['名称', d.name],
+    ['品牌', d.brand],
+    ['设备类型', translateType(d.type)],
+    ['型号 E-Nr', d.enumber],
+    ['设备 ID (haId)', d.haId],
+    ['vib', d.vib],
+    ['连接状态', d.connected
+      ? '<span class="pill pill-green"><span class="dot"></span>在线</span>'
+      : '<span class="pill pill-red"><span class="dot"></span>离线</span>'],
+    ['运行状态', renderFeatureValue(operationState)],
+    ['剩余时间', renderFeatureValue(remainingTime)],
+    ['门状态', renderFeatureValue(doorState)],
+    ['远程控制', renderFeatureValue(remoteControl)],
+    ['允许远程启动', renderFeatureValue(remoteStartAllowed)],
+    ['电源状态', renderFeatureValue(powerState)],
+    ['童锁', renderFeatureValue(childLock)],
+  ];
+
+  tbl.innerHTML = rows.filter(r => r[1] != null).map(([k, v]) =>
+    `<tr><td>${k}</td><td>${v}</td></tr>`
+  ).join('');
+}
+
+function renderStatus() {
+  const tbl = document.getElementById('status-table');
+  const items = rawData.status?.data?.status;
+  if (!items?.length) {
+    tbl.innerHTML = '<tr><td colspan="2"><div class="empty">无状态数据（设备可能离线）</div></td></tr>';
+    return;
+  }
+  tbl.innerHTML = items.map(s => {
+    const displayVal = formatValue(s.value, s.unit);
+    const badge = getStatusBadge(s.key, s.value);
+    return `<tr>
+      <td title="${s.key}">${shortKey(s.key)}</td>
+      <td>${badge || displayVal}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderSettings() {
+  const tbl = document.getElementById('settings-table');
+  const items = rawData.settings?.data?.settings;
+  if (!items?.length) {
+    tbl.innerHTML = '<tr><td colspan="2"><div class="empty">无设置数据</div></td></tr>';
+    return;
+  }
+  tbl.innerHTML = items.map(s =>
+    `<tr>
+      <td title="${s.key}">${shortKey(s.key)}</td>
+      <td>${formatValue(s.value, s.unit)}</td>
+    </tr>`
+  ).join('');
+}
+
+function renderPrograms() {
+  if (rawData._programsLoadingFor === selectedHaId && !rawData._programsLoadedFor) {
+    return;
+  }
+
+  // Active program
+  const active = rawData.programs_active?.data;
+  const activePill = document.getElementById('active-pill');
+  const activeBody = document.getElementById('active-program-body');
+
+  if (active?.key) {
+    activePill.className = 'pill pill-green';
+    activePill.innerHTML = '<span class="dot"></span>运行中';
+    activeBody.innerHTML = renderProgramBlock(active, rawData.programs_active_options);
+  } else {
+    activePill.className = 'pill pill-gray';
+    activePill.innerHTML = '无';
+    activeBody.innerHTML = '<div class="empty">当前没有正在运行的程序</div>';
+  }
+
+  // Selected program
+  const selected = rawData.programs_selected?.data;
+  const selectedBody = document.getElementById('selected-program-body');
+  if (selected?.key) {
+    selectedBody.innerHTML = renderProgramBlock(selected, rawData.programs_selected_options);
+  } else {
+    selectedBody.innerHTML = '<div class="empty">未选择程序</div>';
+  }
+
+  // Available programs
+  const avail = rawData.programs_available?.data?.programs;
+  const availBody = document.getElementById('available-programs-body');
+  if (avail?.length) {
+    availBody.innerHTML = avail.map(p => {
+      const detail = rawData.programs_details?.[p.key]?.data;
+      const opts = detail?.options || [];
+      const optsHtml = opts.map(o => {
+        const allowed = o.constraints?.allowedvalues;
+        const dflt = o.constraints?.default;
+        const range = (o.constraints?.min != null && o.constraints?.max != null)
+          ? `${o.constraints.min}–${o.constraints.max}${o.unit ? ' ' + o.unit : ''}`
+          : null;
+        const constraintStr = allowed
+          ? `可选: ${allowed.map(v => formatValue(v, '')).join(', ')}${dflt != null ? `（默认: ${formatValue(dflt, '')}）` : ''}`
+          : range
+            ? `范围: ${range}${dflt != null ? `（默认: ${dflt}）` : ''}`
+            : (dflt != null ? `默认: ${formatValue(dflt, '')}` : '');
+        return `<div class="option-row">
+          <span class="option-key" title="${o.key}">${shortKey(o.key)}</span>
+          <span class="option-val" style="color:var(--text2);font-size:0.78rem">${constraintStr}</span>
+        </div>`;
+      }).join('');
+      return `
+        <div class="program-card">
+          <div class="program-name">▶ ${shortKey(p.key)}</div>
+          <div style="font-size:0.76rem;color:var(--text3);font-family:'Courier New',monospace;margin-bottom:${opts.length ? '6px' : '0'}">${p.key}</div>
+          ${(p.constraints?.available === false)
+            ? '<div style="color:var(--warn);font-size:0.8rem;margin-top:4px;">⚠ 当前不可用</div>' : ''}
+          ${optsHtml}
+          ${(!opts.length && detail) ? '<div style="color:var(--text3);font-size:0.82rem">无选项</div>' : ''}
+          ${(!detail) ? '<div style="color:var(--text3);font-size:0.78rem;font-style:italic">（选项详情不可用）</div>' : ''}
+        </div>
+      `;
+    }).join('');
+  } else {
+    availBody.innerHTML = '<div class="empty">无可用程序信息</div>';
+  }
+}
+
+function renderProgramBlock(prog, optDetails) {
+  if (!prog) return '<div class="empty">无数据</div>';
+  const opts = prog.options || [];
+  // Build constraint lookup from separate /options endpoint (may be null)
+  const constraintMap = {};
+  (optDetails?.data?.options || []).forEach(o => { constraintMap[o.key] = o; });
+
+  const optsHtml = opts.map(o => {
+    const detail = constraintMap[o.key];
+    const allowed = detail?.constraints?.allowedvalues;
+    const min = detail?.constraints?.min;
+    const max = detail?.constraints?.max;
+    const dflt = detail?.constraints?.default;
+    let constraintStr = '';
+    if (allowed) {
+      constraintStr = `可选: ${allowed.map(v => formatValue(v, '')).join(', ')}`;
+      if (dflt != null) constraintStr += `（默认: ${formatValue(dflt, '')}）`;
+    } else if (min != null && max != null) {
+      constraintStr = `范围: ${min}–${max}${o.unit ? ' ' + o.unit : ''}`;
+      if (dflt != null) constraintStr += `（默认: ${dflt}）`;
+    }
+    return `<div class="option-row">
+      <span class="option-key" title="${o.key}">${shortKey(o.key)}</span>
+      <span class="option-val">${formatValue(o.value, o.unit)}</span>
+      ${o.unit ? `<span class="option-unit">${o.unit}</span>` : ''}
+      ${constraintStr ? `<span style="color:var(--text3);font-size:0.76rem;margin-left:6px">${constraintStr}</span>` : ''}
+    </div>`;
+  }).join('');
+  return `
+    <div class="program-card">
+      <div class="program-name">
+        ${shortKey(prog.key)}
+        ${prog.name ? `<span style="color:var(--text2);font-weight:400;font-size:0.82rem">· ${prog.name}</span>` : ''}
+      </div>
+      <div style="font-size:0.76rem;color:var(--text3);font-family:'Courier New',monospace;margin-bottom:8px">${prog.key}</div>
+      ${optsHtml || '<div style="color:var(--text3);font-size:0.82rem">无选项</div>'}
+    </div>`;
+}
+
+// ══════════════════════════════════════════════════════
+//  Raw JSON viewer
+// ══════════════════════════════════════════════════════
+function showRaw(key) {
+  const out = document.getElementById('raw-output');
+  const data = rawData[key];
+  if (!data) { out.textContent = '尚未加载数据'; return; }
+  out.textContent = JSON.stringify(data, null, 2);
+}
+
+// ══════════════════════════════════════════════════════
+//  SSE Event stream (真正 Server-Sent Events 实时推送)
+// ══════════════════════════════════════════════════════
+const SSE_TYPE_COLORS = {
+  STATUS:       '#4f8ef7',
+  NOTIFY:       '#f59e0b',
+  EVENT:        '#a855f7',
+  CONNECTED:    '#22c55e',
+  DISCONNECTED: '#ef4444',
+  PAIRED:       '#22c55e',
+  DEPAIRED:     '#ef4444',
+  'KEEP-ALIVE': '#64748b',
+};
+
+function appendFeedLine(feed, html) {
+  const line = document.createElement('div');
+  line.className = 'event-line';
+  line.innerHTML = html;
+  feed.appendChild(line);
+  feed.scrollTop = feed.scrollHeight;
+  // Cap at 500 lines to avoid memory growth
+  while (feed.children.length > 500) feed.removeChild(feed.firstChild);
+}
+
+function startEventStream() {
+  if (!selectedHaId) return;
+  stopEventStream();
+
+  const feed = document.getElementById('events-feed');
+  const statusPill = document.getElementById('event-status');
+  const startBtn = document.getElementById('event-start-btn');
+  const stopBtn = document.getElementById('event-stop-btn');
+  const nowStr = () => new Date().toLocaleTimeString('zh-CN');
+
+  statusPill.className = 'pill pill-yellow';
+  statusPill.textContent = '连接中…';
+  startBtn.disabled = true;
+  stopBtn.disabled = false;
+
+  appendFeedLine(feed, `<span class="event-keep-alive">[${nowStr()}] 正在建立 SSE 连接…</span>`);
+
+  const es = new EventSource(`/events/${encodeURIComponent(selectedHaId)}`);
+  window.setTimeout(() => {
+    refreshRateLimitDiagnostics();
+  }, 300);
+
+  es.onopen = () => {
+    statusPill.className = 'pill pill-green';
+    statusPill.innerHTML = '<span class="dot"></span>SSE 已连接';
+    appendFeedLine(feed, `<span class="event-connected">[${nowStr()}] ✅ SSE 连接建立，等待设备推送…</span>`);
+  };
+
+  const ALL_TYPES = ['STATUS', 'NOTIFY', 'EVENT', 'CONNECTED', 'DISCONNECTED', 'PAIRED', 'DEPAIRED', 'KEEP-ALIVE'];
+  ALL_TYPES.forEach(type => {
+    es.addEventListener(type, (e) => {
+      const t = nowStr();
+      const color = SSE_TYPE_COLORS[type] || '#94a3b8';
+      const typeTag = `<span style="color:${color};font-size:0.72rem;font-weight:700;margin-right:4px">[${type}]</span>`;
+
+      if (type === 'KEEP-ALIVE') {
+        appendFeedLine(feed, `<span class="event-time">[${t}]</span> ${typeTag}<span class="event-keep-alive">💓</span>`);
+        return;
+      }
+      if (type === 'CONNECTED') {
+        appendFeedLine(feed, `<span class="event-time">[${t}]</span> ${typeTag}<span class="event-connected">🟢 设备已上线</span>`);
+        const changeSet = applySseEventToState(type, e.data);
+        refreshUiAfterSse(changeSet);
+        return;
+      }
+      if (type === 'DISCONNECTED' && (e.data || '').includes('stream_ended')) {
+        appendFeedLine(feed, `<span class="event-time">[${t}]</span> ${typeTag}<span class="event-disconnected">⚠ 推送流中断</span>`);
+        return;
+      }
+      if (type === 'DISCONNECTED') {
+        appendFeedLine(feed, `<span class="event-time">[${t}]</span> ${typeTag}<span class="event-disconnected">🔴 设备已离线</span>`);
+        const changeSet = applySseEventToState(type, e.data);
+        refreshUiAfterSse(changeSet);
+        return;
+      }
+      if (type === 'PAIRED') {
+        appendFeedLine(feed, `<span class="event-time">[${t}]</span> ${typeTag}<span class="event-connected">设备已配对</span>`);
+        return;
+      }
+      if (type === 'DEPAIRED') {
+        appendFeedLine(feed, `<span class="event-time">[${t}]</span> ${typeTag}<span class="event-disconnected">设备已取消配对</span>`);
+        return;
+      }
+
+      let items = [];
+      try { items = JSON.parse(e.data).items || []; } catch {}
+
+      if (!items.length) {
+        appendFeedLine(feed, `<span class="event-time">[${t}]</span> ${typeTag}<span class="event-keep-alive">${e.data || '(空)'}</span>`);
+        return;
+      }
+
+      items.forEach(item => {
+        const badge = getStatusBadge(item.key, item.value);
+        const valHtml = badge || `<span class="event-val">${formatValue(item.value, item.unit)}</span>`;
+        appendFeedLine(feed,
+          `<span class="event-time">[${t}]</span> ${typeTag}` +
+          `<span class="event-key">${shortKey(item.key)}</span> = ${valHtml}` +
+          (item.unit ? ` <span style="color:var(--text3);font-size:0.76rem">${item.unit}</span>` : '')
+        );
+      });
+
+      const changeSet = applySseEventToState(type, { items });
+      refreshUiAfterSse(changeSet);
+    });
+  });
+
+  es.onerror = () => {
+    statusPill.className = 'pill pill-red';
+    statusPill.innerHTML = '<span class="dot"></span>连接中断';
+    appendFeedLine(feed, `<span class="event-disconnected">[${nowStr()}] ⚠ SSE 连接中断，将自动重连…</span>`);
+  };
+
+  eventSource = es;
+}
+
+function stopEventStream() {
+  if (eventSource instanceof EventSource) {
+    eventSource.close();
+  } else if (eventSource?.interval) {
+    clearInterval(eventSource.interval);
+  }
+  eventSource = null;
+  const statusPill = document.getElementById('event-status');
+  const startBtn = document.getElementById('event-start-btn');
+  const stopBtn = document.getElementById('event-stop-btn');
+  if (statusPill) { statusPill.className = 'pill pill-gray'; statusPill.textContent = '未连接'; }
+  if (startBtn) startBtn.disabled = false;
+  if (stopBtn) stopBtn.disabled = true;
+  window.setTimeout(() => {
+    refreshRateLimitDiagnostics();
+  }, 300);
+}
+
+function addEventLine(feed, timeOrMsg, key, value) {
+  // Legacy wrapper kept for compatibility
+  appendFeedLine(feed,
+    key === undefined
+      ? `<span class="event-${value || 'keep-alive'}">${timeOrMsg}</span>`
+      : `<span class="event-time">[${timeOrMsg}]</span><span class="event-key">${shortKey(key)}</span> = <span class="event-val">${value}</span>`
+  );
+}
+
+function clearEvents() {
+  const feed = document.getElementById('events-feed');
+  feed.innerHTML = '<div class="event-line event-keep-alive">日志已清空</div>';
+  resetDishwasherSseObservations();
+  syncDishwasherSummaryFromDetailData();
+  refreshDishwasherSsePanels();
+}
+
+// ══════════════════════════════════════════════════════
+//  Tabs
+// ══════════════════════════════════════════════════════
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    const tabs = ['overview','status','settings','programs','events','raw'];
+    b.classList.toggle('active', tabs[i] === name);
+  });
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById(`tab-${name}`)?.classList.add('active');
+  if (name === 'raw') {
+    showRaw(document.getElementById('raw-select').value);
+  }
+  if (name === 'events') {
+    refreshDishwasherSsePanels();
+  }
+  if ((DETAIL_TAB_NAMES.includes(name) || name === 'programs') && selectedHaId) {
+    ensureDetailDataForTab(name);
+  }
+  // Auto-start SSE when switching to Events tab
+  if (name === 'events' && !eventSource && selectedHaId) {
+    startEventStream();
+  }
+}
+
+function findFeature(items, fragments) {
+  if (!items?.length) return null;
+  const needles = fragments.map(fragment => fragment.toLowerCase());
+  return items.find(item => needles.some(needle => item.key?.toLowerCase().includes(needle))) || null;
+}
+
+function renderFeatureValue(item) {
+  if (!item) return null;
+  const displayValue = item.displayvalue ?? item.value;
+  const badge = getStatusBadge(item.key, item.value);
+  return badge || formatValue(displayValue, item.unit);
+}
+
+// ══════════════════════════════════════════════════════
+//  Utilities
+// ══════════════════════════════════════════════════════
+function getApplianceIcon(type) {
+  const t = (type || '').toLowerCase();
+  if (t.includes('dishwasher')) return '🍽️';
+  if (t.includes('washer') || t.includes('dryer')) return '🫧';
+  if (t.includes('oven') || t.includes('cook')) return '🔥';
+  if (t.includes('fridge') || t.includes('freezer') || t.includes('refrigerator')) return '❄️';
+  if (t.includes('coffee')) return '☕';
+  if (t.includes('hob')) return '🍳';
+  if (t.includes('hood')) return '💨';
+  return '🏠';
+}
+
+function translateType(type) {
+  const map = {
+    'Dishwasher': '洗碗机',
+    'Washer': '洗衣机',
+    'Dryer': '烘干机',
+    'WasherDryer': '洗烘一体机',
+    'Oven': '烤箱',
+    'FridgeFreezer': '冰箱冷冻组合',
+    'Refrigerator': '冰箱',
+    'Freezer': '冷冻柜',
+    'CoffeeMaker': '咖啡机',
+    'Hob': '炉灶',
+    'Hood': '抽油烟机',
+    'CookProcessor': '料理机',
+    'CleaningRobot': '扫地机器人',
+  };
+  return map[type] || type || '未知';
+}
+
+function shortKey(key) {
+  if (!key) return '';
+  // Remove common prefixes for display
+  const parts = key.split('.');
+  return parts.slice(-2).join('.');
+}
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function formatValue(val, unit) {
+  if (val === null || val === undefined) return '<span style="color:var(--text3)">—</span>';
+  if (typeof val === 'boolean') {
+    return val
+      ? '<span class="pill pill-green" style="font-size:0.75rem">true</span>'
+      : '<span class="pill pill-gray" style="font-size:0.75rem">false</span>';
+  }
+  const display = typeof val === 'string' ? shortKey(val) : String(val);
+  return unit ? `${display} <span style="color:var(--text3);font-size:0.8rem">${unit}</span>` : display;
+}
+
+function normalizeHomeConnectTimestamp(value) {
+  if (value == null) return null;
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value < 1e12 ? value * 1000 : value;
+  }
+  if (typeof value === 'string' && /^\d+$/.test(value)) {
+    const numeric = Number(value);
+    return numeric < 1e12 ? numeric * 1000 : numeric;
+  }
+  const parsed = Date.parse(value);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function formatDurationSeconds(totalSeconds) {
+  if (!Number.isFinite(Number(totalSeconds))) return '—';
+  const seconds = Math.max(0, Math.round(Number(totalSeconds)));
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainderSeconds = seconds % 60;
+  if (hours > 0) return `${hours}小时 ${minutes}分`;
+  if (minutes > 0) return `${minutes}分 ${remainderSeconds}秒`;
+  return `${remainderSeconds}秒`;
+}
+
+function formatObservationTime(timestampMs) {
+  if (!Number.isFinite(timestampMs)) return '未收到';
+  return new Date(timestampMs).toLocaleString('zh-CN', {
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
+}
+
+function getDishwasherObservationFreshness(timestampMs) {
+  if (!Number.isFinite(timestampMs)) {
+    return { state: 'empty', label: '未收到', className: 'pill freshness-pill-empty' };
+  }
+
+  const age = Date.now() - timestampMs;
+  if (age <= DISHWASHER_SSE_LIVE_MS) {
+    return { state: 'live', label: '实时', className: 'pill freshness-pill-live' };
+  }
+  if (age <= DISHWASHER_SSE_STALE_MS) {
+    return { state: 'aging', label: '较旧', className: 'pill freshness-pill-aging' };
+  }
+  return { state: 'stale', label: '陈旧', className: 'pill freshness-pill-stale' };
+}
+
+function resetDishwasherSseObservations() {
+  dishwasherSseObservations = {};
+}
+
+function getDishwasherSseMeta(key) {
+  return DISHWASHER_SSE_META[key] || {
+    title: shortKey(key),
+    description: 'Home Connect 官方支持的洗碗机 SSE 项。',
+    kind: 'state',
+  };
+}
+
+function interpretEventPresentState(value, meta) {
+  switch (value) {
+    case 'BSH.Common.EnumType.EventPresentState.Present':
+      return meta.activeLabel || '已触发';
+    case 'BSH.Common.EnumType.EventPresentState.Off':
+      return meta.inactiveLabel || '已解除';
+    case 'BSH.Common.EnumType.EventPresentState.Confirmed':
+      return '已确认';
+    default:
+      return shortKey(value);
+  }
+}
+
+function formatDishwasherObservationValue(meta, observation) {
+  if (!observation) return '未收到';
+  const { value, unit } = observation;
+
+  if (meta.kind === 'event') {
+    return interpretEventPresentState(value, meta);
+  }
+
+  if (meta.valueType === 'durationSeconds') {
+    return formatDurationSeconds(value);
+  }
+  if (meta.valueType === 'percent') {
+    return Number.isFinite(Number(value)) ? `${Number(value)}%` : '—';
+  }
+  if (meta.valueType === 'boolean') {
+    if (value === true) return meta.trueLabel || '是';
+    if (value === false) return meta.falseLabel || '否';
+  }
+
+  if (typeof value === 'string') {
+    if (meta.enumLabels?.[value]) return meta.enumLabels[value];
+    if (value.startsWith('BSH.Common.EnumType.OperationState.')) {
+      return {
+        'BSH.Common.EnumType.OperationState.Run': '运行中',
+        'BSH.Common.EnumType.OperationState.Ready': '待机就绪',
+        'BSH.Common.EnumType.OperationState.Finished': '已完成',
+        'BSH.Common.EnumType.OperationState.Pause': '已暂停',
+        'BSH.Common.EnumType.OperationState.DelayedStart': '延时启动',
+        'BSH.Common.EnumType.OperationState.Error': '故障',
+        'BSH.Common.EnumType.OperationState.Aborting': '中止中',
+      }[value] || shortKey(value);
+    }
+    if (value.startsWith('BSH.Common.EnumType.DoorState.')) {
+      return {
+        'BSH.Common.EnumType.DoorState.Open': '已打开',
+        'BSH.Common.EnumType.DoorState.Closed': '已关闭',
+        'BSH.Common.EnumType.DoorState.Locked': '已锁定',
+      }[value] || shortKey(value);
+    }
+    if (value.startsWith('BSH.Common.EnumType.PowerState.')) {
+      return {
+        'BSH.Common.EnumType.PowerState.On': '开机',
+        'BSH.Common.EnumType.PowerState.Off': '关机',
+        'BSH.Common.EnumType.PowerState.Standby': '待机',
+      }[value] || shortKey(value);
+    }
+    return unit ? `${shortKey(value)} ${unit}` : shortKey(value);
+  }
+
+  if (value == null) return '未收到';
+  return unit ? `${value} ${unit}` : String(value);
+}
+
+function recordDishwasherSseObservation(item, eventType = 'DETAIL', receiveTimeMs = Date.now()) {
+  const key = item?.key;
+  if (!key) return false;
+
+  const meta = getDishwasherSseMeta(key);
+  const sourceTimestampMs = normalizeHomeConnectTimestamp(item.timestamp);
+  const observedAtMs = sourceTimestampMs || receiveTimeMs;
+  const current = dishwasherSseObservations[key];
+  if (current?.observedAtMs && current.observedAtMs > observedAtMs) {
+    return false;
+  }
+
+  const next = {
+    key,
+    title: meta.title,
+    description: meta.description,
+    value: item.value,
+    unit: item.unit || null,
+    eventType,
+    sourceTimestampMs,
+    receivedAtMs: receiveTimeMs,
+    observedAtMs,
+  };
+
+  const changed = JSON.stringify(current) !== JSON.stringify(next);
+  if (changed) {
+    dishwasherSseObservations[key] = next;
+  }
+  return changed;
+}
+
+function syncDishwasherSummaryFromDetailData() {
+  const detailItems = [
+    ...(rawData.status?.data?.status || []),
+    ...(rawData.settings?.data?.settings || []),
+  ];
+  let changed = false;
+  detailItems.forEach((item) => {
+    if (recordDishwasherSseObservation(item, 'DETAIL')) {
+      changed = true;
+    }
+  });
+  return changed;
+}
+
+function renderDishwasherSseSummary() {
+  const container = document.getElementById('dishwasher-sse-summary-panel');
+  if (!container) return;
+
+  container.innerHTML = DISHWASHER_SSE_SUMMARY_KEYS.map((key) => {
+    const meta = getDishwasherSseMeta(key);
+    const observation = dishwasherSseObservations[key];
+    const observedAtMs = observation?.sourceTimestampMs || observation?.receivedAtMs || null;
+    const freshness = getDishwasherObservationFreshness(observedAtMs);
+    const valueText = formatDishwasherObservationValue(meta, observation);
+    const lastUpdatedText = observation
+      ? `最后更新时间：${formatObservationTime(observedAtMs)}`
+      : '最后更新时间：未收到';
+    const sourceText = observation
+      ? `来源：${observation.eventType === 'DETAIL' ? '详情接口快照' : `SSE ${observation.eventType}`}`
+      : '来源：暂无';
+    return `
+      <div class="dishwasher-sse-card">
+        <div class="dishwasher-sse-card-head">
+          <div class="dishwasher-sse-card-title">${escapeHtml(meta.title)}</div>
+          <span class="${freshness.className}">${escapeHtml(freshness.label)}</span>
+        </div>
+        <div class="dishwasher-sse-card-value">${escapeHtml(valueText)}</div>
+        <div class="dishwasher-sse-card-desc">${escapeHtml(meta.description)}</div>
+        <div class="dishwasher-sse-card-meta">
+          <div>${escapeHtml(lastUpdatedText)}</div>
+          <div>${escapeHtml(sourceText)}</div>
+        </div>
+        <div class="dishwasher-sse-card-key">${escapeHtml(key)}</div>
+      </div>`;
+  }).join('');
+}
+
+function renderDishwasherSseCatalog() {
+  const container = document.getElementById('dishwasher-sse-catalog-body');
+  if (!container) return;
+
+  container.innerHTML = DISHWASHER_SSE_CATALOG_GROUPS.map((group) => {
+    const itemsHtml = group.keys.map((key) => {
+      const meta = getDishwasherSseMeta(key);
+      const observation = dishwasherSseObservations[key];
+      const observedAtMs = observation?.sourceTimestampMs || observation?.receivedAtMs || null;
+      const freshness = getDishwasherObservationFreshness(observedAtMs);
+      const valueText = formatDishwasherObservationValue(meta, observation);
+      const updateText = observation ? formatObservationTime(observedAtMs) : '未收到';
+      return `
+        <div class="dishwasher-sse-support-item${observation ? ' is-observed' : ''}">
+          <div class="dishwasher-sse-support-head">
+            <div class="dishwasher-sse-support-title">${escapeHtml(meta.title)}</div>
+            <span class="${freshness.className}">${escapeHtml(freshness.label)}</span>
+          </div>
+          <div class="dishwasher-sse-support-desc">${escapeHtml(meta.description)}</div>
+          <div class="dishwasher-sse-support-value">最近值：${escapeHtml(valueText)} · 更新时间：${escapeHtml(updateText)}</div>
+          <div class="dishwasher-sse-support-key">${escapeHtml(key)}</div>
+        </div>`;
+    }).join('');
+    return `
+      <section class="dishwasher-sse-group">
+        <div class="dishwasher-sse-group-title">${escapeHtml(group.title)}</div>
+        <div class="dishwasher-sse-support-list">${itemsHtml}</div>
+      </section>`;
+  }).join('');
+}
+
+function refreshDishwasherSsePanels() {
+  renderDishwasherSseSummary();
+  renderDishwasherSseCatalog();
+}
+
+function getStatusBadge(key, value) {
+  const k = (key || '').toLowerCase();
+  const v = String(value || '').toLowerCase();
+
+  if (k.includes('operationstate')) {
+    const map = {
+      'run': '<span class="pill pill-green"><span class="dot"></span>运行中</span>',
+      'ready': '<span class="pill pill-blue">待机就绪</span>',
+      'delayedstart': '<span class="pill pill-yellow">延时启动</span>',
+      'pause': '<span class="pill pill-yellow">暂停</span>',
+      'finished': '<span class="pill pill-blue">已完成</span>',
+      'error': '<span class="pill pill-red">故障</span>',
+      'aborting': '<span class="pill pill-red">中止中</span>',
+    };
+    for (const [k2, badge] of Object.entries(map)) {
+      if (v.includes(k2)) return badge;
+    }
+  }
+
+  if (k.includes('doorstate')) {
+    return v.includes('open')
+      ? '<span class="pill pill-yellow">门已打开</span>'
+      : '<span class="pill pill-green">门已关闭</span>';
+  }
+
+  if (k.includes('remotecontrol') && !k.includes('start')) {
+    return value === true
+      ? '<span class="pill pill-green"><span class="dot"></span>已启用</span>'
+      : '<span class="pill pill-gray">未启用</span>';
+  }
+
+  return null; // Use default formatting
+}
+</script>
+</body>
+</html>

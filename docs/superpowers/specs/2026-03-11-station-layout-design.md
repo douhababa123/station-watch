@@ -218,6 +218,14 @@ group: StationGroup;
 - 构建验证：`npm run build` ✅ 通过
 
 ### Task 16 — 以 `洗碗机.png` 为主视觉对齐 3D 组件（2026-03-12，已完成）
+
+### Task 18 — Home Connect 实机绑定运行修正（2026-05-12，已完成）
+- 文件：`src/lib/dishwasherData.ts`
+- 修正 Home Connect `OperationState` 状态映射：优先使用原始枚举值，不再被中文 `displayvalue` 干扰
+- `296010398026007511` 绑定工位 `3-05` 现能正确显示 `Completed`
+- `80013177660000482616000000827` 绑定工位 `A-9` 现能正确显示 `Running`、`日常洗`、剩余时间
+- 对无实时来源的运行字段做收敛：实时机台不再继续展示 mock 温度/流量残留值
+- 浏览器验证：drawer 正确显示 `Home Connect` 徽标与只读说明
 - 文件：`src/components/dashboard/DishwasherModel3D.tsx`
 - 将 3D 组件主体切换为引用项目根目录 `洗碗机.png`（通过 Vite 资源导入），实现与参考图一致的主外观
 - 保留运行态喷淋叠加动画（腔体 clip 区域内喷臂、水束、冲顶回落），使“按图一致”与“动态洗涤感”兼容
@@ -250,6 +258,46 @@ group: StationGroup;
 
 ### Task 21 — 动图资源切换为 `4.gif`（2026-03-12，已完成）
 - 文件：`src/components/dashboard/DishwasherModel3D.tsx`
+
+### Task 30 — Home Connect 限流根因修复（2026-05-12，已完成）
+- 文件：`GetDWinfo/server.js`
+- 新增按 appliance path 的请求保护层：`/homeappliances/{haId}`、`/status`、`/programs/active`、`/settings` 现支持单飞、短 TTL 缓存、429/5xx 后本地冷却与 stale 回退
+- `GET /events/:haId` 改为服务端共享 SSE 通道：同一 `haId` 的多个本地客户端现在复用同一条上游 Home Connect SSE，而不是每个浏览器标签页各自新建一条上游连接
+- SSE 上游断线后加入重连节流；429 时优先尊重 `Retry-After`，否则退回本地节流窗口，避免瞬时重连风暴
+- 文件：`src/lib/dishwasherData.ts`
+- 前端快照请求新增按 `haId` 的 in-flight 复用与 5 秒短缓存，减少同页重复 detail/status/program 拉取
+- 前端 SSE 订阅改为模块级 `haId` 单例复用，同一页面内不会重复创建多个 `EventSource`
+- 验证结果：重启服务后日志显示每个实机 `haId` 只启动一次 `Shared upstream started`，多个本地客户端仅复用同一上游通道
+
+### Task 31 — 4000 聚合站位实时态（2026-05-12，已完成）
+- 文件：`GetDWinfo/server.js`
+- 文件：`src/lib/liveStations.ts`
+- 文件：`src/pages/Index.tsx`
+- 文件：`src/components/dashboard/DashboardHeader.tsx`
+- `4000` 新增 station 级内存态，基于 registry 构建全量 118 站位对象，并将 Home Connect 绑定机台的运行态聚合到站位对象中
+- 新增 `GET /api/live-stations`、`GET /api/live-stations/events`、`POST /api/live-stations/refresh`、`GET /api/live-stations/diagnostics`
+- Dashboard 不再轮询 appliance detail/status/program，也不再逐台订阅 `/events/:haId`；改为只读取 `4000` 的聚合快照和聚合 SSE
+- 初始化快照改为手动触发，Header 新增 `Initialize Snapshot` 按钮；按钮只请求 `4000`，由服务端按现有限流保护尝试获取基线数据
+- Drawer 不再触发任何额外 Home Connect 请求，只展示当前选中 station 的聚合态字段
+- 验证结果：`GET /api/live-stations` ✅ 返回 118 条站位；聚合 SSE 连接后仅为 2 台绑定机台各启动 1 条上游共享 SSE 通道
+
+### Task 22 — Station Registry / Admin / Live Binding Overlay（2026-05-12，已完成）
+- 文件：`GetDWinfo/server.js`
+- 文件：`GetDWinfo/station-registry.json`
+- 文件：`GetDWinfo/registry-admin.html`
+- 文件：`src/lib/stationRegistry.ts`
+- 文件：`src/lib/dishwasherData.ts`
+- 文件：`src/pages/Index.tsx`
+- 文件：`src/components/dashboard/GroupGrid.tsx`
+- 文件：`src/components/dashboard/StationCard.tsx`
+- 文件：`src/components/dashboard/StationDetailsDrawer.tsx`
+- 新增本地 station registry 真源，并由 `GetDWinfo/server.js` 提供 `GET/PUT/increment-cycle` API
+- 新增 `4001` 管理页，支持编辑 `VIB / SNR / HAID / cycles`
+- Dashboard 改为从 registry 动态推导 live bindings，不再依赖硬编码绑定表
+- 卡片与 drawer 去掉 `Temp / Inflow`，放大 `Program` 展示，并使用英文程序名
+- `model` 语义正式收敛为 `VIB`；卡片次级信息展示为 `VIB · SNR`
+- Group 内排序改为按稳定工位 ID 排序，验证 `A-9` 未发生位置漂移
+- 验证结果：`npm run build` ✅；`http://localhost:4000/api/station-registry` ✅ 200；`http://localhost:4001/` ✅ 200
 - 按用户要求将洗碗机动图来源从 `2.gif` 切换为 `4.gif`
 - 保持现有“仅洗碗机主体显示”的裁切与布局策略不变
 - 构建验证：`npm run build` ✅ 通过；产物生成 `dist/assets/4-*.gif`

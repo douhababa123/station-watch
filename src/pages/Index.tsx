@@ -3,10 +3,15 @@ import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { GroupNav } from '@/components/dashboard/GroupNav';
 import { GroupGrid } from '@/components/dashboard/GroupGrid';
 import { StationDetailsDrawer } from '@/components/dashboard/StationDetailsDrawer';
-import { generateMockStations, updateStationsRealtime } from '@/lib/mockData';
+import {
+  updateStationRegistryEntry,
+} from '@/lib/stationRegistry';
+import { fetchLiveStations, refreshLiveStations, subscribeToLiveStations } from '@/lib/liveStations';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
 import { STATION_GROUPS } from '@/types/station';
-import type { Station, StationStatus, FilterState, StationGroup } from '@/types/station';
+import { useToast } from '@/hooks/use-toast';
+import type { Station, FilterState, StationGroup } from '@/types/station';
+import type { StationRegistryPatch } from '@/lib/stationRegistry';
 
 const GROUP_IDS = STATION_GROUPS.map(g => g.id);
 
@@ -18,6 +23,7 @@ const Index = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [viewMode, setViewMode] = useState<'detail' | 'compact'>('detail');
   const [navCollapsed, setNavCollapsed] = useState(false);
+  const [isInitializingSnapshot, setIsInitializingSnapshot] = useState(false);
   const [filters, setFilters] = useState<FilterState>({
     group: 'all',
     status: 'all',
@@ -31,6 +37,7 @@ const Index = () => {
     message: string;
     timestamp: Date;
   }>>([]);
+  const { toast } = useToast();
 
   const [activeGroup, setActiveGroup] = useState<StationGroup | null>(null);
   const scrollSpyGroup = useScrollSpy(GROUP_IDS);
@@ -40,29 +47,62 @@ const Index = () => {
     if (scrollSpyGroup) setActiveGroup(scrollSpyGroup);
   }, [scrollSpyGroup]);
 
-  // Initialize mock data
   useEffect(() => {
-    setStations(generateMockStations());
+    let cancelled = false;
+
+    const loadLiveStations = async () => {
+      try {
+        const { stations: nextStations } = await fetchLiveStations();
+        if (!cancelled) {
+          setStations(nextStations);
+        }
+      } catch (error) {
+        console.error('[liveStations] Failed to load live stations', error);
+      }
+    };
+
+    void loadLiveStations();
+
+    const cleanup = subscribeToLiveStations(
+      (updatedStation) => {
+        if (cancelled) return;
+        setStations((previousStations) => {
+          const hasExisting = previousStations.some((station) => station.id === updatedStation.id);
+          if (!hasExisting) {
+            return [...previousStations, updatedStation].sort((left, right) =>
+              left.id.localeCompare(right.id, undefined, { numeric: true }),
+            );
+          }
+
+          return previousStations.map((station) =>
+            station.id === updatedStation.id ? updatedStation : station,
+          );
+        });
+      },
+      () => {
+        if (cancelled) return;
+        void loadLiveStations();
+      },
+    );
+
+    return () => {
+      cancelled = true;
+      cleanup();
+    };
   }, []);
 
-  // Real-time updates
+  useEffect(() => {
+    if (!selectedStation) return;
+
+    const updatedSelectedStation = stations.find((station) => station.id === selectedStation.id);
+    if (updatedSelectedStation && updatedSelectedStation !== selectedStation) {
+      setSelectedStation(updatedSelectedStation);
+    }
+  }, [selectedStation, stations]);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date());
-      setStations(prevStations => {
-        const { updatedStations, newNotifications } = updateStationsRealtime(prevStations);
-        if (newNotifications.length > 0) {
-          setNotifications(prev => [
-            ...newNotifications.map(n => ({
-              id: `${n.stationId}-${Date.now()}`,
-              ...n,
-              timestamp: new Date(),
-            })),
-            ...prev,
-          ].slice(0, 10));
-        }
-        return updatedStations;
-      });
     }, 1500);
     return () => clearInterval(interval);
   }, []);
@@ -90,9 +130,34 @@ const Index = () => {
     setIsDrawerOpen(true);
   };
 
-  const handleStationUpdate = (updatedStation: Station) => {
-    setStations(prev => prev.map(s => s.id === updatedStation.id ? updatedStation : s));
-    setSelectedStation(updatedStation);
+  const handleRegistrySave = async (stationId: string, patch: StationRegistryPatch) => {
+    await updateStationRegistryEntry(stationId, patch);
+    const { stations: nextStations } = await fetchLiveStations();
+    setStations(nextStations);
+  };
+
+  const handleInitializeSnapshot = async () => {
+    try {
+      setIsInitializingSnapshot(true);
+      const result = await refreshLiveStations();
+      const { stations: nextStations } = await fetchLiveStations();
+      setStations(nextStations);
+
+      const successCount = result.results?.filter((entry) => entry.ok).length ?? 0;
+      const failureCount = result.results?.filter((entry) => !entry.ok).length ?? 0;
+      toast({
+        title: 'Initialization Snapshot Finished',
+        description: `Success: ${successCount}, Failed: ${failureCount}`,
+      });
+    } catch (error) {
+      toast({
+        title: 'Initialization Snapshot Failed',
+        description: error instanceof Error ? error.message : 'Failed to initialize live stations.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsInitializingSnapshot(false);
+    }
   };
 
   const handleGroupClick = (groupId: StationGroup) => {
@@ -109,6 +174,8 @@ const Index = () => {
         onFiltersChange={setFilters}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
+        onInitializeSnapshot={handleInitializeSnapshot}
+        isInitializingSnapshot={isInitializingSnapshot}
       />
 
       <div className="flex flex-1 overflow-hidden">
@@ -141,7 +208,7 @@ const Index = () => {
         station={selectedStation}
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
-        onStationUpdate={handleStationUpdate}
+        onRegistrySave={handleRegistrySave}
       />
     </div>
   );

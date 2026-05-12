@@ -3,8 +3,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { StatusBadge } from './StatusBadge';
 import { DishwasherModel3D } from './DishwasherModel3D';
-import { Clock, Thermometer, Droplets, RotateCcw, Cog } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Clock, RotateCcw, Cog } from 'lucide-react';
+import { cn, formatStationSlotCode } from '@/lib/utils';
 import type { Station } from '@/types/station';
 
 interface StationCardProps {
@@ -24,6 +24,7 @@ export const StationCard: React.FC<StationCardProps> = ({ station, onClick }) =>
   const progressPercentage = station.total_time > 0 
     ? ((station.total_time - station.time_remaining) / station.total_time) * 100 
     : 0;
+  const displaySlotCode = formatStationSlotCode(station.slot_code);
 
   const formatTime = (minutes: number) => {
     if (minutes === 0) return '0 min';
@@ -38,11 +39,12 @@ export const StationCard: React.FC<StationCardProps> = ({ station, onClick }) =>
   };
 
   const formatDeviceInfo = (model?: string, sn?: string) => {
-    if (!model || !sn) return 'No device assigned';
-    
-    // Format device SN for better display
-    const shortSn = sn.length > 12 ? `${sn.slice(0, 8)}...${sn.slice(-4)}` : sn;
-    return `${model} ${shortSn}`;
+    if (!model && !sn) return 'No VIB / SNR assigned';
+
+    const parts = [];
+    if (model) parts.push(model);
+    if (sn) parts.push(sn);
+    return parts.join(' · ');
   };
 
   return (
@@ -66,7 +68,7 @@ export const StationCard: React.FC<StationCardProps> = ({ station, onClick }) =>
         {/* Header: Station ID and Status */}
         <div className="flex items-center justify-between pr-[66px]">
           <div className="inline-flex items-center rounded-full border border-slate-200/80 bg-white px-2.5 py-0.5 text-sm font-semibold text-slate-800 shadow-sm">
-            {station.slot_code}
+            {displaySlotCode}
           </div>
           <StatusBadge status={station.status} className="shadow-sm" />
         </div>
@@ -96,9 +98,18 @@ export const StationCard: React.FC<StationCardProps> = ({ station, onClick }) =>
           </div>
         )}
 
-        {/* Key Metrics Grid */}
-        <div className="grid grid-cols-2 gap-2.5">
-          {/* Cycles */}
+        <div className="space-y-2.5">
+          <div className="rounded-2xl p-3.5 bg-gradient-to-br from-emerald-50 to-white border border-emerald-100/80 flex items-center gap-3">
+            <span className="flex items-center justify-center w-10 h-10 rounded-2xl flex-shrink-0 bg-emerald-100/80">
+              <Cog className="text-emerald-600" style={{width:'20px',height:'20px'}} />
+            </span>
+            <div className="flex flex-col min-w-0">
+              <span className="text-[11px] text-slate-500 leading-none mb-1">Program</span>
+              <span className="font-semibold text-slate-900 text-base leading-tight truncate">{station.program_name || 'None'}</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-2.5">
           <div className="rounded-xl p-3 bg-slate-50/80 flex items-center gap-2.5">
             <span className="flex items-center justify-center w-8 h-8 rounded-xl flex-shrink-0 bg-indigo-50">
               <RotateCcw className="text-indigo-500" style={{width:'18px',height:'18px'}} />
@@ -108,39 +119,7 @@ export const StationCard: React.FC<StationCardProps> = ({ station, onClick }) =>
               <span className="font-semibold text-slate-800 text-[15px] leading-none">{station.cycles.toLocaleString()}</span>
             </div>
           </div>
-
-          {/* Program */}
-          <div className="rounded-xl p-3 bg-slate-50/80 flex items-center gap-2.5">
-            <span className="flex items-center justify-center w-8 h-8 rounded-xl flex-shrink-0 bg-emerald-50">
-              <Cog className="text-emerald-500" style={{width:'18px',height:'18px'}} />
-            </span>
-            <div className="flex flex-col min-w-0">
-              <span className="text-[11px] text-slate-500 leading-none mb-1">Program</span>
-              <span className="font-semibold text-slate-800 text-sm leading-none truncate">{station.program_name || 'None'}</span>
-            </div>
-          </div>
-
-          {/* Temperature */}
-          <div className="rounded-xl p-3 bg-slate-50/80 flex items-center gap-2.5">
-            <span className="flex items-center justify-center w-8 h-8 rounded-xl flex-shrink-0 bg-orange-50">
-              <Thermometer className="text-orange-500" style={{width:'18px',height:'18px'}} />
-            </span>
-            <div className="flex flex-col min-w-0">
-              <span className="text-[11px] text-slate-500 leading-none mb-1">Temp</span>
-              <span className="font-semibold text-slate-800 text-[15px] leading-none">{station.temperature_c ? `${Math.round(station.temperature_c)}℃` : '--'}</span>
-            </div>
-          </div>
-
-          {/* Inflow */}
-          <div className="rounded-xl p-3 bg-slate-50/80 flex items-center gap-2.5">
-            <span className="flex items-center justify-center w-8 h-8 rounded-xl flex-shrink-0 bg-sky-50">
-              <Droplets className="text-sky-500" style={{width:'18px',height:'18px'}} />
-            </span>
-            <div className="flex flex-col min-w-0">
-              <span className="text-[11px] text-slate-500 leading-none mb-1">Inflow</span>
-              <span className="font-semibold text-slate-800 text-[15px] leading-none">{station.inflow_l ? `${station.inflow_l.toFixed(1)}L` : '--'}</span>
-            </div>
-          </div>
+        </div>
         </div>
 
         {/* Status Footer */}

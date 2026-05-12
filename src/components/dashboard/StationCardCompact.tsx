@@ -1,5 +1,5 @@
 import React from 'react';
-import { cn } from '@/lib/utils';
+import { cn, formatStationSlotCode } from '@/lib/utils';
 import type { Station } from '@/types/station';
 
 interface StationCardCompactProps {
@@ -24,6 +24,8 @@ const STATUS_TEXT: Record<string, string> = {
 };
 
 export const StationCardCompact: React.FC<StationCardCompactProps> = ({ station, onClick }) => {
+  const displaySlotCode = formatStationSlotCode(station.slot_code);
+
   const formatTime = (minutes: number) => {
     if (minutes <= 0) return '--';
     const h = Math.floor(minutes / 60);
@@ -43,7 +45,7 @@ export const StationCardCompact: React.FC<StationCardCompactProps> = ({ station,
         STATUS_BORDER[station.status] ?? 'border-l-gray-300',
       )}
     >
-      <span className="text-sm font-semibold text-slate-800 truncate">{station.slot_code}</span>
+      <span className="text-sm font-semibold text-slate-800 truncate">{displaySlotCode}</span>
       <div className="flex items-center gap-2 flex-shrink-0">
         <span className={cn('text-xs', STATUS_TEXT[station.status] ?? 'text-slate-500')}>
           {station.status}

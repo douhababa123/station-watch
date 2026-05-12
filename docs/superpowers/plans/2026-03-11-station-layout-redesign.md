@@ -218,6 +218,19 @@
 
 - [x] 导入并使用 `2.gif` 作为洗碗机主动画视觉
 - [x] 移除旧 SVG 喷淋特效叠加层，保持与参考动图一致
+
+---
+
+### Post-Launch Follow-up：Home Connect 实机绑定校正（2026-05-12）
+
+**Files:**
+- Modify: `src/lib/dishwasherData.ts`
+
+- [x] 修正 `OperationState` 读取逻辑，优先使用原始枚举值
+- [x] 修复 `3-05` 被错误显示为 `Idle` 的问题，现为 `Completed`
+- [x] 修复 `A-9` 实时运行态映射，现为 `Running` 且展示 `日常洗`
+- [x] 清除实时机台上的 mock 温度/流量残留值
+- [x] 浏览器验证两台绑定机 drawer 均显示 `Home Connect` 只读状态
 - [x] 保留状态叠加（进度、故障、完成）
 - [x] `npm run build` 验证通过（包含 gif 资源打包）
 

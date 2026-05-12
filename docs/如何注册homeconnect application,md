@@ -1,0 +1,315 @@
+下面是一份可以直接照着操作的 Home Connect 新 Application 注册 + 获取 token 全流程。你的场景是：中国区 Home Connect、真实洗碗机、读取状态，不做远程控制。官方文档说明，真实设备可使用 api.home-connect.com，中国区应用需要使用 api.home-connect.cn，并启用 Sync to China。
+
+先提醒：你之前已经把 client_secret 发出来了。建议重新注册一个新的 Application，或者在 Developer Portal 里重新生成 Secret。旧的 Secret 不建议继续正式使用。
+
+一、注册新的 Home Connect Application
+1. 进入 Developer Portal
+
+打开 Home Connect Developer Portal，进入 Application 创建页面。
+
+填写时建议按下面配置：
+
+字段	推荐填写
+Application ID	dw-lab-status-monitor-dev
+OAuth Flow	Authorization Code Grant Flow
+Home Connect User Account for Testing	填你 Home Connect App 登录邮箱，建议小写
+Redirect URI	http://localhost:4000/oauth/callback
+Add additional redirect URIs	先不勾选，后续部署服务器再加
+Enable One Time Token Mode	不勾选
+Sync to China	勾选
+说明：Home Connect 官方要求真实设备测试时创建新的 application，并选择 Authorization Code Grant Flow；授权成功后会返回 authorization code，再用 code 换 token。
+2. Redirect URI 必须严格一致
+
+你现在端口 3000 已经被占用，所以用 4000 没问题。统一使用：
+
+http://localhost:4000/oauth/callback
+
+后面有三处必须完全一致：
+
+1. Developer Portal 里注册的 Redirect URI
+2. 授权 URL 里的 redirect_uri
+3. 换 token 请求里的 redirect_uri
+
+下面这些都不等价：
+
+http://localhost:4000/oauth/callback
+http://localhost:4000/oauth/callback/
+http://127.0.0.1:4000/oauth/callback
+https://localhost:4000/oauth/callback
+3. 创建后记录两个值
+
+Application 创建完成后，进入详情页，记录：
+
+Client ID
+Client Secret
+
+这两个值后面要用。Client Secret 相当于应用密码，不要发给别人，不要上传 GitHub，不要写死到前端代码里。
+
+二、在 PowerShell 准备环境
+
+建议不要在 C:\WINDOWS\system32 里操作，先建一个工作目录：
+
+$workDir = "$env:USERPROFILE\Desktop\homeconnect-test"
+New-Item -ItemType Directory -Force -Path $workDir | Out-Null
+Set-Location $workDir
+
+然后定义基础参数：
+
+$HC_HOST = "https://api.home-connect.cn"
+
+$CLIENT_ID = "填写新的 Client ID"
+$CLIENT_SECRET = "填写新的 Client Secret"
+
+$REDIRECT_URI = "http://localhost:4000/oauth/callback"
+
+$scope = "IdentifyAppliance Dishwasher-Monitor"
+
+scope 说明：
+
+IdentifyAppliance     必须有，用于识别设备
+Dishwasher-Monitor    读取洗碗机状态
+
+官方说明，Home Connect API 请求至少需要 IdentifyAppliance，并建议只申请应用实际需要的最小 scope。
+
+三、解决公司代理问题
+
+你之前遇到过：
+
+407 Proxy Authentication Required
+
+所以在当前 PowerShell 窗口先执行：
+
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+[System.Net.WebRequest]::DefaultWebProxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials
+
+这一步的作用是让 PowerShell 使用当前 Windows 登录账号去通过公司代理认证。
+
+如果后面仍然报 407，再查代理地址：
+
+netsh winhttp show proxy
+reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyServer
+
+假设查到公司代理是 proxy.company.com:8080，后面的 Invoke-RestMethod 可以增加：
+
+-Proxy "http://proxy.company.com:8080" -ProxyUseDefaultCredentials
+四、生成授权 URL
+
+执行：
+
+$AUTH_URL = "$HC_HOST/security/oauth/authorize?response_type=code" +
+            "&client_id=$([uri]::EscapeDataString($CLIENT_ID))" +
+            "&scope=$([uri]::EscapeDataString($scope))" +
+            "&redirect_uri=$([uri]::EscapeDataString($REDIRECT_URI))"
+
+$AUTH_URL
+Start-Process $AUTH_URL
+
+浏览器会打开 Home Connect 登录页面。你需要：
+
+1. 登录 Home Connect 账号
+2. 同意授权
+3. 浏览器跳转到 redirect_uri
+
+官方授权流程是：调用 authorize endpoint 后，用户登录并同意授权，系统会 HTTP 302 跳转到 redirect_uri，并在 URL 参数中带上 code。
+
+五、复制浏览器回跳 URL，提取 code
+
+授权成功后，浏览器地址栏会变成类似：
+
+http://localhost:4000/oauth/callback?code=xxxxxxxx&grant_type=authorization_code
+
+即使浏览器显示“无法访问此网站”，也没关系。因为你本地不一定真的启动了 4000 服务，关键是地址栏里已经有 code。
+
+复制完整地址，然后在 PowerShell 执行：
+
+$CALLBACK_URL = "这里粘贴浏览器地址栏完整URL"
+
+$CODE = [regex]::Match($CALLBACK_URL, 'code=([^&]+)').Groups[1].Value
+$CODE = [uri]::UnescapeDataString($CODE)
+
+$CODE
+
+如果能输出一长串 code，说明授权成功。
+
+注意：authorization code 有效期很短，而且通常只能使用一次。拿到后要马上换 token。
+
+六、用 code 换 access_token 和 refresh_token
+
+重新构造 body，不要复用旧 body：
+
+$body = @{
+    client_id     = $CLIENT_ID
+    client_secret = $CLIENT_SECRET
+    redirect_uri  = $REDIRECT_URI
+    grant_type    = "authorization_code"
+    code          = $CODE
+}
+
+然后请求 token：
+
+$response = Invoke-RestMethod `
+    -Method Post `
+    -Uri "$HC_HOST/security/oauth/token" `
+    -ContentType "application/x-www-form-urlencoded" `
+    -Body $body
+
+$response | ConvertTo-Json -Depth 10
+
+官方 token endpoint 使用 POST，请求头是 application/x-www-form-urlencoded，body 包含 client_id、client_secret、redirect_uri、grant_type=authorization_code 和 code；成功后会返回 access_token 和 refresh_token。
+
+成功结果类似：
+
+{
+  "access_token": "...",
+  "token_type": "Bearer",
+  "refresh_token": "...",
+  "expires_in": 86400,
+  "id_token": "..."
+}
+七、保存 token
+$response | ConvertTo-Json -Depth 10 | Set-Content .\homeconnect_tokens.json -Encoding UTF8
+
+这个文件里有 refresh_token，不要发给别人，不要上传代码仓库。
+
+八、验证 token 是否可用：读取设备列表
+$ACCESS_TOKEN = $response.access_token
+
+$list = Invoke-RestMethod `
+    -Method Get `
+    -Uri "$HC_HOST/api/homeappliances" `
+    -Headers @{
+        Authorization = "Bearer $ACCESS_TOKEN"
+    }
+
+$list | ConvertTo-Json -Depth 10
+
+如果想表格查看：
+
+$list.data.homeappliances | Format-Table name, brand, type, vib, connected, haId
+
+官方建议先调用 /api/homeappliances 获取账号绑定设备列表，并使用返回的 haId 进行后续状态读取。
+
+九、读取第一台洗碗机状态
+
+先取第一台洗碗机的 haId：
+
+$haId = ($list.data.homeappliances | Where-Object { $_.type -eq "Dishwasher" } | Select-Object -First 1).haId
+$haId
+
+读取全部状态：
+
+$status = Invoke-RestMethod `
+    -Method Get `
+    -Uri "$HC_HOST/api/homeappliances/$haId/status" `
+    -Headers @{
+        Authorization = "Bearer $ACCESS_TOKEN"
+    }
+
+$status | ConvertTo-Json -Depth 10
+
+读取运行状态：
+
+$op = Invoke-RestMethod `
+    -Method Get `
+    -Uri "$HC_HOST/api/homeappliances/$haId/status/BSH.Common.Status.OperationState" `
+    -Headers @{
+        Authorization = "Bearer $ACCESS_TOKEN"
+    }
+
+$op | ConvertTo-Json -Depth 10
+
+如果要读取当前运行程序：
+
+$activeProgram = Invoke-RestMethod `
+    -Method Get `
+    -Uri "$HC_HOST/api/homeappliances/$haId/programs/active" `
+    -Headers @{
+        Authorization = "Bearer $ACCESS_TOKEN"
+    }
+
+$activeProgram | ConvertTo-Json -Depth 10
+
+官方建议读取设备状态可调用 /status，读取当前 active 或 selected program 可调用 /programs/active 或 /programs/selected。
+
+十、access_token 过期后刷新 token
+
+access_token 过期后，不要重新走浏览器授权，优先使用 refresh_token：
+
+$tokens = Get-Content .\homeconnect_tokens.json | ConvertFrom-Json
+
+$refreshBody = @{
+    grant_type    = "refresh_token"
+    refresh_token = $tokens.refresh_token
+    client_secret = $CLIENT_SECRET
+}
+
+$newToken = Invoke-RestMethod `
+    -Method Post `
+    -Uri "$HC_HOST/security/oauth/token" `
+    -ContentType "application/x-www-form-urlencoded" `
+    -Body $refreshBody
+
+$newToken | ConvertTo-Json -Depth 10
+
+$newToken | ConvertTo-Json -Depth 10 | Set-Content .\homeconnect_tokens.json -Encoding UTF8
+
+注意不要频繁刷新 token。Home Connect 官方文档列出了 token refresh 限制，包括每分钟和每天的刷新次数限制。
+
+十一、常见错误和处理
+1. unauthorized_client
+
+典型原因：
+
+client_id 错误
+Redirect URI 不匹配
+Application 没有保存成功
+没有选择 Authorization Code Grant Flow
+中国区没有 Sync to China
+授权用 .com，token/API 用 .cn，区域混用
+
+处理方式：
+
+统一使用 https://api.home-connect.cn
+确认 Developer Portal Redirect URI = http://localhost:4000/oauth/callback
+确认 PowerShell REDIRECT_URI = http://localhost:4000/oauth/callback
+保存 Application 后等几分钟再试
+2. 407 Proxy Authentication Required
+
+典型原因：公司代理拦截，PowerShell 没带认证信息。
+
+先执行：
+
+[System.Net.WebRequest]::DefaultWebProxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials
+
+如果还不行，使用：
+
+-Proxy "http://你的代理地址:8080" -ProxyUseDefaultCredentials
+3. invalid_grant / invalid authorization_code
+
+典型原因：
+
+code 过期
+code 已经用过一次
+换 token 时 redirect_uri 和授权时不一致
+用了旧 Application 的 code 去换新 Application 的 token
+
+处理方式：
+
+重新 Start-Process $AUTH_URL
+重新登录授权
+复制新的 callback URL
+重新提取 CODE
+1 分钟内立刻换 token
+十二、你最终应该拿到的成果
+
+完成后，你应该有这几个结果：
+
+1. 一个新的 Home Connect Application
+2. 一个新的 Client ID
+3. 一个新的 Client Secret
+4. 一个 homeconnect_tokens.json 文件
+5. 文件里包含 access_token 和 refresh_token
+6. PowerShell 能成功读取 /api/homeappliances
+7. PowerShell 能读取洗碗机 OperationState
+
+到这一步，Home Connect API 就已经打通。下一阶段可以把 PowerShell 测试脚本改成 Python/FastAPI 后端，定时读取状态并写入本地数据库或公司数据库，再接入你的安灯系统。

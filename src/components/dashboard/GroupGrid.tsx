@@ -30,7 +30,7 @@ export const GroupGrid: React.FC<GroupGridProps> = ({ stations, onStationClick, 
       {STATION_GROUPS.map(groupConfig => {
         const groupStations = stations
           .filter(s => s.group === groupConfig.id)
-          .sort((a, b) => a.slot_code.localeCompare(b.slot_code, undefined, { numeric: true }));
+          .sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true }));
 
         if (groupStations.length === 0) return null;
 

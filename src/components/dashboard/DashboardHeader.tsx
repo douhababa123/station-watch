@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Filter, Clock, Eye, EyeOff, LayoutList, LayoutGrid } from 'lucide-react';
+import { Search, Filter, Clock, Eye, EyeOff, LayoutList, LayoutGrid, RefreshCw } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -14,6 +14,8 @@ interface DashboardHeaderProps {
   onFiltersChange: (filters: FilterState) => void;
   viewMode: 'detail' | 'compact';
   onViewModeChange: (mode: 'detail' | 'compact') => void;
+  onInitializeSnapshot: () => void;
+  isInitializingSnapshot: boolean;
 }
 
 export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
@@ -22,6 +24,8 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
   onFiltersChange,
   viewMode,
   onViewModeChange,
+  onInitializeSnapshot,
+  isInitializingSnapshot,
 }) => {
 
   const formatTime = (date: Date) => {
@@ -133,6 +137,17 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
             ) : (
               <><LayoutList className="h-4 w-4" /><span>详情</span></>
             )}
+          </Button>
+
+          <Button
+            variant="default"
+            size="sm"
+            onClick={onInitializeSnapshot}
+            disabled={isInitializingSnapshot}
+            className="flex items-center gap-1.5"
+          >
+            <RefreshCw className={`h-4 w-4 ${isInitializingSnapshot ? 'animate-spin' : ''}`} />
+            <span>{isInitializingSnapshot ? 'Initializing...' : 'Initialize Snapshot'}</span>
           </Button>
         </div>
 

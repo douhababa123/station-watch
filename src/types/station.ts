@@ -32,6 +32,10 @@ export interface Station {
   temperature_c?: number; // ℃
   inflow_l?: number;      // L
   updated_at: string;     // ISO
+  data_source?: 'mock' | 'home-connect';
+  binding_haId?: string;
+  homeconnect_remaining_seconds?: number;
+  homeconnect_program_progress?: number;
 }
 
 export interface FilterState {

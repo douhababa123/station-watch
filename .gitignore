@@ -10,7 +10,11 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+.worktrees/
 *.local
+GetDWinfo/.token.json
+GetDWinfo/.appliances-cache.json
+GetDWinfo/homeconnect.local.json
 
 # Editor directories and files
 .vscode/*

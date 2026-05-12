@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Station Registry Admin</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f7fb;
+      --panel: rgba(255, 255, 255, 0.94);
+      --line: #d9e2ef;
+      --text: #162033;
+      --muted: #66748b;
+      --accent: #1463ff;
+      --accent-2: #eef4ff;
+      --ok: #0f9f6e;
+      --warn: #b54708;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(20, 99, 255, 0.12), transparent 28%),
+        linear-gradient(180deg, #fbfdff 0%, var(--bg) 100%);
+      min-height: 100vh;
+    }
+
+    .page {
+      width: min(1440px, calc(100vw - 32px));
+      margin: 24px auto;
+      display: grid;
+      gap: 16px;
+    }
+
+    .hero, .panel {
+      background: var(--panel);
+      border: 1px solid rgba(217, 226, 239, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 16px 40px rgba(23, 34, 56, 0.08);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero {
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      line-height: 1.1;
+    }
+
+    .muted { color: var(--muted); }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    input, button {
+      font: inherit;
+    }
+
+    input {
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      padding: 0 12px;
+      background: white;
+      color: var(--text);
+      width: 100%;
+    }
+
+    .toolbar input {
+      width: min(360px, 100%);
+    }
+
+    button {
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      padding: 0 16px;
+      cursor: pointer;
+      transition: 180ms ease;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+    }
+
+    button.secondary {
+      background: white;
+      color: var(--text);
+      border-color: var(--line);
+    }
+
+    button:hover { transform: translateY(-1px); }
+
+    .stats {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .stat {
+      min-width: 132px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, white, #f7faff);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 22px;
+      margin-top: 4px;
+    }
+
+    .panel { padding: 18px; overflow: hidden; }
+    .table-wrap { overflow: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1100px;
+    }
+
+    th, td {
+      padding: 10px 8px;
+      border-bottom: 1px solid #e9eef6;
+      text-align: left;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f7faff;
+      z-index: 1;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    td input {
+      min-width: 120px;
+      height: 38px;
+      border-radius: 10px;
+    }
+
+    td input.short { min-width: 72px; }
+    .row-actions { display: flex; gap: 8px; }
+    .row-actions button { height: 38px; padding: 0 12px; border-radius: 10px; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: var(--accent-2);
+      color: var(--accent);
+      border: 1px solid rgba(20, 99, 255, 0.16);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+      color: var(--muted);
+    }
+
+    .status-line strong.ok { color: var(--ok); }
+    .status-line strong.warn { color: var(--warn); }
+
+    @media (max-width: 900px) {
+      .hero { align-items: stretch; flex-direction: column; }
+      .stats { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div>
+        <h1>Station Registry Admin</h1>
+        <div class="muted">维护工位与 VIB / SNR / HAID / 周期数，对应数据写回本地 JSON 真源。</div>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="muted">Stations</span><strong id="stat-stations">0</strong></div>
+        <div class="stat"><span class="muted">Bound HAIDs</span><strong id="stat-bound">0</strong></div>
+        <div class="stat"><span class="muted">Total Cycles</span><strong id="stat-cycles">0</strong></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="status-line">
+        <div id="status-text">Loading registry...</div>
+        <div class="toolbar">
+          <input id="search-input" type="search" placeholder="Search station / VIB / HAID / SNR" />
+          <button class="secondary" id="reload-button">Reload</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Group</th>
+              <th>Station ID</th>
+              <th>Display Slot</th>
+              <th>VIB</th>
+              <th>SNR</th>
+              <th>HAID</th>
+              <th>Cycles</th>
+              <th>Binding</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="registry-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:4000';
+    const registryBody = document.getElementById('registry-body');
+    const statusText = document.getElementById('status-text');
+    const searchInput = document.getElementById('search-input');
+    const reloadButton = document.getElementById('reload-button');
+
+    let registryData = [];
+
+    function setStatus(message, level = 'ok') {
+      const className = level === 'warn' ? 'warn' : 'ok';
+      statusText.innerHTML = `<strong class="${className}">${message}</strong>`;
+    }
+
+    function updateStats(data) {
+      document.getElementById('stat-stations').textContent = String(data.length);
+      document.getElementById('stat-bound').textContent = String(data.filter((entry) => entry.haId).length);
+      document.getElementById('stat-cycles').textContent = String(data.reduce((sum, entry) => sum + (Number(entry.cycles) || 0), 0));
+    }
+
+    function getFilteredData() {
+      const query = searchInput.value.trim().toLowerCase();
+      if (!query) return registryData;
+      return registryData.filter((entry) =>
+        [entry.stationId, entry.slotCode, entry.vib, entry.snr, entry.haId]
+          .some((value) => String(value || '').toLowerCase().includes(query))
+      );
+    }
+
+    function createInputCell(value, className = '') {
+      const input = document.createElement('input');
+      input.value = value || '';
+      input.className = className;
+      return input;
+    }
+
+    async function saveRow(entry, row) {
+      const inputs = row.querySelectorAll('input');
+      const payload = {
+        group: entry.group,
+        slotCode: inputs[0].value.trim(),
+        vib: inputs[1].value.trim(),
+        snr: inputs[2].value.trim(),
+        haId: inputs[3].value.trim(),
+        cycles: Number.parseInt(inputs[4].value, 10) || 0,
+      };
+
+      const response = await fetch(`${API_BASE}/api/station-registry/${encodeURIComponent(entry.stationId)}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorPayload = await response.json().catch(() => ({}));
+        throw new Error(errorPayload.error || `Save failed (${response.status})`);
+      }
+
+      const responsePayload = await response.json();
+      return responsePayload.data;
+    }
+
+    function renderTable() {
+      const data = getFilteredData();
+      registryBody.innerHTML = '';
+
+      for (const entry of data) {
+        const row = document.createElement('tr');
+
+        const slotCodeInput = createInputCell(entry.slotCode || '');
+        const vibInput = createInputCell(entry.vib || '');
+        const snrInput = createInputCell(entry.snr || '');
+        const haIdInput = createInputCell(entry.haId || '');
+        const cyclesInput = createInputCell(String(entry.cycles || 0), 'short');
+        cyclesInput.type = 'number';
+        cyclesInput.min = '0';
+
+        row.innerHTML = `
+          <td>${entry.group}</td>
+          <td><strong>${entry.stationId}</strong></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>${entry.haId ? '<span class="pill">Live bound</span>' : '<span class="muted">Unbound</span>'}</td>
+          <td><div class="row-actions"><button>Save</button></div></td>
+        `;
+
+        row.children[2].appendChild(slotCodeInput);
+        row.children[3].appendChild(vibInput);
+        row.children[4].appendChild(snrInput);
+        row.children[5].appendChild(haIdInput);
+        row.children[6].appendChild(cyclesInput);
+
+        const saveButton = row.querySelector('button');
+        saveButton.addEventListener('click', async () => {
+          const originalLabel = saveButton.textContent;
+          saveButton.textContent = 'Saving...';
+          saveButton.disabled = true;
+
+          try {
+            const updatedEntry = await saveRow(entry, row);
+            const index = registryData.findIndex((item) => item.stationId === updatedEntry.stationId);
+            if (index >= 0) registryData[index] = updatedEntry;
+            updateStats(registryData);
+            renderTable();
+            setStatus(`Saved ${updatedEntry.stationId}`);
+          } catch (error) {
+            setStatus(error.message, 'warn');
+          } finally {
+            saveButton.textContent = originalLabel;
+            saveButton.disabled = false;
+          }
+        });
+
+        registryBody.appendChild(row);
+      }
+
+      if (!data.length) {
+        const row = document.createElement('tr');
+        row.innerHTML = '<td colspan="9" class="muted">No station rows matched the current filter.</td>';
+        registryBody.appendChild(row);
+      }
+    }
+
+    async function loadRegistry() {
+      setStatus('Loading registry...');
+
+      try {
+        const response = await fetch(`${API_BASE}/api/station-registry`);
+        if (!response.ok) {
+          throw new Error(`Registry load failed (${response.status})`);
+        }
+
+        const payload = await response.json();
+        registryData = Array.isArray(payload.data) ? payload.data : [];
+        updateStats(registryData);
+        renderTable();
+        setStatus(`Loaded ${registryData.length} station rows`);
+      } catch (error) {
+        setStatus(error.message, 'warn');
+      }
+    }
+
+    searchInput.addEventListener('input', renderTable);
+    reloadButton.addEventListener('click', loadRegistry);
+    loadRegistry();
+  </script>
+</body>
+</html>
